@@ -1,6 +1,5 @@
 % !TeX spellcheck = hu_HU
 \documentclass[12pt,a4]{article}
-\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{lipsum}
@@ -11,14 +10,11 @@
 \usepackage[section]{placeins}
 \usepackage{mdframed}
 \usepackage{hyperref}
-\usepackage{fontspec, newunicodechar}
-\usepackage[magyar]{babel}
-\usepackage{lmodern}
-\newunicodechar{ű}{\H{u}}
-\newunicodechar{ő}{\H{o}}
 \usepackage{caption}
 \usepackage{multirow}
 \usepackage{subcaption}
+\usepackage{indentfirst}
+\usepackage{multicol}
 \usepackage{mathtools}
 \usepackage[figurename=Ábra]{caption}
 \hypersetup{
@@ -34,6 +30,10 @@
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 
 \hyphenation{op-er-and op-er-ands}
+
+\def\magyarOptions{defaults=hu-min}
+\PassOptionsToPackage{magyar}{babel}
+\usepackage[inputenc=utf8]{uni8}
 
 \begin{document}	
 	
@@ -95,7 +95,7 @@
 		adatot igényel, ami magával vonza a megfelelő erőforrásokat.
 		A felsoroltak hiányában mi az alábbi megoldást javasoljuk. Egy gyengén
 		felügyelt tanítású hálózatot amit, lehetséges ”in-the-wild” képekkel betanítani.
-		Ennek megvalósításához kettő már kész kutatás anyagait vettük igénybe. Az
+		Ennek megvalósításához kettő már kész kutatás anyagát vettük igénybe. Az
 		első, \cite{deca}DECA képes kezelni az arc kisebb részleteit, arckifejezéseit. A
 		másik, a \cite{focus}FOCUS bemutatott egy korszerű megközelítést az arckép rekonstrukciójára okklúziók mellet, mint például szemüveg,sapka stb. Ezek a kutatások nem csak korszerűek, de a NOW challenge benchmark-ja alapján bizonyitottan jól teljesítenek. Ezeket ötvözve egy robosztus, illetve realisztikus
 		arcképek generálására alkalmas módszert mutatunk be ebben a tanulmányban.
@@ -105,182 +105,123 @@
 		}
 	 \par\noindent\rule{\textwidth}{0.4pt}
 	 
-	 \section{Bevezetés}
+\section{Bevezetés}
 	  
-	 Az elmúlt évek során, egyre több figyelmet kaptak a digitális
-	 képfeldolgozáson alapuló technológiák az informatikában. Mint
-	 ahogy \cite{survey} is megvan említve az arcfelismerő technológiák széles
-	 körben elterjedtek napjainkban, beleértve a biztonságot, animációt
-	 és egészségügyet. Illetve, ezen szakmai területen mostanság felkapott,
+	   Az elmúlt évek során, egyre több figyelmet kaptak a digitális
+	 képfeldolgozáson alapuló technológiák az informatikában. Mint ahogy \cite{survey} is megvan említve az arcfelismerő technológiák széles
+	 körben elterjedtek napjainkban, beleértve a biztonságot, animációt és egészségügyet. Illetve, ezen szakmai területen mostanság felkapott,
 	 hogy 3D-s adatok implementálásával megkerüljék a 2D arckép által megszabott határokat, mivel a 2D-s kép képtelen az emberi arc geometriájának eltárolására.
-	 A 3D arcfelismerés sokkal pontosabb adatokat ad vissza, például pózban
-	 és megvilágításban, amelyek hátulütői a 2D-nek. Azonban ennek is vannak
-	 hátrányai, mint például, hogy sokkal nagyobb komplexitású képfeldolgozást igényel, ezáltal szűkítve a lehetőségeket.
-	 
-	 Az arcokat többféleképpen is lehet rögzíteni, például Stereo-vision rendszerekkel, amelyek két kamerát használnak. Ezek a kamerák ugyan arról az objektumról készítenek párhuzamosan képeket, majd ezeket összehasonlítva visszaadják a képen lévő egy pontnak a mélységét.
-	  
-	 Egy másik módszer a 3D lézerszkenner (pl. NextEngine, Cyberware), amelyet elsősorban ipari célokra fejlesztettek. Ipari termékek vizsgálatával szemben, az emberi arc feltérképezéséhez több feltételt kell figyelembe venni. Mivel az emberi arc nem lehet teljesen mozdulatlan, fontos, hogy a szkenner által készített felvétel időintervalluma csekély legyen.
-	 Röviden, a lézerszkenner fényhullámokat szór az objektumra, s ezek annak felszínéről visszaverődnek a szenzorra. A szenzor ezután kiszámítja az objektum felszínének távolságát az alapján, hogy mennyi idő alatt tette meg a teljes utat a hullám. Ezt a folyamatot $"Time\enspace of\enspace flight"$-nak szokás nevezni. 
-	 
+	 A 3D arcfelismerés sokkal pontosabb adatokat ad vissza, például pózban és megvilágításban, amelyek hátulütői a 2D-nek. Azonban ennek is vannak hátrányai, mint például, hogy sokkal nagyobb komplexitású képfeldolgozást igényel, ezáltal szűkítve a lehetőségeket.
+  
+Az arcokat többféleképpen is lehet rögzíteni, például Stereo-vision rendszerekkel, amelyek két kamerát használnak. Ezek a kamerák ugyan arról az objektumról készítenek párhuzamosan képeket, majd ezeket összehasonlítva visszaadják a képen lévő egy pontnak a mélységét.  
+
+Egy másik módszer a 3D lézerszkenner (pl. NextEngine, Cyberware), amelyet elsősorban ipari célokra fejlesztettek. Ipari termékek vizsgálatával szemben, az emberi arc feltérképezéséhez több feltételt kell figyelembe venni. Mivel az emberi arc nem lehet teljesen mozdulatlan, fontos, hogy a szkenner által készített felvétel időintervalluma csekély legyen.
+Röviden, a lézerszkenner fényhullámokat szór az objektumra, s ezek annak felszínéről visszaverődnek a szenzorra. A szenzor ezután kiszámítja az objektum felszínének távolságát az alapján, hogy mennyi idő alatt tette meg a teljes utat a hullám. Ezt a folyamatot $"Time\enspace of\enspace flight"$-nak szokás nevezni. 
+  
 	 A következő technológia a 3D-s adatok rögzítésére az RGB-D kamerák (pl. Kinect) használata. Ezek olyan RGB kamerák, amelyek rendelkeznek infravörös szenzorral, mely mélységi adatokat biztosít, ezáltal egy RGB képet ad vissza, amiben minden pixelhez tartozik egy mélységi érték.
+  
+	 Bár, ezek a módszerek mind megfelelnek 3D-s adatok gyűjtésére, az első két megvalósítás hátránya, hogy előre megszabott feltételeknek megfelelő környezetet és drága felszereléseket igényel egy jó minőségű arc szkenneléshez. Ellenben, az RGB-D kamerák olcsóbbak és könnyebben használhatóak de a minőség korlátozott.
+  
+	 A fent említett megközelítések általában költséges optimalizálási folyamatot igényelnek a jó minőségű 3D-s arc visszanyerése érdekében. Két évtized telt el Vetter és Blanz úttörő munkája óta \cite{blanzvetter}, amely először mutatta be hogyan lehet egyetlen képből rekonstruálni az arc 3D-s geometriáját. Azóta a 3D arcrekonstrukciós módszerek rohamosan fejlődtek, de a korábbi modellek csak az arc durva alakját tudták rekonstruktuálni és képtelenek voltak kinyerni az arckifejezéstől függő geometriai részleteket, mint például a ráncokat, amik fontosak a realisztikusság szempontjából.
 	 
-	 Bár, ezek a módszerek mind megfelelnek 3D-s adatok gyűjtésére, az első két megvalósítás hátránya, hogy előre megszabott feltételeknek megfelelő környezetet és drága felszereléseket igényel egy jó minőségű arc szkenneléshez. Ellenben, az RGB-D kamerák olcsóbbak és könnyebben használhatóak de a minőség korlátozott. \\
+    Később jöttek újabb modellek, melyek képesek voltak kiragadni a fent említett geometriai részleteket, azonban hátrányuk, hogy egy nagy volumenű,
+ jó minőségű tanító adathalmazt követelnek. Illetve, egy másik hátrányuk, hogy inkonzisztens módon teljesítettek az okklúziókkal szemben. Az okklúziók mindenütt jelen vannak, és eleve nehezen kezelhetőek az alakjuk, megjelenésük és a pozíciójuk sokfélesége miatt. Ezáltal okozott probléma az, hogy az arcmodell alkalmazkodik az eltakart arcrégióhoz, és ennek eredményeként a rekonstruált arc torz lesz. Ezért fontos nyitott kérdés marad annak eldöntése, hogy mely pixelek illeszkedjenek és melyek ne illeszkedjenek az arcra egy 3D arc rekonstrukciója során okklúziók jelenlétében. A közelmúltban számos olyan módszert javasoltak, amelyek gyengén felügyelt tanítású konvolúciós neurális hálózatokat(CNN) használnak a hatékony, robosztus és a fent említett kihívásokat leküzdő arcrekonstrukció eléréséhez.
 	 
-	 A fent említett megközelítések általában költséges optimalizálási folyamatot igényelnek a jó minőségű 3D-s arc visszanyerése érdekében. Két évtized telt el \cite{blanzvetter} Vetter és Blanz úttörő munkája óta, amely először mutatta be hogyan lehet egyetlen képből rekonstruálni az arc 3D-s geometriáját. Azóta a 3D arcrekonstrukciós módszerek rohamosan fejlődtek, de a korábbi modellek csak az arc durva alakját tudták rekonstruktuálni és képtelenek voltak kinyerni az arckifejezéstől függő geometriai részleteket, mint például a ráncokat, amik fontosak a realisztikusság szempontjából.
+    Tehát, a jelenlegi monokuláris 3D arcrekonstrukciós módszerek képesek finom geometriai részleteket visszaadni, azonban számos megkötéssel
+küzdenek. Egyes módszerek olyan arcokat generálnak, amelyeket nem lehet valósághűen animálni, mivel nem modellezik, hogy hogyan változnak a ráncok az arckifejezésekkel. Más módszerek kiváló minőségű szkennelt arcokat használnak tanításhoz, és nem jól általánosíthatóak a természetes körülményekben készült képekre. A Yao Feng et. al. által bemutatott DECA model a legelső olyan megközelítés \cite{deca}, amely regresszálja a 3D arcformát és az animálható részleteket, amelyek egy személyre jellemzőek, de az arckifejezéssel változnak, ezáltal képesek az arc valósághű animálására.
 	 
-	 Később jöttek újabb modellek, melyek képesek voltak kiragadni a fent
-	 említett geometriai részleteket, azonban hátrányuk, hogy egy nagy volumenű,
-	 jó minőségű tanító adathalmazt követelnek. Illetve, egy másik hátrányuk, hogy inkonzisztens módon teljesítettek az okklúziókkal szemben. Az okklúziók mindenütt jelen vannak, és eleve nehezen kezelhetőek az alakjuk, megjelenésük és a pozíciójuk sokfélesége miatt. Ezáltal okozott problémaaz, hogy az arcmodell alkalmazkodik az eltakart arcrégióhoz, és ennek eredményeként a rekonstruált arc torz lesz. Ezért fontos nyitott kérdés marad annak eldöntése, hogy mely pixelek illeszkedjenek és melyek ne illeszkedjenek az arcra egy 3D arc rekonstrukciója során okklúziók jelenlétében. A közelmúltban számos olyan módszert javasoltak, amelyek gyengén felügyelt tanítású konvolúciós neurális hálózatokat(CNN) használnak a hatékony, robosztus és a fent említett kihívásokat leküzdő arcrekonstrukció eléréséhez
+Az okklúziókkal szemben a legtöbb megközelítés a 3D arc illesztéséhez inverz renderelést alkalmaz egy adott eltakaró szegmentálásához. Ennek hátránya, hogy egy okklúzió szegmentációs modellhez nagy mennyiségű annotált adatra van szükség. Chunlu Li et. al \cite{focus} ezzel ellentétben egy olyan modellalapú megközelítést mutat be a 3D arc rekonstrukciójához, amely rendkívül robosztus az okklúziókkal szemben, de nem igényel semmilyen okklúziós annotációt a tanításhoz.
 	 
-	 Tehát, a jelenlegi monokuláris 3D arcrekonstrukciós módszerek képesek
-	 finom geometriai részleteket visszaadni, azonban számos megkötéssel
-	 küzdenek. Egyes módszerek olyan arcokat generálnak, amelyeket nem
-	 lehet valósághűen animálni, mivel nem modellezik, hogy hogyan változnak
-	 a ráncok az arckifejezésekkel. Más módszerek kiváló minőségű szkennelt
-	 arcokat használnak tanításhoz, és nem jól általánosíthatóak ”in-the-wild” képekre. A Yao Feng et. al. \cite{deca} által bemutatott DECA model a legelső olyan megközelítés, amely regresszálja a 3D arcformát és az animálható részleteket, amelyek egy személyre jellemzőek, de az arckifejezéssel változnak, ezáltal képesek az arc valósághű animálására.
+Ebben a tanulmányban az a célunk, hogy egy olyan animálható 3D arcrekonstrukciós modellt készítsünk gyengén felügyelt tanulással, amely robosztus az okklúzió ellen, a fent említett DECA és FOCUS modellek segítségével. Ezt kiegészítve, bemutatunk egy arcképet elemző megoldást, mely visszaadja a célszemély érzelmi állapotát, illetve életkorát. Eszrevettük a munkánk elkészítése során, hogy a meglévő megoldásokat nehéz egy átlagos személynek kipróbálnia technikai tudás hiányában, így a fenti két szolgáltatás köré egy webapplikációt készítünk, amit felhőn üzelmeltetünk.\\
 	 
-	 Az okklúziókkal szemben a legtöbb megközelítés a 3D arc illesztéséhez
-	 inverz renderelést alkalmaz egy adott eltakaró szegmentálásához. Ennek
-	 hátránya, hogy egy okklúzió szegmentációs modellhez nagy mennyiségű annotált adatra van szükség. Chunlu Li et. al \cite{focus} ezzel ellentétben egy olyan modellalapú megközelítést mutat be a 3D arc rekonstrukciójához, amely rendkívül robosztus az okklúziókkal szemben, de nem igényel semmilyen okklúziós annotációt a tanításhoz.
-	 
-	 Ebben a tanulmányban az a célunk, hogy egy olyan animálható 3D arcrekonstrukciós modellt készítsünk gyengén felügyelt tanulással, amely robosztus az okklúzió ellen, a fent említett DECA és F OCUS modellek
-	 segítségével. Ezt kiegészítve, bemutatunk egy arcképet elemző megoldást,
-	 mely visszaadja a célszemély érzelmi állapotát, illetve életkorát. Eszrevettük a munkánk elkészítése során, hogy a meglévő megoldásokat nehéz egy átlagos személynek kipróbálnia technikai tudás hiányában, így a fenti két szolgáltatás köré egy webapplikációt készítünk, amit felhőn üzelmeltetünk.
-	 
-	 Összefoglalva, ez a dokumentum az alábbi öt szempontot fogalmazza meg:
-	 \begin{itemize}
-	 	\item Bemutatunk egy CNN-alapú, egyetlen képen alapuló arcrekonstrukciós
-	 	módszert, amely kihasználja a hibrid szintű képinformációt a gyengén
-	 	felügyelt tanuláshoz.
-	 	\item Konzisztens műkődést biztosít különböző okklúzók mellet.
-	 	\item Az arckifejezésektől függő geometria adatok azonosításával egy
-	 	animálható realisztikus 3D arcrekonstrukciót hozunk létre.
-	 	\item Arc elemzésére alkalmas megoldás.
-	 	\item Webapplikáció elkészítése és a szolgáltatások megfelelő mükődése a felhőn
-	 \end{itemize}
+Összefoglalva, ez a dokumentum az alábbi öt szempontot fogalmazza meg:
+\begin{itemize}
+	 \item Bemutatunk egy CNN-alapú, egyetlen képen alapuló arcrekonstrukciós módszert, amely kihasználja a hibrid szintű képinformációt a gyengén felügyelt tanuláshoz.
+	 \item Konzisztens műkődést biztosít különböző okklúzók mellet.
+	 \item Az arckifejezésektől függő geometria adatok azonosításával egy animálható realisztikus 3D arcrekonstrukciót hozunk létre.
+	 \item Arc elemzésére alkalmas megoldás.
+	 \item Webapplikáció elkészítése és a szolgáltatások megfelelő mükődése a felhőn
+\end{itemize}
+
  
- 	\section{Kapcsolódó kutatások}
+\section{Kapcsolódó kutatások}
  	
- 	Ahogy láthatjuk, különböző munkák megkísérelték a fellépő komplex
- 	kihívásokat legyőzni, minél kreatívabb megközelítéssekkel. Ezekről tovább Vetter és Blanz \cite{blanzvetter} munkájában és további dokumentumokban lehet olvasni.
- 	Ebben a fejezetben megvizsgáljuk a Yao Feng et. al. \cite{deca} valamint Chunlu
- 	Li et. al \cite{focus} által bemutatott megközelítéseket és megnézzük, hogy miért is fontosak a mi munkánk szempontjából.
+    Ahogy láthatjuk, különböző munkák megkísérelték a fellépő komplex kihívásokat legyőzni, minél kreatívabb megközelítéssekkel. Ezekről tovább Vetter és Blanz \cite{blanzvetter} munkájában és további dokumentumokban lehet olvasni. Ebben a fejezetben megvizsgáljuk a Yao Feng et. al. \cite{deca} valamint Chunlu Li et. al \cite{focus} által bemutatott megközelítéseket és megnézzük, hogy miért is fontosak a mi munkánk szempontjából.
  	
  	\subsection{DECA}
  	
- 	Yao Feng et. al.\cite{deca} az egyetlen, ”in-the-wild” 2D-s képből rekonstruált animálható 3D arcmodell készítése érdekében fejlesztette ki a DECA (Detailed Expression Capture And Animation) modelljét.
- 	
- 	Egy ”in-the-wild” képekkel tanított animálható elmozdulási modellt javasol, amely a kifejezési paraméterek változtatásával képes hiteles geometria részletek előállítására. Az előbbi cél elérése érdekében egy újszerű részletkonzisztencia költségfüggvényt mutat be a statikus és az arckifejezésekre dinamikusan változó geometriai adatok szétválasztására.
- 	
- 	Ammennyiben a tanítás során két kép érkezik különböző arckifejezésekkel,
- 	megfigyelhető, hogy a 3D arcformájuk és a személyspecifikus részleteik megegyeznek. Ezt a megfigyelést használják ki a részletkódok felcserélésével az
- 	azonos személyről készült különböző képek között, és kikényszerítik, hogy az
- 	újonnan renderelt eredmények úgy nézzenek ki, mint az eredeti, bemenetként
- 	átadott képek.
- 	
- 	A geometria részletek rekonstrukciója robosztus a jellemző okklúziókra,
- 	a pózok nagyfokú változására és a megvilágítási variációkra.
+    Yao Feng et. al.\cite{deca} az egyetlen, ”in-the-wild” 2D-s képből rekonstruált animálható 3D arcmodell készítése érdekében fejlesztették ki a DECA (Detailed Expression Capture And Animation) modelljét. Egy ”in-the-wild” képekkel tanított animálható elmozdulási modellt javasolnak, amely a kifejezési paraméterek változtatásával képes hiteles geometria részletek előállítására. Az előbbi cél elérése érdekében egy újszerű részletkonzisztencia költségfüggvényt mutatnak be a statikus és az arckifejezésekre dinamikusan változó geometriai adatok szétválasztására. Ammennyiben a tanítás során két kép érkezik különböző arckifejezésekkel, megfigyelhető, hogy a 3D arcformájuk és a személyspecifikus részleteik megegyeznek. Ezt a megfigyelést használják ki a részletkódok felcserélésével az azonos személyről készült különböző képek között, és kikényszerítik, hogy az újonnan renderelt eredmények úgy nézzenek ki, mint az eredeti, bemenetként átadott képek. A geometria részletek rekonstrukciója robosztus a jellemző okklúziókra, a pózok nagyfokú változására és a megvilágítási variációkra.
  	
  	A továbbiakban megvizsgáljuk a DECA modell működési elvét, architektúráját.
  	
  	\begin{figure}[h]	
  		\centering
  		\includegraphics[width=1\linewidth]{deca}
- 		\label{fig:deca}
- 		\caption{ DECA tanítás és animáció. Forrás: 
+ 		\caption{ DECA tanítás és animáció.
  			Forrás:\cite{deca}}
+        \label{fig:deca}
  	\end{figure}
  	
 	 \subsubsection{Kódoló}
-	 Első lépésként egy durva rekonstrukciót (a FLAME modelltérben [33])
-	 tanítanak be $analysis$-$by$-$synthesis$ módon: egy bemenetként átadott \textit{I} 2D-s képből látens kódot készítenek, ezt dekódolják annak érdekében, hogy egy $I_{r}$ 2D-s képet hozzanak létre, valamint minimalizálják a szintetizált és a bemeneti kép közötti különbséget.
+	 Első lépésként egy durva rekonstrukciót (a FLAME modelltérben \cite{flame}) tanítanak be $analysis$-$by$-$synthesis$ módon: egy bemenetként átadott \textit{I} 2D-s képből látens kódot készítenek, ezt dekódolják annak érdekében, hogy egy $I_{r}$ 2D-s képet hozzanak létre, valamint minimalizálják a szintetizált és a bemeneti kép közötti különbséget.
+	 Az ábrán \ref{fig:deca} látható módon, egy $E_{c}$ kódolót tanítanak be, amely egy ResNet50 \cite{liwen} hálózatból, és egy azt követő teljesen összekapcsolt rétegből áll, egy alacsony dimenziós látens kód regressziója céljából. Ez a látens kód tartalmazza a $\omega$ (identitás), $\psi$ (kifejezés), $\theta$ (póz) FLAME \cite{flame} paramétereket(azaz reprezentálja a durva geometriát), az albedó együtthatókat $\alpha$, a kamera $c$ és a megvilágítási $I$ paramétereket.\\
 	 
-	 Az ábrán \ref{fig:deca} látható módon, egy $E_{c}$ kódolót tanítanak be, amely egy ResNet50 \cite{liwen} hálózatból, és egy azt követő teljesen összekapcsolt rétegből áll, egy alacsony dimenziós látens kód regressziója céljából. Ez a látens kód tartalmazza a $\omega$ (identitás), $\psi$ (kifejezés), $\theta$ (póz) FLAME \cite{tianye} paramétereket(azaz reprezentálja a durva geometriát), az albedó együtthatókat $\alpha$, a kamera $c$ és a megvilágítási $I$ paramétereket.\\
-	 
-	 \begin{mdframed}
-	 	A F LAM E [33] egy statisztikai 3D fejmodell, amely egyesíti a különálló
-	 	lináris identitás-alak és kifejezés tereket linear blend skinning-gel (LBS)
-	 	́es a pózfüggő korrektív blendshape alakzatokat, annak érdekében, hogy
-	 	a nyak, az állkapocs és a szemgolyók mozgathatóak legyenek.
-	 	Adott arc identitás β ∈ R|β|, póz θ ∈ R3k+3 (ahol k = 4 a nyak,
-	 	́allkapocs, és szemgolyók ízületeinek száma), és kifejezés ψ ∈ R|ψ|
-	 	paraméterek mellett, a FLAME egy n = 5023 csúcspontot tartalmazó
-	 	archálót (mesh) ad kimenetül.
-	 	A modell a következőképpen van definiálva:
-	 	M (β, θ, ψ) = W (Tp(β, θ, ψ), J(β), θ, W) (1)
-	 	,
-	 	ahol a blendskinning függvény W (T, J, θ, W) elforgatja a T ∈ R3n
-	 	csúcsait a J ∈ R3k ízületek körül, lineárisan finomítva a W ∈ Rk∗n
-	 	keverési súlyokkal.
-	 	A J ízületi helyek a β identitás függvényeként definiálhatók.
-	 	Továbbá,
-	 	Tp(β, θ, ψ) = T + BS (β, S) + BP (θ, P) + BE (ψ, E) (2)
-	 	jelöli a T minta átlagát ”nullpózban” a hozzáadott alak blendshape-
-	 	ekkel BS (β, S) : R|β| ⇒ R3n, pózkorrekciókkal BP (θ, P) : R3k+3 ⇒ R3n,
-	 	valamint kifejezés blendshape-ekkel BE (ψ, E) : R|ψ| ⇒ R3n, a megtanult
-	 	identitás-, póz- és kifejezésalapokkal (lineáris alterekkel) S, P és E.
-	 \end{mdframed}
- 
- 	 \subsubsection{Dekódoló}
+ \subsubsection{Dekódoló}
  	 
- 	 A dekódoló hálózat egy részletes UV elmozdulási térképpel D egészíti
- 	 ki a durva FLAME geometriát. A durva rekonstrukcióhoz hasonlóan
- 	 egy Ed kódolót tanítanak be (amelynek architektúrája megegyezik az Ec
- 	 felépítésével), hogy az I 2D-s képből egy 128 dimenziós látens kódot δ
- 	 készítsen, amely az alanyspecifikus részleteket reprezentálja. A látens kódot δ
- 	 ezután a FLAME ψ kifejezés és állkapocs póz θjaw paramétereivel kapcsolják
- 	össze, majd Fd az imént említett paraméterekből előállítja D-t.
- 	 Fd a látens kódot δ felhasználva szabályozza a statikus személyspecifikus
- 	 részleteket. Kihasználja a durva rekonstrukcióból kapott kifejezés ψ, és
- 	 az állkapocs θjaw paramétereket a dinamikus, kifejezésektől függő ráncok részleteinek rögzítése érdekében. A rendereléshez D-t normáltérképpé
- 	 alakítják.
+ 	A dekódoló hálózat egy részletes $UV$ elmozdulási térképpel $D$ egészíti
+ 	ki a durva $FLAME$ geometriát. A durva rekonstrukcióhoz hasonlóan
+ 	egy $E_{d}$ kódolót tanítanak be (amelynek architektúrája megegyezik az $E_{c}$
+ 	felépítésével), hogy az $I$ 2D-s képből egy 128 dimenziós látens kódot $\delta$
+ 	készítsen, amely az alanyspecifikus részleteket reprezentálja. A látens kódot $\delta$
+ 	ezután a $FLAME$ $\psi$ kifejezés és állkapocs póz $\theta_{jaw}$ paramétereivel kapcsolják
+ 	össze, majd $F_{d}$ az imént említett paraméterekből előállítja $D$-t. $F_{d}$ a látens kódot $\delta$ felhasználva szabályozza a statikus személyspecifikus részleteket. Kihasználja a durva rekonstrukcióból kapott kifejezés $\psi$, és az állkapocs $\theta_{jaw}$ paramétereket a dinamikus, kifejezésektől függő ráncok részleteinek rögzítése érdekében. A rendereléshez $D$-t normáltérképpé alakítják.
  	 
- 	 \subsubsection{Részletkonzisztencia veszteség}
+ \subsubsection{Részletkonzisztencia veszteség}
 	 
 	 \begin{figure}[h]	
 	 	\centering
 	 	\includegraphics[width=1\linewidth]{ldetail}
-	 	\label{fig:ldetail}
-	 	\caption{Részletkonzisztencia veszteség Forrás: 
+	 	\caption{Részletkonzisztencia veszteség \\
 	 		Forrás:\cite{deca}}
+        \label{fig:ldetail}
 	 \end{figure}
  
- 	részleteinek rögzítése érdekében. A rendereléshez D-t normáltérképpé
- 	alakítják.
- 	2.1.3 Részletkonzisztencia veszteség
- 	́Abra 2: Részletkonzisztencia veszteség. Forrás:[31]
- 	Yao Feng et. al. [31] az identitás-függő és a kifejezésektől függő részletek
+ 	Yao Feng et al. az identitás-függő és a kifejezésektől függő részletek
  	szétválasztása érdekében egy új részletkonzisztencia veszteség függvényt
- 	javasol. A metódus nélkül a személyspecifikus látens kód δ rögzíti az iden-
+ 	javasolnak. A metódus nélkül a személyspecifikus látens kód $\delta$ rögzíti az iden-
  	titástól és a kifejezésektől függő részleteket. Ebből kifolyólag a rekonstruált
- 	részletek nem repozicionálhatóak a FLAME állkapocs póz θjaw és kifejezés ψ
+ 	részletek nem repozicionálhatóak a FLAME állkapocs póz $\theta_{jaw}$ és arckifejezés $\psi$
  	paramétereinek megváltoztatásával.
- 	Amennyiben adott két kép Ii és Ij ugyanarról az alanyról (ci = cj ), a
+ 	Amennyiben adott két kép $I_{i}$ és $I_{j}$ ugyanarról az alanyról ($c_{i} = c{j}$ ), a
  	veszteséget a következőképpen határozzuk meg:
- 	Ldc = Ldetail(Ii, R(M (βi, θi, ψi), A(αi), Fd(δj , ψi, θjaw,i), li, ci)) (3)
- 	, ahol βi, θi, θjaw,i, αi, és ci Ii paraméterei, valamint δj Ij részletkódja.
+
+    \begin{equation*}
+    L_{dc} = L_{detail}(I_{i}, R(M (\beta_{i}, \theta_{i}, \psi_{i}), A(\alpha_{i}), F_{d}(\delta_{j} , \psi_{i}, \theta_{jaw,i}), l_{i}, c_{i}))
+    \end{equation*}
+   
+ 	, ahol $\beta_{i},$ $\theta_{i},$ $\theta_{jaw,i},$ $\alpha_{i},$ és $c_{i}$ $I_{i}$ paraméterei, valamint $\delta_{j}$ $I_{j}$ részletkódja.
  	
  	\subsubsection{Tanítás}
  	
- 	Ebben az alfejezetben a [1] ábrán szemléltetett DECA [31] pipeline-t
+ 	Ebben az alfejezetben a(z) \ref{fig:deca}. ábrán szemléltetett $DECA$ modellt
  	vizsgáljuk meg.
- 	A tanítás során (bal oldali doboz) a DECA [31] minden egyes képhez
+ 	A tanítás során (bal oldali doboz) a $DECA$ minden egyes képhez
  	az arc alakjának rekonstruálásához szükséges paramétereket becsli meg az
- 	alak konzisztenciainformáció segítségével (a kék nyilakat követve), majd
+ 	alakkonzisztencia információ segítségével (a kék nyilakat követve), majd
  	a részletkonzisztenica-információ (a piros nyilakat követve) kihasználásával
  	megtanul egy kifejezésfüggő elmozdulási modellt. A sárga doboz tartalmazza
- 	az elmozdulási konzisztencia-veszteséget, amelyet részletesebben a [2] ábra
+ 	az elmozdulási konzisztencia-veszteséget, amelyet részletesebben a(z) \ref{fig:ldetail}. ábra
  	szemléltet.
- 	A tanítás után a DECA animál egy arcot ([1] ábra, jobb oldali doboz)
- 	a rekonstruált forrásidentitás alakjának, fejpózának és részletkódjának,
- 	valamint a forráskifejezés állkapocs pózának és kifejezési paramétereinek
+ 	A tanítás után a $DECA$ animál egy arcot (\ref{fig:deca}. ábra, jobb oldali doboz)
+ 	a rekonstruált forrásidentitás alakjának, fejpózának, részletkódjának
+ 	valamint a forráskifejezés állkapocs pózának és arckifejezési paramétereinek
  	kombinálásával, annak érdekében, hogy egy animált durva alakot és egy
- 	animált elmozdulási térképet kapjon. A pipeline kimenete egy animált,
+ 	animált elmozdulási térképet kapjon. A modell kimenete egy animált
  	részletes alakzat.
  	
  	\subsubsection{Adathalmazok}
  	
- 	A DECA-t három nyilvánosan elérhető adathalmazon tanítják [31]:
+ 	A $DECA$-t három nyilvánosan elérhető adathalmazon tanítják:
  	\begin{itemize}
  		\item VGGFACE2
  		\item BUPT-Balancedface
@@ -295,8 +236,8 @@
  	
  	\subsection{FOCUS}
  	
- 	Chunlu Li et. al [32] megközelítése a korábbi munkákhoz képest azért
- 	különleges mert, a 3D-s arcok rekonstrukcióját és az okklúziók szegmentálását
+ 	Chunlu Li et. al \cite{focus} megközelítése a korábbi munkákhoz képest azért
+ 	különleges mert, a 3D-s arcok rekonstrukcióját és a kitakarások szegmentálását
  	együttesen végzi. Ráadásul, az általuk fejlesztett pipeline csak gyenge felügyelet mellett tanul, és nincsen szüksége annotációkra a különböző típusú
  	okklúziókhoz.
  	Ezenkivül, az általuk használt arc autoencoder lehetővé teszi az arcmodell hatékonyabb illesztését. Ahhoz, hogy növelni tudják a megvilágítással és
@@ -305,108 +246,98 @@
  	
  	\begin{figure}[h]	
  		\centering
- 		\includegraphics[width=1\linewidth]{ldetail}
- 		\label{fig:ldetail}
- 		\caption{Chunlu Li et. al javasolt megközelítés pipeline-ja.
+ 		\includegraphics[width=1\linewidth]{focus}
+ 		\caption{Chunlu Li et al. által javasolt megközelítés felépítése.
  			Forrás:\cite{focus}}
+        \label{fig:focus}
  	\end{figure}
  	
- 	A fenti ábrán láthatjuk a hálózat felépítését, de hogyan is mükődik? [32]
- 	Adott egy IT bemeneti kép, a rekonstrukciós hálózat, R, megbecsüli a látens
- 	paramétereket és ezt követően egy olyan IR képet állít elő, amely csak az
- 	arcot tartalmazza. Ezután az IT és IR képeket betápláljuk az S szegmentáló
- 	hálózatba, amely megjósolja az M szegmentációs maszkot. A szaggatott
- 	vonalak azt mutatják, hogy M -et arra használják, hogy az IT és IR képekben
- 	a becsült okklúziókat kitakarják, ezáltal összerakott okklúzió mentes képeket
- 	kapnak, nevezetesen IT
- 	⊙ M és IR
- 	⊙ M .
+ 	A fenti ábrán láthatjuk a $FOCUS$ hálózat felépítését.
+ 	Adott egy $I_{T}$ bemeneti kép, a rekonstrukciós hálózat, $R$, megbecsüli a látens
+ 	paramétereket és ezt követően egy olyan $I_{R}$ képet állít elő, amely csak az
+ 	arcot tartalmazza. Ezután az $I_{T}$ és $I_{R}$ képeket betápláljuk az $S$ szegmentáló
+ 	hálózatba, amely megjósolja az $M$ szegmentációs maszkot. A szaggatott
+ 	vonalak azt mutatják, hogy $M$-et arra használják, hogy az $I_{T}$ és $I_{R}$ képekben
+ 	a becsült kitakaró tényezőket kiszűrjék a képből, ezáltal összerakott kitakarás mentes képeket
+ 	kapnak, nevezetesen $I_{T}\bigodot M$ és $I_{R}\bigodot M$ .
  	Megfigyelhetjük, hogy Chunlu Li et. al nagy hangsúlyt fektettek bele a
- 	robosztus arc rekonstrukcióra okklúziók mellet. A munkánk szempontjából
- 	azért fontos, mert az okklúziók mindenütt jelen vannak. Ezért is választottuk
- 	a F OCU S-t, mert nekik sikerült egy speciális modellt implementálni, ami
- 	képes kezelni az okklúziókat, anélkül, hogy szükséges lenne nagy mennyiség ̋u
- 	adatra, vagy olyan erőforrásra, amihez nincs hozzáférésünk.
- 	A továbbiakban részletesebben megvizsgáljuk a F OCU S építőelemeit és
- 	együttm ̋ukődésüket.
+ 	robosztus arcrekonstrukcióra kitakarások mellet. A munkánk szempontjából
+ 	azért fontos, mert az arcot kitakaró tényezők mindenütt jelen vannak. Ezért is választottuk
+ 	a $FOCUS$-t, mert nekik sikerült egy speciális modellt implementálni, ami
+ 	képes kezelni a kitakarásokat anélkül, hogy szükséges lenne nagy mennyiségű
+ 	adatra vagy olyan erőforrásra, amihez nincs hozzáférésünk.
+ 	A továbbiakban részletesebben megvizsgáljuk a $FOCUS$ építőelemeit és
+ 	együttműködésüket.
  	
- 	[32] Ahogy, már korábban is meg volt említve, a F OCU S célja egy 3D-s
- 	arc rekonstrukciója egyetlen képből, súlyos okklúziók esetén is. Ezen kihívást
- 	jelentő probléma megoldásához egy modellalapú arc autoencoder-t, R-t, és
- 	egy szegmentáló hálózatot, S-t implementáltak, ahogyan az a fenti ábrán is
+ 	Ahogy, már korábban is említve volt, a $FOCUS$ célja 3D-s
+ 	arcrekonstrukció egyetlen képből, súlyos kitakarások esetén is. Ezen kihívást
+ 	jelentő probléma megoldásához egy modellalapú arc autokódolót, $R$-t, és
+ 	egy szegmentáló hálózatot, $S$-t implementáltak, ahogyan az a fenti ábrán is
  	szemléltetve van.
  	
  	Az arc rekonstrukciójához a szegmentációs maszk a modellillesztés során
- 	kivágja a becsült okklúziókat, így a rekonstrukciós hálózatot robosztussá
- 	teszi az okklúziókkal szemben. A szegmentáláshoz a rekonstruált eredmény
+ 	kivágja a becsült kitakarásokat, így a rekonstrukciós hálózatot robosztussá
+ 	teszi a kitakarásokkal szemben. A szegmentáláshoz a rekonstruált eredmény
  	referenciaként szolgál, növelve a szegmentálás pontosságát.
  	
- 	Ebben a szakaszban megvizsgáljuk hogyan m ̋uködik a két hálózat,
- 	továbbá, hogyan kapcsolódnak egymáshoz, és milyen előnyöket nyújtanak
+ 	Ebben a szakaszban megvizsgáljuk hogyan működik a két hálózat,
+ 	hogyan kapcsolódnak egymáshoz és milyen előnyöket nyújtanak
  	egymás számára.
  	
  	\subsubsection{Modellalapú autoencoder}
- 	[32] A modellalapú arc autoencoder, R, várhatóan rekonstruálja a teljes arc
- 	megjelenését a látható arctartományokból a képen, IT -n. Ez egy kódolóból
- 	,grafikus renderelőből, és egy dekóderből áll. A kódoló megbecsüli a látens
- 	parmétereket Θ = [α, γ, φ, c] ∈ R257, azaz a 3D alak α ∈ R144, a 3DMM
- 	textúrája γ ∈ R80, a megvilágítás φ ∈ R27, és a jelenet kamera paraméterei
- 	c ∈ R6. Adott látens parméterekkel a dekóder a bemeneti képen látható arc
- 	arcképét állítja elő IR = R(Θ). Majd ehhez egy olyan felügyelet nélküli szeg-
- 	mentáló hálózatot vezetnek be, melynek kimenetelét a modellillesztés során
- 	az okklúziók edfedésére lehet használni, és így az autoencoder-t robosztussá
- 	teszi az okklúziókkal szemben.
+ 	A modellalapú arc autokódoló, $R$, várhatóan rekonstruálja a teljes arc
+ 	megjelenését a látható arctartományokból a képen, $I_{T}$-n. Ez egy kódolóból, grafikus renderelőből, és egy dekódolóból áll. A kódoló megbecsüli a látens
+ 	parmétereket $\theta = [\alpha, \gamma, \phi, c] \in R^{257}$, azaz a 3D alak $\alpha \in R^{144}$, a 3DMM
+ 	textúrája $\gamma ∈ R^{80}$, a megvilágítás $\phi ∈ R^{27}$, és a jelenet kamera paraméterei
+ 	$c ∈ R^{6}$. Adott látens parméterekkel a dekódoló a bemeneti képen látható
+ 	arcképét állítja elő $I_{R} = R(\Theta)$. Majd ehhez egy olyan felügyelet nélküli szegmentáló hálózatot vezetnek be, melynek kimenetelét a modellillesztés során
+ 	a kitakarások elfedésére lehet használni, és így az autokódolót robosztussá
+ 	teszi a kitakarásokkal szemben.
  	
  	\subsubsection{Szegmentációs hálózat}
- 	[32]A szegmentáló hálózat, S, veszi az IT képet és a szintetizált képet, IR-
- 	t, bemenetként, és megjósolja a bináris maszkot, M = S(IT , IR), annak
- 	leírására, hogy egy pixel az arcot ábrázolja-e (1) vagy nem (0). Mivel az IR
- 	tartalmazza a becsült arcot, előzetes tudást biztosít a szegmentáló hálózatnak
+ 	A szegmentáló hálózat, $S$, veszi az $I_{T}$ képet és a szintetizált képet, $I_{R}$-t, bemenetként, és megjósolja a bináris maszkot, $M = S(I_{T} , I_{R}$, annak
+ 	leírására, hogy egy pixel az arcot ábrázolja-e $(1)$ vagy nem $(0)$. Mivel az $I_R$ tartalmazza a becsült arcot, előzetes tudást biztosít a szegmentáló hálózatnak
  	́es segíti a becslést.
  	
- 	Az arc autoencoder és a szegmentáló hálózat képzés során összevannak
- 	kapcsolva, hogy egy szinergikus hatást váltson ki, ami a szegmentálást pon-
- 	tosabbá teszi és a rekonstrukciót robosztussabbá teszi okklúziók jelenlétében.
+ 	Az arc autokódoló és a szegmentáló hálózat a tanítás során össze vannak kapcsolva olyan módon, hogy egy szinergikus hatást váltanak ki, ami a szegmentálást pontosabbá teszi és a rekonstrukciót robosztussabbá teszi kitakarások jelenlétében.
  	
  	\subsubsection{Tanítás}
- 	[32] Az arc autoencoder és a szegmentáló hálózat kölcsönös függőségei mi-
- 	att egy Expectation − M aximization(EM ) típusú stratégiát alkalmaztak,
+ 	Az arc autokódoló és a szegmentáló hálózat kölcsönös függőségei miatt egy $Expectation − Maximization(EM)$ típusú stratégiát alkalmaztak,
  	ahol a két hálózatot váltakozva tanították be. Ez lehetővé tette a stabil
  	konvergenciát a betanítási folyamat során. Mint más EM típusú tanítási
- 	stratégiákhoz hasonlóan, a tanítási folyamatjuk a modell paraméterinek
- 	durva inicializálásával kezdődik, amelyet felügyelet nélküli módon kaptak
- 	meg.
+ 	stratégiákhoz hasonlóan, a tanítási folyamatuk a modell paraméterinek
+ 	durva inicializálásával kezdődik, amely felügyelet nélküli módon történik.
  	
- 	A szegmentáló hálózat képzésekor az arc autoencoder paraméterei
- 	rögzítettek, és csak a szegmentáló hálózatot optimalizáljuk. Az an-
- 	notált adatok keresése helyeken, négy költségfüggvényt javasoltak, amelyek
+ 	A szegmentáló hálózat tanításakor az arc autokódoló paraméterei
+ 	rögzítettek és csak a szegmentáló hálózatot optimalizálják. Alapvetően négy költségfüggvényt javasolnak, amelyek
  	kikényszerítik a képek közötti hansolóságokat. A költségfüggvények dolga
- 	hogy, eldöntse egy adott pixelről hogy az arc része vagy ellenkezője. Ezek
- 	vagy perceptuális szinten vagy pixel szinten dolgoznak, hogy teljes mértékben
- 	kihasználják a vizuális nyomokat. Részletesebben erről a szerzők munkájában
- 	[32] lehet olvasni.
+ 	hogy, eldöntse egy adott pixelről hogy az arc része vagy sem. Ezek
+    perceptuális szinten vagy pixel szinten dolgoznak, hogy teljes mértékben
+ 	kihasználják a vizuális nyomokat.
  	
- 	Betanítás során, úgy van irányitva a szegmentáló hálózat, hogy egyensúlyt
- 	keressen, az olyan képpontok elvetése között, amelyeket az autoencoder nem
- 	tud jól értelmezni, és az olyan képpontok megőrzése között amelyek fontosak
+ 	Betanítás során a szegmentáló hálózat feladata, hogy egyensúlyt
+ 	keressen az olyan képpontok elvetése között, amelyeket az autokódoló nem
+ 	tud jól értelmezni és az olyan képpontok megőrzése között, amelyek fontosak
  	a bemeneti kép és az előállított arc perceptuális reprezentációjának megőrzése
- 	́erdekében. Ezáltal nincsen szükség az okklúziók felügyeletére.
+ 	́erdekében. Ezáltal nincsen szükség a kitakarások felügyeletére.
  	
- 	Az autoencoder betanítása során, tovább optimalizálták az autoencoder
- 	paramétereit, közben a szegmentáló hálózat rögzítve van. Az autoencoder-
- 	hez tartóznak az alábbi költségfüggvények[32]:
- 	
- 	$Lpixel =‖ (IT − IR) M ‖2
- 	2 (4)
- 	Lper = cos(F (IT ), F (IR)) (5)
- 	Llm =‖ lmT − lmR ‖2
- 	2 (6)$
- 	
+ 	Az autkódoló betanítása során, tovább optimalizálták a kódoló paramétereit, közben a szegmentáló hálózat rögzítve van. Az autokódolóhoz az alábbi költségfüggvények tartoznak:
+
+    \begin{equation*}
+    L_{pixel} = \parallel (I_{T} − I_{R}) \bigodot M \parallel _{2}^{2} 
+    \end{equation*}
+    \begin{equation*}
+    L_{per} = \cos(F(I_{T}), F(I_{R}))    
+    \end{equation*}
+    \begin{equation*}
+    L_{lm} = \parallel lm_{T} - lm_{R} \parallel _{2}^{2}  
+    \end{equation*}
+
  	\subsubsection{Adathalmazok}
- 	[32]Az általuk felhasznált adatbázisok a CelebA-HQ és az AR adatbázisok.
- 	Ezek segítségével értékelik az illesztés és az arc szegmentlás hatékonyságát.
- 	Illetve alakrekonstrukció pontosságát is lemérték a NoW adatbázis
- 	részhalmazain.
+ 	Az általuk felhasznált adatbázisok a CelebA-HQ és az AR adathalmaz.
+ 	Ezek segítségével értékelik az illesztés és az arcszegmentlás hatékonyságát.
+ 	Az alakrekonstrukció kiértékelésére a NoW adatbázis
+ 	részhalmazait használták.
  	
  	\begin{figure}[h]	
  		\centering
@@ -420,17 +351,17 @@
  	
  	Mint láthatjuk a fent említett megközelítések mind kiváló eredményeket
  	nyújtanak, de megfigyelhetjük hogy a két munkának a szerzői teljesen
- 	különböző motivációval rendelkeztek amikor a megközelítéseiken dolgoztak.
- 	A DECA[31] főbb motivációja az emberi arc részleteinek megőrzése, a
- 	FOCUS[32] célja pedig egy gyors modell kialakítása volt, amely korábbi
- 	munkákhoz képest jobban kezelte az okklúziókat. A mi célunk, egy olyan
- 	modell kialakítása amely képes megőrízni a részleteket, de egyben legyen képes konzisztens mükődést nyújtani az okklúziók jelenlétében is
+ 	különböző motivációval rendelkeztek.
+ 	A $DECA$ főbb motivációja az emberi arc részleteinek megőrzése valamint az arc realisztikus animálhatósága. A
+ 	$FOCUS$ célja pedig egy gyors modell kialakítása volt, amely korábbi
+ 	munkákhoz képest jobban kezeli a kitakarásokat. A mi célunk, egy olyan
+ 	animálható modell kialakítása, amely képes megőrízni a részleteket. Emellett képes konzisztens mükődést nyújtani súlyos kitakarások jelenlétében is.
  	
- 	Tehát a tervezett pipeline, amit a későbbiekben részletesebben
- 	megvizsgálunk, kettő egymást támogató hálózatból áll. Egyik fő épitőeleme a
- 	pipeline-nak a DECA[31] alapján készített rekonstrukciós hálózat. A másik,
- 	a FOCUS[32] megközelítésében implementált szegmentáló hálózat. E két
- 	hálózaton majd egy EM típusú stratégiát alkalmazunk a tanítási folyamat
+ 	Tehát a tervezett modell, amit a későbbiekben részletesebben
+ 	megvizsgálunk kettő egymást támogató hálózatból áll. Egyik fő épitőeleme a
+    $DECA$ alapján készített rekonstrukciós hálózat. A másik,
+ 	a $FOCUS$ megközelítésében implementált szegmentációs hálózat. E két
+ 	hálózaton egy EM típusú stratégiát alkalmazunk a tanítási folyamat
  	során.
  	
  
@@ -441,7 +372,7 @@
 	 
 	  Először is, minden arc
 	 sűrű pont-pont megfeleltetésben van, amelyet általában egy regisztrációs eljárás során egy sor példaarcon állítanak elő, majd
-	 a további feldolgozási lépések során is megmarad.Ennek a megfeleltetésnek köszönhetően az arcok lineáris kombinációi definiálhatók egy értelmes módon, morfológiailag valósághű arcokat (morfokat) létre hozva.
+	 a további feldolgozási lépések során is megmarad.Ennek a megfeleltetésnek köszönhetően az arcok lineáris kombinációi definiálhatók egy értelmes módon, morfológiailag valósághű arcokat (morfokat) létrehozva.
 	 
 	 
 	 A második ötlet az arc alakjának és színének szétválasztása, és ezek függetlenítése a külső tényezőktől, például a megvilágítástól és a kamera paraméterektől.
@@ -1433,7 +1364,7 @@
 	Li, C., Morel-Forster, A., Vetter, T., Egger, B., Kortylewski, A. (2021).
 	\textit{To fit or not to fit: Model-based Face Reconstruction and Occlusion Segmentation from Weak Supervision. arXiv preprint arXiv:2106.09614.}
 	
-	\bibitem{tianye}
+	\bibitem{flame}
 	Tianye Li, Timo Bolkart, Michael. J. Black, Hao Li, and Javier Romero
 	(2017).
 	\textit{Learning a model of facial shape and expression from 4D scans.
