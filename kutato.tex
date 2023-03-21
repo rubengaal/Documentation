@@ -1130,11 +1130,18 @@ hálózat 23 konvolúciós rétegből áll.
     
 	\subsubsection{Adatok előkészítése}
 
-   A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanitási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálása majd $.csv$ fáljokba való kiírást jelent. Yao Feng et al. \cite{deca} megközelítését követve Bulat et. al. \cite{bulat} FAN modelljét használjuk 68 db 2D-s jellegzetes pont (landmark) detektálásához.
+   A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanitási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálása majd \textit{.csv} fáljokba való kiírást jelent. Yao Feng et al. \cite{deca} megközelítését követve Bulat et. al. \cite{bulat} FAN modelljét használjuk 68 db 2D-s jellegzetes pont (landmark) detektálásához. Egy arcpontok lokalizálására szolgáló architektúra és maradék blokkok kombinálásával egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanították. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
+
+   \subsubsection{Adatok előkészítésének megvalósítása}
+
+   A \textit{list\_eval\_partition.csv} megadja, hogy az adott kép melyik adathalmazhoz tartozik.
+   A három adathalmaz a tanító, a tesztelési és a validációs halmazok. A FAN modellt felhasználva detektáljuk képenként a 68 db arcpontot, majd azok mentésre kerülnek a kép partíciójának megfelelő .csv fájlba. A .csv fájlok a \textit{train\_landmarks.csv}, \textit{test\_landmarks.csv} és a \textit{val\_landmarks.csv}.
+				
    
     \subsubsection{U-Net tanítási adatok generálása}
 
-    A szegmentáló hálózat (U-Net) előtanításához adatokat kell generálnunk. Ehhez a folyamathoz mi a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch} a szegmentációs maszk előállításához. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formábon, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
+    A szegmentáló hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
+    Az előtanított arcrekonstrukciós modellünkkel 3D-s renderelt képeket gyártunk a szegmentációs hálózat előtanításához.
     
     \subsubsection{Differenciálható renderelő}
 
