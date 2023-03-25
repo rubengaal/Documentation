@@ -474,7 +474,36 @@ alteret határoznak meg az alakzat és a textúra reprezentálására főkompone
     hozzáigazítás során. Ez torzítja a szemhéjakat és jelentős fotometriai hibákat okoz a szemek régiójában. Következésképpen szemgolyókat adtak hozzá a hálóhoz és bizonyították, hogy ez segíti az igazítási folyamatot.
 
     Egyik fő szempont, hogy kutatásunkban a FLAME modellt használjuk, az hogy a FLAME betanított modelljeit kutatási célokra nyilvánosan hozzáférhetővé tették, valamint a modell segítségével animálható 3D arcok készíthetőek.
-	
+
+    \subsection{Linear Blend Skinning (LBS)}
+    A Linear Blend Skinning (LBS) a számítógépes grafikában használt technika, amely egy 3D objektumot egy csontok halmazának mozgása alapján deformál. 
+Általában a 3D animációban használják a karakterek vagy tárgyak valósághű mozgásának létrehozására.
+
+Az LBS-t a 3D arcmodell deformálására használjuk az arc tájékozódási pontok vagy a 2D tájékozódási pont detektor által megjósolt tájékozódási pontok mozgása alapján.
+ A folyamat a következő lépésekből áll:
+
+\begin{enumerate}
+    \item \textbf{Súlyok hozzárendelése minden egyes csúcshoz}: 
+    
+    Ez határozza meg, hogy az egyes csontok milyen mértékben befolyásolják az egyes csúcsokat. 
+	A súlyok jellemzően olyan értékek halmazaként jelennek meg, amelyek összege minden egyes vertex esetében 1. A DECA-ban ezeket a súlyokat a Softmax nevű módszerrel számítják ki.
+
+    \item \textbf{Az átalakított csúcspont pozíciójának kiszámítása}: 
+    
+    Az egyes csúcspontok pozícióját az egyes csontok pozíciója és orientációja alapján transzformáljuk. 
+	Ez úgy történik, hogy a csúcspont pozícióját megszorozzuk az egyes csontokra kiszámított transzformációs mátrixszal. 
+	A csúcspont végső pozíciója az összes transzformált pozíció összege, az egyes csontokhoz rendelt súlyokkal súlyozva.
+
+    \item \textbf{A deformáció alkalmazása}: 
+    
+    A transzformált csúcsokat a 3D arcmodell deformálására használjuk. A deformált modellt ezután rendereljük a végső kimenet létrehozásához.
+\end{enumerate}
+
+Az LBS egy egyszerű és hatékony technika, amellyel valós idejű, realisztikus animációk hozhatók létre. 
+Azonban vannak bizonyos korlátai, például nem képes kezelni az összetett deformációkat. 
+A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kombinálják, hogy valósághűbb és pontosabb arcanimációkat hozzanak létre.
+
+ 
 	\section{Neurális hálózatok}
 	\subsection{Neurális hálózat}
 	\label{NN}
@@ -1139,9 +1168,11 @@ hálózat 23 konvolúciós rétegből áll.
 				
    
     \subsubsection{U-Net tanítási adatok generálása}
+    A szegmentáló hálózat súlyainak durva inicializálása érdekében a hálózatot elő kell tanítanunk. A hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
+    Az előtanított arcrekonstrukciós modellünkkel 3D-s renderelt képeket gyártunk, valamint a bemeneti képeket is felhasználjuk a szegmentációs hálózat előtanításához.
+    
 
-    A szegmentáló hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
-    Az előtanított arcrekonstrukciós modellünkkel 3D-s renderelt képeket gyártunk a szegmentációs hálózat előtanításához.
+    \subsubsection{Arcrekonstrukciós hálózat előtanítása}
     
     \subsubsection{Differenciálható renderelő}
 
@@ -1171,6 +1202,50 @@ Az általános 3D önfelügyeleti modell a renderelő réteg integrálásával a
 	\end{figure}
  \newpage
 
+\subsubsection{Sztenderd raszterizáló megvalósítása}
+A sztenderd raszterizáló a rasterizer.py fájlban van implementálva.
+ Ez a raszterizáló egy 3D-s archálót kap, amelyet csúcsok és lapok halmaza reprezentál, és egy 2D-s képsíkra vetíti, hogy az arc textúrázott képét létrehozza.
+ A raszterizáló a következő lépések szerint működik:
+ \begin{enumerate}
+     \item \textbf{Perspektív vetítési mátrix létrehozása}:
+     A perspektív vetítési mátrix egy 4x4-es mátrix, amely a 3D koordinátákat 2D képkoordinátákra képezi le. 
+	A mátrix kiszámítása a kamera kalibrációs paramétereinek felhasználásával történik, amelyek közé tartozik a kamera belső mátrixa, külső mátrixa és a képméret. 
+Az belső mátrix a kamera belső paramétereit, például a fókusztávolságot, a főpontot, 
+és a dőlést tartalmazza, míg az külső mátrix a kamera helyzetét és tájolását a világkoordináta-rendszerben.
+     \item \textbf{A vetítési mátrix alkalmazása a a csúcsokra}:
+     
+     A 3D archáló csúcsait homogén koordinátákká alakítjuk át egy negyedik dimenzió hozzáadásával, amelynek értéke 1. 
+	Ezután a perspektivikus vetítési mátrixot alkalmazzuk a csúcsokra, hogy megkapjuk a megfelelő 2D-s képkoordinátákat. 
+	A 2D képkoordinátákat úgy kapjuk meg, hogy az x és y koordinátákat elosztjuk a homogén w-koordinátával.
+ 
+     \item \textbf{A háromszögek határoló dobozainak kiszámítása}:
+     
+     A háromszögek határoló dobozait az archálóban 2D-s képkoordinátákban kell kiszámítani.
+	A határoló dobozokat a háromszög csúcsainak minimális és maximális x és y koordinátái határozzák meg.
+ 
+     \item \textbf{A háromszögek raszterizálása}:
+     
+     A raszterizáló az archáló minden egyes háromszögéhez kiszámít egy maszkot, amely jelzi, hogy a 2D-s kép mely pixelei tartoznak a háromszöghöz. 
+A maszk kiszámítása a háromszög csúcsainak baricentrikus koordinátáinak interpolációjával történik a háromszög határoló dobozán.
+	A baricentrikus koordinátákat a csúcsok súlyaként határozzuk meg, amelyek összege egy, és a háromszög textúrakoordinátáinak és csúcsnormálisainak interpolálásához használjuk.
+ 
+     \item \textbf{Textúra leképezése}:
+     
+     A raszterizáló a raszterizált háromszögekhez a textúra hozzárendelésével  hozza létre a végső képet. 
+A textúratérképezés során a háromszögben lévő minden egyes pixel textúrakoordinátáit a baricentrikus koordináták és a háromszög csúcsainak textúrakoordinátái alapján számítja ki.
+	Ezután a textúrakoordinátákat a megfelelő helyen a textúrakép mintavételezéséhez használjuk, és a mintavételezett texel színértékét rendeljük a pixelhez.
+ 
+     \item \textbf{Alfa keverés}:
+     
+     A raszterizáló az átlátszóság kezelése érdekében alfa keverést alkalmaz a raszterizált háromszögekre. 
+	A háromszögben lévő egyes pixelek alfa-értékét a baricentrikus koordináták és a háromszög csúcsainak alfa-értékei alapján számítja ki. 
+	Ezután az alfa-értékek segítségével a pixel színértéke a háttérszínnel keveredik.
+ 
+ \end{enumerate}
+ 
+ Összességében a sztenderd raszterizáló a 3D archáló renderelésének robusztus és hatékony megvalósítását biztosítja.
+ A raszterizáló testreszabható és bővíthető, hogy különböző textúra leképezési és keverési technikákat, valamint különböző renderelési lehetőségeket, például világítást és árnyékolást alkalmazzon.
+
 \subsubsection{Tanítás}
     \begin{figure}[h]	
 		\centering
@@ -1183,7 +1258,9 @@ Az általános 3D önfelügyeleti modell a renderelő réteg integrálásával a
 	keretrendszerben fejlesztettük.
 	A DECA módszerét követve a hálózatunk első lépése egy
 	ResNet-50 modulból és egy teljesen összekapcsolt rétegből álló kódoló
-	$E_{c}$, amely egy 2D-s kontrollálatlan környezetben készült képet kap bementként, majd visszaadja annak alacsony dimenzós látens kódját. A látens kód a $FLAME$
+	$E_{c}$, amely egy 2D-s kontrollálatlan környezetben készült képet kap bementként, majd visszaadja annak alacsony dimenzós látens kódját.
+ 
+ A látens kód a $FLAME$
 	paramétereket (durva geometriát) $\beta$ $\psi$ $\theta$, valamint az albedo együtthatókat
 	$\alpha$, kamera $c$, és megvilágítási $l$ paramétereket tartalmazza.
 	Az albedó paramétereket megkapja
@@ -1191,13 +1268,195 @@ Az általános 3D önfelügyeleti modell a renderelő réteg integrálásával a
 	lineáris albedó alterét alakítja át a $FLAME$ UV elrendezésébe,
 	hogy kompatibilissé tegye azt $FLAME$-el A megvilágítási paramétereket
 	a megvilágítási modell kapja meg bemenetként amely,
-	a Spherical Harmonics (SH) alapú. A durva geometria
+	a Spherical Harmonics (SH) alapú.
+ 
+ A durva geometria
 	paramétereit felhasználva a $FLAME$ modell egy durva alakzatot készít az
-	arcról. A DECA által javasolt részletes dekódolóba a 128 db személyspecifikus jellemzőt betáplálva egy UV eltolódási térképet készítünk. A durva alakot és az eltolódási térképet felhasználva egy részletes alakzatot készítünk, amelyet átadva a megvilágítási modellel,
+	arcról. 
+ 
+ A DECA által javasolt részletes dekódolóba a 128 db személyspecifikus jellemzőt betáplálva egy UV eltolódási térképet készítünk. A durva alakot és az eltolódási térképet felhasználva egy részletes alakzatot készítünk, amelyet átadva a megvilágítási modellel,
 	az albedó térképpel, és a kamera paraméterekkel a differenciálható renderelőnek egy részletes rekonstruált textúrázott 3D-s fejet kapunk kimenetül.
+
+ 
 	A $FOCUS$ megközelítéséhez hasonlóan,a szegmentáló hálózatunk átveszi
 	a bemeneti képet és a hozzá tartozó részletes rekonstruált 3D-s fejet, majd
 	megjósolja a bináris maszkot.
+
+     \subsubsection{Arcrekonstrukciós hálózat tanításának megvalósítása}
+    Az arcrekonstrukciós modell tanítási folyamata több lépésre osztható:
+
+    \begin{enumerate}
+        \item \textbf{Adatbővítés}:
+        
+        A modell általánosítási képességének javítása érdekében a képzési adatokra adatbővítést alkalmazunk. Ez magában foglalja a képek véletlenszerű vágását, átméretezését és átfordítását, valamint a FLAME paraméterek véletlenszerű torzítását.
+        \item \textbf{Modellarchitektúra}:
+        
+        Az arcrekonstrukciós modell egy mély neurális hálózat,
+ amely egy kódolóból és egy dekódolóból áll. 
+ A kódoló a bemeneti paramétereket egy látens térbe képezi le, 
+ míg a dekódoló a látens teret képezi vissza a FLAME paraméterekre. 
+ A kódoló egy ResNet-50 hálózat, míg a dekódoló egy teljesen összekapcsolt hálózat kihagyásos kapcsolatokkal.
+
+A kódoló és dekódoló függvényeket arra használjuk, hogy egy emberi arc 3D-s hálós modelljét átalakítsunk vagy visszaalakítsunk egy paraméterezett reprezentációból a FLAME modell segítségével.
+
+        \item \textbf{Kódoló}:
+        A kódoló egy emberi arc 3D-s hálómodelljét veszi fel bemenetként egy numpy tömb formájában, amely a csúcspontok koordinátáit és egy numpy tömböt tartalmaz, amely a csúcspontok színét tartalmazza.
+A függvény ezután a FLAME modell segítségével kiszámítja az arc alakját, arckifejezését és pózát leíró paraméterek halmazát.
+
+        \textbf{A kódoló lépései}:
+        \begin{enumerate}
+            \item \textbf{FLAME model betöltése}:
+            
+            Az enkódoló függvény először betölti a FLAME modellt egy előre betanított PyTorch ellenőrzőpont fájlból. 
+Ez a modell lineáris alak, kifejezés és póz alapfüggvényekből, valamint egy sor tanult nemlineáris korrekciós blendshape és skinning súlyokból áll.
+
+            \item \textbf{Alak, kifejezés és póz paraméterek kiszámítása}:
+            
+            A kódolási funkció a FLAME modell segítségével kiszámítja az alak, a kifejezés és a póz paramétereit, amelyek leírják a 3D hálómodellt. 
+Ez egy olyan költségfüggvény minimalizálásával történik, amely a bemeneti 3D hálómodell és a FLAME paraméterekből rekonstruált modell közötti különbséget méri. 
+A költségfüggvény olyan feltételeket tartalmaz, amelyek büntetik a FLAME-modell alak-, kifejezés- és pózprioritásától való eltéréseket.
+
+            \item \textbf{Paraméteres reprezentáció visszaadása}:
+
+            A kódoló függvény egy szótárat ad vissza, amely tartalmazza a kiszámított alak, kifejezés és póz paramétereit, valamint a nyúzási súlyokat és egyéb modellparamétereket.
+
+        \end{enumerate}
+        
+
+        
+        \item \textbf{Dekódoló}:
+
+        A dekódoló függvény bemenetként egy emberi arc paraméterezett reprezentációját veszi át, amely egy alak-, kifejezés- és pózparamétereket tartalmazó szótár formájában jelenik meg, 
+valamint a nyúzási súlyokat és egyéb modellparamétereket. A függvény ezután a FLAME modell segítségével létrehozza az arc 3D-s hálómodelljét.
+
+        \textbf{A dekódoló lépései}:
+        
+        \begin{enumerate}
+            \item \textbf{FLAME modell betöltése}:
+            
+            A dekódoló függvény először betölti a FLAME-modellt egy előre betanított PyTorch ellenőrzőpont-fájlból.
+
+            \item \textbf{Alak, kifejezés és póz mátrixok kiszámítása}:
+            
+            A dekódoló függvény a bemeneti szótárból származó alak, kifejezés és póz paramétereket használja a megfelelő alak, kifejezés és póz mátrixok kiszámításához. 
+Ezeket a mátrixokat a FLAME modell lineáris alak, kifejezés és póz alapfüggvényeinek felhasználásával számítja ki.
+
+            \item \textbf{A csúcspontok pozícióinak kiszámítása}:
+            
+A dekódoló függvény a 3D hálómodell végső csúcspontpozícióinak kiszámításához a bemeneti szótárból származó alak-, kifejezés- és pózmátrixokat, valamint a nyúzási súlyokat és egyéb modellparamétereket használja.
+
+            \item \textbf{3D hálómodell visszaadása}:
+            
+            A dekódoló függvény egy numpy tömböt ad vissza, amely a generált 3D hálómodell csúcspontjainak pozícióit és egy numpy tömböt, amely a csúcspontok színét tartalmazza.
+
+        \end{enumerate}
+
+        Összefoglalva, a kódolási és dekódolási funkciók a FLAME modellt használják az emberi arc 3D-s hálós modelljének paraméterezett reprezentációba és reprezentációból történő átalakítására. 
+A kódoló függvény kiszámítja az alak, az arckifejezés és a póz paramétereit, amelyek leírják a bemeneti 3D hálós modellt, míg a dekódoló függvény ezeket a paramétereket használja fel egy új 3D hálós modell létrehozásához.
+
+    \end{enumerate}
+
+     \subsubsection{Enkódoló megvalósítása}
+    Az encoders.py modulban található ResnetEncoder osztály az arcrekonstrukciós modellben használt kódoló hálózat PyTorch implementációja, amely egyetlen képből történő 3D arc rekonstrukciójára szolgál. 
+ A kódoló bemenetként egy arc képét veszi, és egy látens kódot állít elő, amelyet a generátorhálózat bemeneteként használ.
+
+A ResnetEncoder osztály a PyTorch nn.Module osztály alosztálya, és konvolúciós rétegek és reziduális blokk sorozatából áll.
+ A kódoló bemenete egy RGB arckép, amely egy sor konvolúciós rétegen halad át az alacsony szintű jellemzők kinyerése érdekében.
+ Ezek az alacsony szintű jellemzők ezután egy sor maradék blokkon haladnak keresztül, amelyek a magasabb szintű jellemzők rögzítésére és a jellemzőtérkép dimenziójának csökkentésére szolgálnak.
+
+A ResnetEncoder osztály a ResNet architektúra módosított változatát használja, amely egy képfelismerési feladatokban általánosan használt mély neurális hálózati architektúra.
+ A ResnetEncoder osztályban használt módosított ResNet architektúra több konvolúciós réteget tartalmaz, amelyet több szakaszba csoportosított maradék blokkok sora követ.
+ Minden egyes szakasz olyan maradék blokkokat tartalmaz, amelyek fokozatosan csökkentik a jellemzőtérkép méretét és növelik a jellemzőcsatornák számát.
+
+A ResnetEncoder osztály több lemintavételezési réteget is tartalmaz, amelyek a jellemzőtérkép méretének csökkentésére és a modell receptív mezejének növelésére szolgálnak.
+A lemintavételező rétegek a konvolúciós rétegek és a max-pooling rétegek kombinációját használják a jellemzőtérkép méretének 2-szeresére való csökkentésére.
+
+A ResnetEncoder osztály kimenete egy lapított jellemzővektor, amely több teljesen összekapcsolt rétegen halad át a látens kód előállításához. 
+A teljesen összekapcsolt rétegek közé tartoznak a kieső rétegek, amelyek a túlillesztés megelőzésére és a modell általánosítási teljesítményének javítására szolgálnak.
+
+A ResnetEncoder osztály az ellentétes veszteség, a rekonstrukciós veszteség és a regularizációs veszteség kombinációjával tanítható.
+Az ellentétes veszteséget arra használjuk, hogy a látens kódot arra ösztönözzük, hogy ne lehessen megkülönböztetni a valódi látens kódoktól, 
+ míg a rekonstrukciós veszteség a generált 3D háló és az alapigazság 3D háló közötti különbség minimalizálására szolgál.
+ A regularizációs veszteséget a túlillesztés megakadályozására és a modell sima és reális látens kódok tanulására ösztönzi.
+
+Összességében az encoders.py modulban található ResnetEncoder osztály egy hatékony eszköz az arcképek látens kódokká történő kódolásához, amelyek a generátorhálózat bemeneteként használhatók. 
+Az osztály az arcrekonstrukciós modellben használt kódolóhálózat hasznos implementációját biztosítja, és könnyen adaptálható más képalapú 3D rekonstrukciós feladatokhoz.
+
+ \subsubsection{Dekódoló megvalósítása}
+ A decoders.py modulban található Generator osztály a DECA modellben használt generátorhálózat PyTorch implementációja, amely egyetlen képből történő 3D arc rekonstrukciójára szolgál.
+ A generátor bemenetként egy látens kódot és egy kifejezési együtthatókból álló készletet fogad el, és létrehozza a rekonstruált arc 3D hálóját.
+ 
+ A Generator osztály a PyTorch nn.Module osztály alosztálya, és több rétegből áll, beleértve a teljesen összekapcsolt rétegeket, a konvolúciós rétegeket és a maradék blokkokat. 
+A generátor bemenete a látens kód és a kifejezési együtthatók összevonása, amelyek több teljesen összekapcsolt rétegen keresztülhaladva egy jellemzővektort generálnak. 
+Ezt a jellemzővektort ezután átformáljuk, és egy sor konvolúciós rétegen keresztül vezetjük át a végső 3D háló előállításához.
+
+A generátor osztály több maradék blokkot is tartalmaz, amelyek a modell pontosságának és stabilitásának javítására szolgálnak. 
+A maradék blokkok konvolúciós rétegek sorozatából és egy kihagyásos kapcsolatból állnak, amely a bemenetet hozzáadja a konvolúciós rétegek kimenetéhez.
+ Ez lehetővé teszi, hogy a modell megtanulja a maradék jellemzőket, amelyeket a végső kimenet finomítására használ.
+ 
+ A Generator osztály több példánynormalizációs réteget is tartalmaz, amelyek a konvolúciós rétegek kimenetének normalizálására szolgálnak.
+ Az példány normalizálás segít javítani a modell stabilitását és konvergenciáját, és különösen hasznos a képszintézist tartalmazó generatív modellek esetében.
+ 
+ A Generator osztály tanítható az ellentétes veszteség, a rekonstrukciós veszteség és a regularizációs veszteség kombinációjával.
+Az ellentétes veszteség arra ösztönzi a generált 3D hálót, hogy megkülönböztethetetlen legyen a valós 3D hálótól, míg a rekonstrukciós veszteség a generált 3D háló és az alapigazság 3D háló közötti különbség minimalizálására szolgál. 
+ A regularizációs veszteséget a túlillesztés megakadályozására és a modell sima és valósághű 3D-hálók megtanulására ösztönzi.
+ 
+ Összességében a decoders.py moduljában található Generator osztály egy hatékony eszköz a 3D arcok hálóinak egyetlen képből történő generálásához,
+ és a modellben használt generátorhálózat hasznos implementációját biztosítja.
+
+     \subsubsection{ResNet architektúra megvalósítása}
+     Az arcrekonstrukciós hálózat az frnet.py modulban implementált ResNet architektúrát használja a bemeneti képek jellemzőinek kinyerésére. 
+A ResNet architektúra több építőblokkból áll, köztük a BasicBlock, a Bottleneck és a ResNet.
+
+A BasicBlock osztály a PyTorch nn.Module osztály alosztálya, és két konvolúciós rétegből áll, amelyet egy kötegelt normalizáló réteg és egy ReLU aktivációs függvény követ.
+ A bemenet az első konvolúciós rétegen, majd a kötegelt normalizáló és a ReLU rétegen, végül pedig a második konvolúciós rétegen halad át. 
+ A második konvolúciós réteg kimenete hozzáadódik a bemenethez a maradék kapcsolat létrehozásához.
+
+A Bottleneck osztály hasonló a BasicBlockhoz, de kettő helyett három konvolúciós réteget tartalmaz.
+ Az első konvolúciós réteg csökkenti a bemeneti csatornák számát, a második konvolúciós réteg 3x3-as konvolúciót alkalmaz, a harmadik konvolúciós réteg pedig növeli a kimeneti csatornák számát.
+A BasicBlockhoz hasonlóan a Bottleneck is tartalmaz kötegnormalizálást és ReLU aktiválási függvényt, és egy maradékkapcsolatot használ az utolsó konvolúciós réteg kimenetének a bemenethez való hozzáadásához.
+
+A ResNet osztály a PyTorch nn.Module osztály alosztálya, és egy sor egymásra helyezett BasicBlock vagy Bottleneck rétegből áll.
+A ResNet osztály több lemintavételező réteget tartalmaz, amelyek a jellemzőtérkép méretét felére csökkentik, és több felmintavételező réteget, amelyek a jellemzőtérkép méretét növelik.
+ A ResNet osztály képosztályozásra és jellemzőkinyerésre egyaránt használható.
+ 
+ Tehát a ResNet architektúrát használjuk az arcképek jellemzőinek kinyerésére. A bemeneti kép először több konvolúciós rétegen halad át az alacsony szintű jellemzők kinyerése érdekében.
+ Ezek az alacsony szintű jellemzők ezután több BasicBlock vagy Bottleneck rétegen haladnak át a magasabb szintű jellemzők rögzítése érdekében. 
+ Az utolsó ResNet réteg kimenete egy jellemzőtérkép, amelyet több felszűrő réteg bemeneteként használnak, amelyek az arcrégiós maszkok végső készletét állítják elő.
+
+Összességében a frnet.py modulban található BasicBlock, Bottleneck és ResNet osztályok a ResNet architektúra hatékony megvalósítását biztosítják, 
+amely a képfeldolgozási feladatok széles skálájához használható, beleértve az arc régióinak szegmentálását és a 3D arc rekonstrukcióját.
+
+\subsubsection{Linear Blend Skinning megvalósítása}
+
+Az lbs.py modul a Linear Blend Skinning (LBS) algoritmust valósítja meg. 
+Olyan függvényeket tartalmaz, amelyek egy 3D háló deformációjának kiszámítására szolgálnak egy csonthalmaz mozgása alapján.
+
+A modul fő függvénye a lbs. Ez a függvény bemenetként egy csúcshalmazt, egy csonthalmazt és az egyes csúcsokhoz rendelt súlyok halmazát kapja meg bemenetként. 
+A függvény a csontok mozgása alapján kiszámítja az egyes csúcsok helyzetét a deformáció után.
+
+A függvény a következő lépéseket hajtja végre:
+
+\begin{enumerate}
+    \item \textbf{Az egyes csontok transzformációs mátrixának kiszámítása}: 
+    
+    A transzformációs mátrix kiszámítása az egyes csontok pozíciója és orientációja alapján történik. 
+	Ez a mátrix jelenti azt a transzformációt, amelyet a csont mozgásának figyelembevételéhez a csúcsokra kell alkalmazni.
+
+     \item \textbf{Az egyes csúcsok transzformált pozíciójának kiszámítása}:
+     
+     Az egyes csúcspontok pozícióját megszorozzuk az egyes csontok transzformációs mátrixával, amelyek hatással vannak a csúcspontra.
+	A transzformált pozíciókat ezután az egyes csontokhoz rendelt súlyokkal súlyozzuk az adott csúcsponthoz. A csúcs végső pozíciója a súlyozott transzformált pozíciók összege.
+	
+     \item \textbf{Visszatérés a deformált csúcsokkal}: 
+     
+     A függvény a deformáció utáni csúcsok halmazát adja vissza.
+	
+\end{enumerate}
+
+    Az lbs.py modul az lbs függvényen kívül más segédfüggvényeket is tartalmaz, például a softmax-ot, amely az egyes csúcsokhoz rendelt súlyok kiszámítására szolgál a csúcs és a csontok közötti távolság alapján. 
+A modul tartalmazza a Forward Kinematics (FK) algoritmus implementációját is, amely a csontváz minden egyes csontjának transzformációs mátrixát számítja ki.
+
 
     \newpage
 	\subsection{Arc analízis}
