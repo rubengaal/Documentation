@@ -1247,17 +1247,17 @@ A textúratérképezés során a háromszögben lévő minden egyes pixel textú
  A raszterizáló testreszabható és bővíthető, hogy különböző textúra leképezési és keverési technikákat, valamint különböző renderelési lehetőségeket, például világítást és árnyékolást alkalmazzon.
 
 \subsubsection{SRenderY renderelési módszer és megvalósítása}
- Az SRenderY egy olyan renderelési módszer, amely a kamera paraméterei, a vertexek pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. \newline
 
 
+ Az SRenderY egy olyan renderelési módszer, amely a kamera paraméterei, a vertexek pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. 
+
+\newline
+\newline
  Az SRenderY módszer mükődése:
 
  \begin{enumerate}
  
- Összességében az SRenderY módszer egy meglehetősen standard raszterizáció-alapú renderelési algoritmus, amely figyelembe veszi a perspektivikus vetítést,
-textúratérképezést és a megvilágítást. A DECA keretrendszerben 3D-s archáló 2D-s képének létrehozására használják olyan feladatokhoz, mint az arckifejezés-felismerés és a 3D-s arc rekonstrukció.
-
-     \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a kimeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
+    \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a kimeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
 
     \item A 3D archáló minden egyes háromszögéhez kiszámítja a 2D-s vetületét a képsíkra a kamera paraméterei alapján. Ez a perspektivikus vetítési egyenlet segítségével történik, 
  amely a világkoordinátarendszer 3D pontjait a képsík 2D pontjaivá alakítja át.
