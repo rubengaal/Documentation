@@ -1156,7 +1156,6 @@ hálózat 23 konvolúciós rétegből áll.
         \item 5 jellegzetes arcpont, képenként 40 bináris attribútum annotációja
     \end{itemize}
 
-    
 	\subsubsection{Adatok előkészítése}
 
    A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanitási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálása majd \textit{.csv} fáljokba való kiírást jelent. Yao Feng et al. \cite{deca} megközelítését követve Bulat et. al. \cite{bulat} FAN modelljét használjuk 68 db 2D-s jellegzetes pont (landmark) detektálásához. Egy arcpontok lokalizálására szolgáló architektúra és maradék blokkok kombinálásával egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanították. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
@@ -1166,6 +1165,32 @@ hálózat 23 konvolúciós rétegből áll.
    A \textit{list\_eval\_partition.csv} megadja, hogy az adott kép melyik adathalmazhoz tartozik.
    A három adathalmaz a tanító, a tesztelési és a validációs halmazok. A FAN modellt felhasználva detektáljuk képenként a 68 db arcpontot, majd azok mentésre kerülnek a kép partíciójának megfelelő .csv fájlba. A .csv fájlok a \textit{train\_landmarks.csv}, \textit{test\_landmarks.csv} és a \textit{val\_landmarks.csv}.
 				
+    \subsubsection{FAN modell}
+    
+     face-alignment egy Python-csomag, amely egy olyan eszközkészletet biztosít, amely az arc tájékozódási pontjainak felismerésére, a fej pózának becslésére és az arc igazítására szolgál. 
+Mély tanulási modelleken alapul, és az arcképek előfeldolgozására használható olyan feladatok elvégzése előtt, mint az arcfelismerés vagy az érzelemérzékelés.
+
+    A csomag több modulból áll, amelyek mindegyike az arcelemzéssel kapcsolatos speciális feladatot lát el. Az alábbiakban röviden áttekintjük az egyes modulokat:
+
+    \begin{itemize}
+        \item \textbf{észlelés}: 
+        
+        Ez a modul az SSD (Single Shot Detector) architektúrán alapuló, előre betanított modelleket használó arcfelismerő funkciókat biztosít. Az arcdetektor betanítható az arcok felismerésére különböző beállítások mellett, például gyenge fényviszonyok, eltakart arcok vagy profilnézet esetén.
+
+        \item \textbf{igazítás}: 
+        
+        Ez a modul funkciókat biztosít az arc tájékozódási pontjainak felismeréséhez és az arcok igazításához.
+		A tájékozódási pont detektor egy mély konvolúciós neurális hálózatot (CNN) használ az arc kulcsfontosságú pontjainak, például a szemeknek, az orrnak és a szájnak a helyzetének a felismerésére. 
+		Az arcigazítási funkció ezután ezeket a tájékozódási pontok pozícióit használja fel az arckép geometriai transzformációjának elvégzéséhez, igazítva azt egy kanonikus referenciakerethez.
+
+
+        \item \textbf{póz}: 
+        
+        Ez a modul funkciókat biztosít az arc fejpózának becslésére, ami a fej kamerához viszonyított orientációját jelenti. A pózbecslő egy CNN-t használ a fej gördülési, dőlési és dőlési szögének becslésére.
+segédeszközök: Ez a modul egy sor segédfunkciót biztosít a képfeldolgozáshoz, mint például a méretváltoztatás, a képkivágás és a színnormalizálás.
+
+    \end{itemize}
+
    
     \subsubsection{U-Net tanítási adatok generálása}
     A szegmentáló hálózat súlyainak durva inicializálása érdekében a hálózatot elő kell tanítanunk. A hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
@@ -1251,8 +1276,6 @@ A textúratérképezés során a háromszögben lévő minden egyes pixel textú
 
  Az SRenderY egy olyan renderelési módszer, amely a kamera paraméterei, a vertexek pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. 
 
-\newline
-\newline
  Az SRenderY módszer mükődése:
 
  \begin{enumerate}
@@ -1283,6 +1306,61 @@ Ennek során kiszámítja a pixel baricentrikus koordinátáit a háromszög cs�
 
  Összességében az SRenderY módszer egy sztenderd raszterizáció-alapú renderelési algoritmus, amely figyelembe veszi a perspektivikus vetítést,
 textúratérképezést és a megvilágítást. A DECA keretrendszerben 3D-s archáló 2D-s képének létrehozására használják olyan feladatokhoz, mint az arckifejezés-felismerés és a 3D-s arc rekonstrukció.
+
+\subsubsection{Megvilágítás hozzáadása}
+A renderer.py add\_SHlight metódusa egy olyan módszer, amely gömbharmonikus (SH) megvilágítást ad hozzá egy 3D-s archáló 2D-s képéhez.
+
+Az add\_SHlight (\textit{Spherical Harmonics}) módszer működése:
+
+\begin{enumerate}
+    \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a bemeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
+
+    \item Kiszámítja a világítás gömbharmonikus (SH) együtthatóit az SH-projekciós módszerrel, amely a világítási függvény ortonormális SH-alapfüggvények halmazára való vetítését jelenti.
+
+    \item A bemeneti kép minden egyes pixelére kiszámolja az archáló megfelelő 3D pontjának felületi normálisát. Ez elvégezhető az arc geometriájának a 2D képkoordinátákhoz viszonyított részleges deriváltjainak segítségével.
+
+    \item Értékelje ki az SH megvilágítási függvényt a képpont felületi normálisán a 2. lépés SH együtthatóinak felhasználásával. Ehhez ki kell számítani az SH alapfüggvények és a felületi normális vektor közötti skalárszorzatot.
+
+    \item Megszorozza a bemeneti kép pixelének színértékét a 4. lépésben kiszámított SH megvilágítási értékkel.
+
+    \item A kapott színértéket a [0, 255] tartományba kell szorítani, hogy a 8 bites színértékek érvényes tartományába essen.
+
+    \item A kimeneti képpuffer kép pixelének színét a rögzített színértékre állítja.
+
+    \item Megismétli a 3-7. lépést a bemeneti kép összes pixelére.
+
+    \item Visszaadja a végső képpuffer képét kimenetként.
+
+    
+\end{enumerate}
+
+Összességében az add\_SHlight módszer egy meglehetősen szabványos módszer SH megvilágítás hozzáadására egy 3D-s arc háló 2D-s képéhez. A világítási függvény SH-együtthatóinak kiszámítását foglalja magában, 
+az SH-világítás kiértékelése minden egyes felületi normálisnál, és az egyes pixelek színértékének megszorzása az így kapott világítási értékkel. 
+Ezt a módszert a DECA keretrendszerben a 3D-s arcok SH megvilágítással ellátott hálóinak valósághű 2D-s képeinek létrehozására használják.
+
+\subsubsection{Normáltérkép kiszámítása eltolódási térképből}
+
+A displacement2normal függvény arra szolgál, hogy az elmozdulási térképből kiszámítsa a normáltérképet, amelyre a renderelésnél lesz szükségünk. 
+A számítógépes grafikában az elmozdulási térkép egy olyan textúra, amely egy objektum felületének elmozdulását kódolja.
+A textúrában lévő elmozdulási értékek jellemzően a felületre merőleges irányban vannak meghatározva, ami azt jelenti, hogy felhasználhatóak a normáltérkép kiszámításához.
+
+A displacement2normal függvény bemenetként egy elmozdulási térképet és a térképen lévő pixelek textúrakoordinátáit veszi fel. 
+Az elmozdulási térképet szürkeárnyalatos képnek tekintjük, ahol az értékek a felületre merőleges irányú elmozdulást jelölik.
+A textúrakoordináták a textúra képpontjainak 2D koordinátái.
+
+A normáltérkép kiszámításához a függvény először kiszámítja az elmozdulási térkép részleges deriváltjait a textúrakoordinátákhoz képest.
+Ezek a parciális deriváltak a felület x és y irányú meredekségét jelentik. A parciális deriváltakat ezután a felület normális vektorának kiszámítására használjuk minden egyes pixelnél.
+
+A normálvektor kiszámításához a függvény először kiszámítja a felület érintővektorát és bitangens vektorát.
+Az érintővektort az x irányú parciális derivált és az (1, 0, 0) vektor keresztszorzataként számoljuk ki. 
+A bitangens vektor az y irányú parciális derivált és a (0, 1, 0) vektor keresztszorzataként számítandó. 
+Végül a normálvektort az érintővektor és a bitangens vektor keresztszorzataként számítjuk ki.
+
+Az így kapott normáltérkép egy 3 csatornás kép, ahol minden egyes pixel egy normálvektort képvisel. 
+A normálvektor x, y és z komponenseit a vörös, zöld és kék csatornákban kódoljuk. 
+A normálvektort úgy normalizáljuk, hogy egységnyi hosszúságú legyen.
+
+Összességében a displacement2normal függvény lehetővé teszi az elmozdulás-térkép normál-térképpé alakítását, amely egy objektum felületének nagy felbontású részletekkel történő szimulálására használható.
 
 \subsubsection{Tanítás}
     \begin{figure}[h]	
