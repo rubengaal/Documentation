@@ -1246,6 +1246,44 @@ A textúratérképezés során a háromszögben lévő minden egyes pixel textú
  Összességében a sztenderd raszterizáló a 3D archáló renderelésének robusztus és hatékony megvalósítását biztosítja.
  A raszterizáló testreszabható és bővíthető, hogy különböző textúra leképezési és keverési technikákat, valamint különböző renderelési lehetőségeket, például világítást és árnyékolást alkalmazzon.
 
+\subsubsection{SRenderY renderelési módszer és megvalósítása}
+ Az SRenderY egy olyan renderelési módszer, amely a kamera paraméterei, a vertexek pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. \newline
+
+
+ Az SRenderY módszer mükődése:
+
+ \begin{enumerate}
+ 
+ Összességében az SRenderY módszer egy meglehetősen standard raszterizáció-alapú renderelési algoritmus, amely figyelembe veszi a perspektivikus vetítést,
+textúratérképezést és a megvilágítást. A DECA keretrendszerben 3D-s archáló 2D-s képének létrehozására használják olyan feladatokhoz, mint az arckifejezés-felismerés és a 3D-s arc rekonstrukció.
+
+     \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a kimeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
+
+    \item A 3D archáló minden egyes háromszögéhez kiszámítja a 2D-s vetületét a képsíkra a kamera paraméterei alapján. Ez a perspektivikus vetítési egyenlet segítségével történik, 
+ amely a világkoordinátarendszer 3D pontjait a képsík 2D pontjaivá alakítja át.
+
+    \item A kivetített háromszög határoló dobozán belüli minden egyes pixel esetében ellenőrzésre kerül a baricentrikus koordináta módszerrel, hogy a pixel a háromszögben van-e. 
+Ennek során kiszámítja a pixel baricentrikus koordinátáit a háromszög csúcsaihoz képest, és ellenőrizzük, hogy ezek mindegyike pozitív-e.
+ 
+    \item Ha a képpont a háromszög belsejében van, akkor az inverz perspektivikus vetítési egyenlet segítségével kiszámítja a megfelelő 3D pozícióját az arc hálóján.
+
+    \item A pixel textúrakoordinátáinak interpolálása a háromszög csúcsainak textúrakoordinátáiból a baricentrikus koordináták segítségével.
+
+    \item A interpolált textúrakoordináták felhasználása a megfelelő helyen lévő textúratérkép színértékének mintavételezéséhez.
+
+    \item A színérték megszorzása a megvilágítási értékkel, amelyet a pixel felszíni normálisa és a fény iránya közötti skalárszorzataként számítunk ki.
+
+    \item A színérték felhalmozása a képponthoz a képpufferben.
+
+    \item A 2-8. lépés megismétlése a 3D archáló összes háromszögére.
+
+    \item Visszaadja a végső képpuffer képét kimenetként.
+    
+ \end{enumerate}
+
+ Összességében az SRenderY módszer egy sztenderd raszterizáció-alapú renderelési algoritmus, amely figyelembe veszi a perspektivikus vetítést,
+textúratérképezést és a megvilágítást. A DECA keretrendszerben 3D-s archáló 2D-s képének létrehozására használják olyan feladatokhoz, mint az arckifejezés-felismerés és a 3D-s arc rekonstrukció.
+
 \subsubsection{Tanítás}
     \begin{figure}[h]	
 		\centering
