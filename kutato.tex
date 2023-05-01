@@ -175,7 +175,7 @@ Ebben a tanulmányban az a célunk, hogy egy olyan animálható 3D arcrekonstruk
  	felépítésével), hogy az $I$ 2D-s képből egy 128 dimenziós látens kódot $\delta$
  	készítsen, amely az alanyspecifikus részleteket reprezentálja. A látens kódot $\delta$
  	ezután a $FLAME$ $\psi$ kifejezés és állkapocs póz $\theta_{jaw}$ paramétereivel kapcsolják
- 	össze, majd $F_{d}$ az imént említett paraméterekből előállítja $D$-t. $F_{d}$ a látens kódot $\delta$ felhasználva szabályozza a statikus személyspecifikus részleteket. Kihasználja a durva rekonstrukcióból kapott kifejezés $\psi$, és az állkapocs $\theta_{jaw}$ paramétereket a dinamikus, kifejezésektől függő ráncok részleteinek rögzítése érdekében. A rendereléshez $D$-t normáltérképpé alakítják.
+ 	össze, majd $F_{d}$ az imént említett paraméterekből előállítja $D$-t. $F_{d}$ a látens kódot $\delta$ felhasználva szabályozza a statikus személyspecifikus részleteket. Kihasználja a durva rekonstrukcióból kapott arckifejezés $\psi$, és az állkapocs $\theta_{jaw}$ paramétereket a dinamikus, kifejezésektől függő ráncok részleteinek rögzítése érdekében. A rendereléshez $D$-t normáltérképpé alakítják.
  	 
  \subsubsection{Részletkonzisztencia veszteség}
 	 
@@ -506,17 +506,20 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
  
 	\section{Neurális hálózatok}
 	\subsection{Neurális hálózat}
+    Ebben a fejezetben Abraham és tsai. munkája alapján bemutatjuk a neurális hálózatok működését.
+    
 	\label{NN}
-	Az emberi agy bizonyítja a hatalmas neurális hálózatok \cite{ann} létezését, amelyek sikeresen végeznek el kognitív, észlelési és irányítási feladatokat. Ilyen számításigényes feladat például az arcfelismerés, a beszéd és a testmozgás. Az agy hatékonyan kihasználja a masszív párhuzamosságot, számítási struktúrája nagymértékben párhuzamos, és jó információfeldolgozási képességgel rendelkezik.
+	Az emberi agy bizonyítja a hatalmas neurális hálózatok létezését, amelyek sikeresen végeznek el kognitív, észlelési és irányítási feladatokat. Ilyen számításigényes feladat például az arcfelismerés, a beszéd és a testmozgás. Az agy hatékonyan kihasználja a masszív párhuzamosságot, számítási struktúrája nagymértékben párhuzamos és jó információfeldolgozási képességgel rendelkezik.
 	
-	Az emberi agy több, mint 10 milliárd egymással összefüggő neuron gyűjteménye. Mindegyik neuron egy sejt [1. ábra], amely biokémiai reakciókat használ az információ fogadáshoz, feldolgozáshoz és továbbításhoz.
+	Az emberi agy több, mint 10 milliárd egymással összefüggő neuron gyűjteménye. Mindegyik neuron egy sejt \ref{fig:neuron1}, amely biokémiai reakciókat használ az információ fogadáshoz, feldolgozáshoz és továbbításhoz.
 	
 	Az idegrostok faszerű hálózatai, az úgynevezett dendritek kapcsolódnak a sejttesthez, ahol a sejtmag található. A sejttestből egyetlen hosszú rost nyúlik, melyet \textit{axon}nak neveznek. Az \textit{axon} szálakra és alszálakra ágazik, majd szinapszisain keresztül kapcsolódik más neuronokhoz. Az itt létrejövő szinaptikus kapcsolat erőssége határozza meg az emberi agy tanulását\cite{ann} .
 	
-	A jelek átvitele egyik neuronról a másikra a szinapszisoknál egy összetett kémiai folyamat, amelyben specifikus közvetítő anyagok szabadulnak fel a kapcsolódási pont küldői oldalán. A folyamat hatására a fogadó sejtben emelkedik vagy csökken az elektromos feszültség\cite{ann}.
+	A jelek átvitele egyik neuronról a másikra a szinapszisoknál egy összetett kémiai folyamat, amelyben specifikus közvetítő anyagok szabadulnak fel a kapcsolódási pont küldői oldalán. A folyamat hatására a fogadó sejtben emelkedik vagy csökken az elektromos feszültség.
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{neuron1}
+        \label{fig:neuron1}
 		\caption{Neuron felépítése. 
 			Forrás:\cite{ann}}
 	\end{figure}
@@ -524,19 +527,19 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	\subsection{Mesterséges neurális hálózatok}
 	A mesterséges neurális hálózatok (ANN-artificial neural networks) az előző fejezetben [\autoref{NN}] említett fejlettebb élő szervezetek agyát alkotó neuronokról kapták nevüket. 
 	
-	Mint azt \textit{Abraham} \cite{ann} is említi, a neurális hálózatok alapvető feldolgozási elemeit mesterséges neuronoknak nevezzük, vagy csak egyszerűen neuronoknak vagy csomópontoknak (\textit{node}). A neuron leegyszerűsített matematikai modelljében a szinapszisok hatásai kapcsolati súlyokkal vannak reprezentálva, amelyek szabályozzák a bemeneti jelek hatását.
+	Mint azt \textit{Abraham} és tsai. \cite{ann} is említik, a neurális hálózatok alapvető feldolgozási elemeit mesterséges neuronoknak nevezzük, vagy csak egyszerűen neuronoknak vagy csomópontoknak. A neuron leegyszerűsített matematikai modelljében a szinapszisok hatásai kapcsolati súlyokkal vannak reprezentálva, amelyek szabályozzák a bemeneti jelek hatását.
 	
-	 A neuronok által mutatott non-lineáris karakterisztikát átviteli függvény segítségével ábrázoljuk. A neuron impulzusát ezután a bemeneti jelek súlyozott összegeként számíthatjuk ki az átviteli függvénnyel transzformálva.
+	 A neuronok által mutatott nonlineáris karakterisztikát átviteli függvény segítségével ábrázoljuk. A neuron impulzusát ezután a bemeneti jelek súlyozott összegeként számíthatjuk ki az átviteli függvénnyel transzformálva.
 	 
 	  Egy mesterséges neuron tanulási képessége a súlyok megfelelő beállításával érhető el egy választott tanító algoritmus felhasználásával.
 	\newline
 	\newpage
-	Egy tipikus mesterséges neuron és egy többrétegű neurális hálózat modellezése a 2. ábrán látható. A 2. ábra szerint, ahogy a nyilak is mutatják, az $x_{1},...,x_{n}$ bemenetekről érkező jeláramlás egyirányúnak tekinthető, csakúgy mint a neuron kimeneti jelfolyama. A neuron kimeneti jelét \textit{O} a következő összefüggés adja:
+	Egy tipikus mesterséges neuron és egy többrétegű neurális hálózat modellezése a \ref{fig:fig2}. ábrán látható. A \ref{fig:fig2}. ábrán szerint, ahogy a nyilak is mutatják, az $x_{1},...,x_{n}$ bemenetekről érkező jeláramlás egyirányúnak tekinthető csakúgy, mint a neuron kimeneti jelfolyama. A neuron kimeneti jelét \textit{O} a következő összefüggés adja:
 	\begin{mdframed}
 	\begin{align}
-		&O = f(net) = f(\sum{j=1}^{n}w{j}x{j}) 
-		\intertext{ahol $w{j}$ a súly vektor és $f(net)$ az \textit{aktivációs} (átviteli) függvény. A \textit{net} változó a súly és a bementi vektorok skaláris szorzataként definiálható,}
-		&net = w^{T}x = w{1}x{1} + ... + w{n}x{n}
+		&O = f(net) = f(\sum{j=1}^{n}w_{j}x_{j}) 
+		\intertext{ahol $w_{j}$ a súly vektor és $f(net)$ az \textit{aktivációs} (átviteli) függvény. A \textit{net} változó a súly és a bementi vektorok skaláris szorzataként definiálható,}
+		&net = w^{T}x = w_{1}x_{1} + ... + w_{n}x_{n}
 		\intertext{ahol T egy mátrix transzponálását jelöli, és a legegyszerűbb esetben a kimeneti érték \textit{O} kiszámítható, mint}
 		&O = f(net) = 
 		\begin{cases}
@@ -586,7 +589,7 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	Bár a mesterséges neuron működési elvei és 
 	egyszerű szabályrendszere elsőre talán nem tűnik érdekesnek, azonban e modellek teljes potenciálja és számítási teljesítménye akkor kel életre, 
 	amikor mesterséges neurális hálózatokká
-	kezdjük őket összekapcsolni [2. ábra]. 
+	kezdjük őket összekapcsolni \ref{fig:fig2}. ábrán. 
 	Ezek a mesterséges neurális hálózatok 
 	kihasználják az egyszerű tényt, 
 	hogy a komplexitás néhány alapvető
@@ -598,20 +601,21 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	alapvető építőelemeikben (\textit{mesterséges neuronok}) feldolgozzák az információt nemlineáris,
 	elosztott, párhuzamos és lokális módon.
 	
-	Ahogy Krenker \textit{et al.} 
-	\cite{krenker} is leírta, az egyes mesterséges 
+	Krenker és tsai. 
+	\cite{krenker} munkája alapján az egyes mesterséges 
 	neuronok összekapcsolásának módját 
 	\textit{topológiának}, \textit{architektúrának} 
 	vagy \textit{gráfnak} nevezzük. A tény, 
 	hogy az összekapcsolás
 	számos lehetséges módon történhet több alkalmazható topológiát eredményez, amelyek két fő csoportra bonthatók. 
 	
-	A 4. ábra ezt a két topológiát mutatja. Az ábra bal oldala egy egyszerű feedforward topológiát ábrázol, ahol az információ a bemenetekről kimenetekre áramlik egyirányúan. Az ábra jobb oldalán pedig egy egyszerű rekurzív (\textit{recurrent}) topológiát ábrázol, ahol az információ egy része nem csak egy irányban áramlik a bemenetről a kimenetre, hanem ellenkező irányban is.
+	A \ref{fig:topologies}. ábra ezt a két topológiát mutatja. Az ábra bal oldala egy egyszerű feedforward topológiát ábrázol, ahol az információ a bemenetekről kimenetekre áramlik egyirányúan. Az ábra jobb oldala pedig egy egyszerű rekurzív (\textit{recurrent}) topológiát ábrázol, ahol az információ egy része nem csak egy irányban áramlik a bemenetről a kimenetre, hanem ellenkező irányban is.
 
-	Fontos megemlíteni, hogy a mesterséges neurális hálózat könnyebb kezelése és matematikai leírása érdekében az egyes neuronokat rétegekbe soroljuk. A 4. ábrán láthatjuk a bemeneti, a rejtett és a kimeneti réteget.
+	Fontos megemlíteni, hogy a mesterséges neurális hálózat könnyebb kezelése és matematikai leírása érdekében az egyes neuronokat rétegekbe soroljuk. A \ref{fig:topologies}. ábrán láthatjuk a bemeneti, a rejtett és a kimeneti réteget.
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{topologies}
+        \label{fig:topologies}
 		\caption{Feed-forward (FNN) és recurrent (RNN) \newline\centering  neurális hálózati topológiák. 
 			Forrás:\cite{krenker}}
 	\end{figure}
@@ -630,9 +634,9 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	A következő lépés tehát, hogy \textit{betanítsuk} a mesterséges neurális hálózatot a helyes válaszokra.
 	Erre négy lehetőségünk van:
 	\begin{itemize}
-		\item a \textit{supervised} (felügyelt)
-		\item a(z) \textit{un-supervised} (felügyelet nélküli)
-		\item a \textit{reinforcement} (megerősítéses) 
+		\item a felügyelt
+		\item a felügyelet nélküli
+		\item a megerősítéses
 		\item és a hibrid
 	\end{itemize}
 	tanulás.
@@ -641,7 +645,8 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	költségfüggvényt.
 	
 	\subsection{Neurális hálók tanítása}
-	
+    Ebben a fejezetben \cite{krenker} és tsai. munkája alapján mutatjuk be a nerális hálózatok tanítási módszereit.
+ 
 	A tanulási folyamat \cite{ann2} az ANN kontextusában a
 	hálózat architektúrája és a kapcsolati súlyok frissítéseként értelmezhető annak érdekében, hogy a háló hatékonyan tudjon elvégezni egy adott feladatot.
 	A hálózatnak a rendelkezésre álló tanító mintákból kell megtanulnia a kapcsolati súlyokat. A teljesítmény idővel javul a súlyok iteratív frissítésével.
@@ -650,38 +655,38 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	
 	\subsubsection{Felügyelt tanulás (\textit{supervised learning})}
 	
-	A felügyelt tanulás \cite{krenker} egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy mesterséges neurális hálózat paramétereit tanítási
+	A felügyelt tanulás egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy mesterséges neurális hálózat paramétereit tanítási
 	adatokból állítja be. A tanuló ANN feladata, hogy beállítsa paramétereinek értékét bármely érvényes bemeneti értékre, miután látta a kimeneti értéket.
 	A képzési adatok a bementi és a kívánt kimeneti értékek párjaiból állnak, amelyeket adatvektorokban ábrázolnak.
 	
 	
-	A felügyelt tanulást \textit{klasszifikációnak} (\textit{classification}) is nevezhetjük, ahol \textit{osztályozók} (\textit{classifiers}) széles skálája áll rendelkezésünkre, amelyek mindegyikének megvannak az erősségei és gyengeségei.
-	A megfelelő osztályozó (többrétegű perceptron, k-nearest neighbour algoritmus, Gauss-keverék modell, stb.. ) egy adott problémára való kiválasztása azonban inkább művészet, mint tudomány. A felügyelt tanulás egy
-	adott problémájának megoldásához különböző lépéseket kell figyelembe venni \cite{krenker}.
+	A felügyelt tanulást \textit{klasszifikációnak} is nevezhetjük, ahol \textit{osztályozók} széles skálája áll rendelkezésünkre, amelyek mindegyikének megvannak az erősségei és gyengeségei.
+	A felügyelt tanulás egy
+	adott problémájának megoldásához különböző lépéseket kell figyelembe venni.
 	
 	 Az első lépésben meg kell határoznunk a tanítási minták típusát. A második
-	lépésben olyan képzési adathalmazt kell gyűjtenünk, amely kielégítően leírja az adott problémát.
-	A harmadik lépésben az összegyűjtött képzési adathalmazt
+	lépésben olyan tanítási adathalmazt kell gyűjtenünk, amely kielégítően leírja az adott problémát.
+	A harmadik lépésben az összegyűjtött tanítási adathalmazt
 	olyan formában kell leírnunk, amely érthető a kiválasztott ANN számára. A negyedik lépésben elvégezzük
-	a tanulást, és a tanulás után tesztelhetjük a tanult ANN teljesítményét a teszt (validációs) adathalmazzal.
+	a tanítást. Ezután tesztelhetjük a tanult ANN teljesítményét a teszt (validációs) adathalmazzal.
 	A validációs adathalmaz olyan adatokból áll, amelyeket a tanulás során nem vezettünk be a mesterséges neurális hálózatba.
 	
 	\subsubsection{Felügyelet nélküli tanulás (\textit{unsupervised learning})}
 	
-	A felügyelet nélküli tanulás \cite{krenker} egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy ANN paramétereit megadott adatok és egy minimalizálandó 
+	A felügyelet nélküli tanulás egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy ANN paramétereit megadott adatok és egy minimalizálandó 
 	költségfüggvény alapján állítja be. A költségfüggvény bármilyen függvény lehet, amit a feladat határoz meg.
 	
 	
 	Felügyelet nélküli tanulást leginkább olyan alkalmazásokban használnak, amelyek a becslési problémák körébe tartoznak, mint például a statisztikai modellezés, filterezés és a klaszterezés. A felügyelet 
-	nélküli tanulás során arra törekszünk, hogy meghatározzuk, hogyan szerveződnek az adatok. Ez a felügyelt és a megerősítéses tanulástól abban különbözik, hogy az ANN csak \textit{címkézetlen} (\textit{unlabeled}) mintákat kap. A felügyelet nélküli tanulás egyik gyakori formája a klaszterezés, ahol az adatokat hasonlóságuk alapján próbáljuk különböző klaszterekbe sorolni.
+	nélküli tanulás során arra törekszünk, hogy meghatározzuk, hogyan szerveződnek az adatok. Ez a felügyelt és a megerősítéses tanulástól abban különbözik, hogy az ANN csak \textit{címkézetlen} mintákat kap. A felügyelet nélküli tanulás egyik gyakori formája a klaszterezés, ahol az adatokat hasonlóságuk alapján próbáljuk különböző klaszterekbe sorolni.
 	
 	\subsubsection{Megerősítéses tanulás (\textit{reinforcement learning})}
 	
-	A megerősítéses tanulás \cite{krenker} egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy olyan
+	A megerősítéses tanulás egy olyan gépi tanulási (\textit{machine learning}) technika, amely egy olyan
 	mesterséges neurális hálózat paramétereit állítja be, ahol általában az adatok nincsenek előre megadva, hanem a környezettel való kölcsönhatásokból generálódnak. A megerősítéses tanulás azzal foglalkozik, hogy egy mesterséges neurális hálózatnak hogyan kellene viselkednie egy adott környezetben annak érdekében, hogy maximalizálja a hosszú távú 
 	eredményeket.
 	
-	Miután a maximalizálandó visszatérési függvényt meghatároztuk, a megerősítéses tanulás számos algoritmust használ a maximális visszatérést eredményező szabályok (\textit{policy}) meghatározására. Az első lépésben egy naiv \textit{brute force} algoritmus kiszámítja a \textit{visszatérési függvény}t (\textit{return function}) minden lehetséges szabályhoz, és kiválasztja azt, amelyik a legnagyobb visszatéréssel rendelkezik. Ennek az algoritmusnak nyilvánvaló gyengesége a rendkívül magas vagy akár végtelen számú lehetséges szabály esetében rejlik. Ez a gyengeség kiküszöbölhető érték függvényes megközelítésekkel vagy közvetlen szabály becslésekkel. Az értékfüggvényes megközelítések megpróbálnak
+	Miután a maximalizálandó visszatérési függvényt meghatároztuk, a megerősítéses tanulás számos algoritmust használ a maximális visszatérést eredményező szabályok meghatározására. Az első lépésben egy naiv \textit{brute force} algoritmus kiszámítja a \textit{visszatérési függvény}t minden lehetséges szabályhoz és kiválasztja azt, amelyik a legnagyobb visszatéréssel rendelkezik. Ennek az algoritmusnak nyilvánvaló gyengesége a rendkívül magas vagy akár végtelen számú lehetséges szabály esetében rejlik. Ez a gyengeség kiküszöbölhető érték függvényes megközelítésekkel vagy közvetlen szabály becslésekkel. Az értékfüggvényes megközelítések megpróbálnak
 	egy olyan szabályrendszert találni, amely maximalizálja a visszatérést.
 	
 	Ezek a módszerek konvergálnak a helyes becslésekhez egy rögzített szabály esetén, és az optimális szabály megtalálására is használhatóak. Az értékfüggvényes megközelítéshez hasonlóan a közvetlen szabály becslés is képes megtalálni az optimális szabályt.
@@ -696,29 +701,29 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{CNN}
+        \label{fig:cnn}
 		\caption{CNN(Convolutinal Neural Network)}
 	\end{figure}
-	
-	A konvolúciós neurális hálózat (CNN) \cite{CNN} egy
-	mély tanulási (\textit{deep learning}) megközelítés, amelyet széles körben használnak komplex problémák megoldására és felülmúlja a hagyományos gépi
+	Indolia és tsai. \cite{CNN} értelmezésében a konvolúciós neurális hálózat (CNN) egy
+	mélytanulási megközelítés, amelyet széles körben használnak komplex problémák megoldására és felülmúlja a hagyományos gépi
 	tanulási megközelítéseket.
 	
-	A konvolúciós neurális hálózat (CNN), gyakran ConvNet-nek is nevezik, mély feed-forward architektúrával rendelkezik, és jobban képes általánosítani, mint a teljesen összekapcsolt rétegekkel rendelkező hálózatok.
+	A konvolúciós neurális hálózat mély feed-forward architektúrával rendelkezik, és jobban képes általánosítani, mint a teljesen összekapcsolt rétegekkel rendelkező hálózatok.
 	
 	A CNN, mint a hierarchikus jellemző detektorok biológiailag inspirált koncepciója, képes nagymértékben megtanulni
-	absztrakt jellemzőket, és hatékonyan képes azonosítani az objektumokat.
+	absztrakt jellemzőket és hatékonyan képes azonosítani az objektumokat.
 	
-	A CNN-t az alábbiak miatt tartják jobbnak más klasszikus modellekhez viszonyítva:
+	A CNN-t az alábbi előnyökkel rendelkezik más klasszikus modellekkel szemben:
 	
-	Először is, a CNN-ek alkalmazásának legfőbb előnye a súlymegosztás koncepciójában rejlik
-	, amelynek köszönhetően a betanítandó paraméterek száma jelentősen csökken, ami  jobb általánosításhoz vezet. 
+	  A CNN-ek alkalmazásának legfőbb előnye a súlymegosztás koncepciójában rejlik
+	, amelynek köszönhetően a betanítandó paraméterek száma jelentősen csökken, ami jobb általánosításhoz vezet. 
 	A kevesebb paraméter miatt a CNN egyszerűen betanítható, és nem szenved túlillesztéstől(overfitting).
 	
 	
-	Másodszor, az osztályozási szakasz beépül a jellemző kinyerési szakaszba, mindkettő használ tanulási folyamatot.
+	Másodszor, az osztályozási szakasz beépül a jellemző kinyerési szakaszba. Mindkét szakasz használ tanulási folyamatot.
 	
 	
-	Harmadszor, a mesterséges neurális hálózat (ANN) általános modelljeinek felhasználásával nagy hálózatokat sokkal nehezebb megvalósítani,
+	Harmadszor, a mesterséges neurális hálózat általános modelljeinek felhasználásával nagy hálózatokat sokkal nehezebb megvalósítani,
 	mint CNN-ben.
 	
 	
@@ -727,16 +732,18 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 	felismerés, járműfelismerés stb.
 	
 	\subsection{A konvolúciós neurális hálózat általános modellje}
-	
+    Ebben a fejezetben Indolia és tsai. \cite{CNN} munkéja alapján bemutatjuk a CNN-ek általános modelljét.
+ 
 	\subsubsection{Általános modell}
-	Az ANN általános modellje \cite{CNN} egyetlen bemeneti és kimeneti réteggel,
+	Az ANN általános modellje egyetlen bemeneti és kimeneti réteggel,
 	valamint több rejtett réteggel rendelkezik.
 	
 	Egy bizonyos 
 	neuron fogadja az X bemeneti vektort, és Y kimenetet állít elő azáltal,
-	hogy valamilyen F függvényt hajt végre rajta az alábbi általános egyenlet alapján (5).
+	hogy valamilyen F függvényt hajt végre rajta az alábbi általános egyenlet alapján (\ref{eq1}).
 	\begin{mdframed}
 	\begin{equation}
+    \label{eq1}
 			F(X, W) = Y
 	\end{equation}
 	,ahol W a súlyvektor, amely a két neuron közötti összeköttetés erősségét jelöli két szomszédos réteg között.
@@ -758,18 +765,19 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 		\item aktivációs függvény
 		\item teljesen összekapcsolt réteg
 	\end{itemize}
-	Az egyes komponensek működését az alábbi ábra szemlélteti.
+	Az egyes komponensek működését az alábbi [\ref{fig:cnnelem}.] ábra szemlélteti.
 	
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{element}
+        \label{fig:cnnelem}
 		\caption{\cite{CNN} A CNN elemi összetevői}
 	\end{figure}
 
 	
 	\subsubsection{Konvolúciós réteg}
 	
-	\cite{CNN}Az osztályozandó képet a bemeneti rétegnek adjuk meg, a kimenet pedig az előre megjósolt osztálycímke, amelyet a képből kinyert jellemzők alapján számítunk ki.
+	Az osztályozandó képet a bemeneti rétegnek adjuk meg, a kimenet pedig az előre megjósolt osztálycímke, amelyet a képből kinyert jellemzők alapján számítunk ki.
 	
 	
 	A következő rétegben lévő egyes neuronok az azt követő rétegben lévő neuronokhoz kapcsolódnak. Ezt a helyi korrelációt receptív mezőnek nevezzük.
@@ -783,7 +791,7 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 		\caption{\cite{CNN} Az adott neuron receptív mezeje a következő rétegben}
 	\end{figure}
 		\newpage
-	A súlyvektor, más néven szűrő vagy kernel, a bemeneti vektoron csúszik át a \textit{featuremap} létrehozásához.
+	A súlyvektor, más néven szűrő vagy kernel a bemeneti vektoron csúszik át a \textit{featuremap} létrehozásához.
 	A szűrő vízszintes és függőleges irányú csúsztatásának módszerét nevezzük konvolúciós műveletnek. A helyi receptív mező jelensége miatt a betanítható paraméterek száma jelentősen csökken.
 	
 	A következő rétegben az (i,j) helyhez tartozó $A_{ij}$ kimenet konvolúciós
@@ -957,42 +965,42 @@ hálózat 23 konvolúciós rétegből áll.
 	
 	\newpage
 	\subsection{Deep Face modellek}
-	
+    Ebben az alfejezetben a deep face modellezési módszereket mutatjuk be \cite{3dmm} Egger és tsai. munkája alapján. \\
+ 
 	A hagyományos modellezési technikák célja, hogy
 	az arc alakját, arckifejezését és megjelenését $w$ vektorként reprezentálják egy
-	alacsony dimenziós latens térben $\mathbb{R}^d$ \cite{3dmm}. A vetítés (illetve rekonstrukció) ebből a latens térből lineáris vagy multi lineáris műveletekkel definiálható, és úgy is felfogható, mint a nagy-dimenziós információ kódolása (ill.
+	alacsony dimenziós látens térben $\mathbb{R}^d$ . A vetítés (illetve rekonstrukció) ebből a latens térből lineáris vagy multi lineáris műveletekkel definiálható, és úgy is felfogható, mint a nagy-dimenziós információ kódolása (ill.
 	dekódolása) a $\mathbb{R}^d$ térben.
 	
 	
-	A mély tanulás új eszközt nyújt a 3DMM-ek építéséhez, amely nemlinearitást használ mind a
-	a kódolóban és a dekódolóban. Az ilyen \textit{morphable} modellek létrehozása egy jelenleg nagyon aktív kutatási terület.
-	Az alak és textúra modellezésre gyakran használt lineáris modellt felhasználva láthatjuk a \textit{deep learning} és a hagyományos módszerekkel tanult kódoló és dekódoló közötti kapcsolatot.
+	A mélytanulás új eszközt nyújt a 3DMM-ek építéséhez, amely nemlinearitást használ mind a kódolóban és a dekódolóban. Az ilyen \textit{morphable} modellek létrehozása egy jelenleg nagyon aktív kutatási terület.
+	Az alak és textúra modellezésre gyakran használt lineáris modellt felhasználva láthatjuk a mélytanulással és a hagyományos módszerekkel tanult kódoló és dekódoló közötti kapcsolatot.
 	
 	
 	A mély tanulás kontextusában egy ilyen lineáris modell
 	az alábbi egyenletben formalizálva pontosan megfelel egy teljesen összekapcsolt rétegnek egy
-	neurális hálózatban \cite{3dmm}.
+	neurális hálózatban.
 	
 	\begin{mdframed}
 	\begin{equation}
 		c(w) = \bar{c} + Ew 
 	\end{equation}
-		  ahol, $\bar{c}$ a képzési adatokra számított átlag, $E \in \mathbb{R}^{3n*d}$ egy olyan mátrix, amely tartalmazza a $d$ legdominánsabb sajátvektorjait \\
+		  ahol, $\bar{c}$ a tanítási adatokra számított átlag, $E \in \mathbb{R}^{3n*d}$ egy olyan mátrix, amely tartalmazza a $d$ legdominánsabb sajátvektorjait \\
 		  a formakülönbségekre $c_i - \bar{c_i}$ számított kovarianciamátrixban és
 		$w$ az alacsony dimenziós alakparaméter-vektor.
 	\end{mdframed}
 	
-	\cite{3dmm}Lényegében, a $w$ paramétervektora bemeneti jellemzők szerepét játssza, az $e_j$ főkomponensek pedig a súlyokét és az átlag $\bar{c}$ a torzítás.
+	Lényegében, a $w$ paramétervektora bemeneti jellemzők szerepét játssza, az $e_j$ főkomponensek pedig a súlyokét és az átlag $\bar{c}$ a torzítás.
 	Ez úgy is felfogható, mint a dekódolás a latens paramétertérből a $c$ adattérbe. Vetítés a modellre
 	hasonlóképpen tekinthető egy teljesen összekapcsolt réteggel történő kódolásnak,
 	ahol a bemeneti jellemzők az adatok, a súlyok pedig a transzponált főkomponens mátrix sorai, az eltérések pedig adottak $-e^{T}_{j}\bar{c}$ által.
 	
 	
-	 Az analógia lezárásaként a PCA (Principal Component Analysis) a kódoló és a dekódoló egyetlen rejtett réteggel rendelkező lineáris autokódolóvá (\textit{autoencoder}) történő kombinálásával, végezhető el.
+	 Az analógia lezárásaként a PCA (Principal Component Analysis) a kódoló és a dekódoló egyetlen rejtett réteggel rendelkező lineáris autokódolóvá történő kombinálásával végezhető el.
 	Egy ilyen autokódoló $d$ neuronokkal a
 	rejtett rétegben egy olyan látens teret fog megtanulni, amelynek kiterjedése megegyezik a $d$
-	dimenziós PCA-val, bár az ortogonalitás garanciája nélkül
-	(ez megfelelő veszteségfüggvényekkel biztosítható).
+	dimenziós PCA-val, bár az ortogonalitás garanciája nélkül.
+	Ez megfelelő veszteségfüggvényekkel biztosítható.
 	
 	\subsection{Deep Face rekonstrukció}
 	
@@ -1001,29 +1009,29 @@ hálózat 23 konvolúciós rétegből áll.
 	stratégiákat. 
 	
 	
-	Nézzük meg először közelebbről a rekonstrukciós problémát. Blanz és Vetter \cite{blanzvetter} egy optimalizációs megközelítésen alapuló parametrikus modell illesztésével, azaz a gradiens süllyedéssel, kezeli a monokuláris arc rekonstrukcióját. 
+	Nézzük meg először közelebbről a rekonstrukciós problémát. Blanz és Vetter \cite{blanzvetter} egy optimalizációs megközelítésen alapuló parametrikus modell illesztésével, azaz a gradiens süllyedéssel kezeli a monokuláris arc rekonstrukcióját. 
 	
 	
 	 A mélytanulási megközelítések hasonló optimalizálási stratégiát követnek, de az optimalizálási probléma 
-	"tesztelés" idején történő megoldása helyett, például egy paraméterregresszort képeznek ki egy nagyméretű képadathalmaz alapján \cite{3dmm}. A regresszor úgy értelmezhető, mint egy kódoló hálózat, amely egy 2D-s képet
-	bemenetként fogad, és az alacsony dimenziós arcreprezentációt adja ki. 
+	tesztelés idején történő megoldása helyett, például egy paraméterregresszort tanítanak be egy nagyméretű képadathalmaz alapján. A regresszor úgy értelmezhető, mint egy kódoló hálózat, amely egy 2D-s képet
+	bemenetként fogad és az alacsony dimenziós arcreprezentációt adja ki. 
 	
 	
 	A
 	kódolók kombinálhatók klasszikus arcmodelleken alapuló dekódolókkal,
 	hogy végponttól-végpontig tartó kódoló-dekódoló architektúrákat hozzanak létre.
-	Ez a módszertan széles körben elterjedt, és lehetővé teszi a klasszikus
+	Ez a módszertan széles körben elterjedt és lehetővé teszi a klasszikus
 	modellalapú és mélytanulási megközelítések ötvözését.
 	
 	\subsubsection{Felügyelt rekonstrukció}
 	Felügyelt regressziós megközelítések
 	párosított tanítási adatok segítségével, azaz egy monokuláris  képgyűjtemény
-	és a megfelelő 3DMM paraméterei segítségével tanulnak \cite{3dmm}.
+	és a megfelelő 3DMM paraméterei segítségével tanulnak.
 	
 	
 	Az egyik alapvető kérdés itt az, hogy hogyan lehet hatékonyan megszerezni az adatot egy ilyen felügyelt tanulási feladathoz. A következőkben
 	kategorizáljuk a megközelítéseket a
-	képzési adatok alapján. \\
+	tanítási adatok alapján. \\
 	
 	
 	Az egyik lehetőség az lenne, hogy a felhasználók határozzák meg az adatot. Míg ez egy népszerű stratégia, amelyet gyakran alkalmaznak rekonstrukciós problémáknál \cite{saragih}, 
@@ -1035,18 +1043,18 @@ hálózat 23 konvolúciós rétegből áll.
 	
 	Így megkapható az adat egy több nézetből történő rekonstrukciós megközelítéssel, amelyet egy 3DMM illesztése követ. Ezáltal  megkapjuk a 3D adatot. Általában az alapadatok nagyon jó minőségűek,
 	de a monokulárisan rögzített képek eloszlása nem
-	egyezik meg az \textit{in-the-wild} adatokkal, ami általánosítási problémákhoz vezethet
+	egyezik meg a kontrollálatlan adatokkal, ami általánosítási problémákhoz vezethet
 	a tesztelés idejében.\\
 	
 	
 	Anh Tuan Tran megközelítése monokuláris rekonstrukciót végez ugyanarról a személyről készült több képre, és kiszámít egy konszolidált arcazonosságot a 3DMM paraméterek egyszerű átlagolása alapján. \\
 	
 	
-	Jelenleg a kutatóközösségben számos megközelítés szintetikus képzési adatokat használ tanításhoz, mivel könnyen beszerezhető és tökéletes annotációkkal rendelkeznek. 
+	Jelenleg a kutatóközösségben számos megközelítés szintetikus tanítási adatokat használ tanításhoz, mivel könnyen beszerezhető és tökéletes annotációkkal rendelkeznek. 
 	
 	
 	Adott egy 3DMM arc, véletlenszerű identifikációk és kifejezések mintavételezhetők a paramétertérben. 
-	Majd,
+	Majd
 	a modelleket véletlenszerű megvilágítási körülmények között és különböző nézőpontokból lehet renderelni a monokuláris képek létrehozásához. 
 	
 	
