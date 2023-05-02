@@ -248,7 +248,7 @@ Ebben a tanulmányban az a célunk, hogy egy olyan animálható 3D arcrekonstruk
  	\begin{figure}[h]	
  		\centering
  		\includegraphics[width=1\linewidth]{focus}
- 		\caption{Chunlu Li et al. által javasolt megközelítés felépítése.
+ 		\caption{Chunlu Li és tsai. által javasolt megközelítés felépítése.
  			Forrás:\cite{focus}}
         \label{fig:focus}
  	\end{figure}
@@ -368,7 +368,7 @@ Ebben a tanulmányban az a célunk, hogy egy olyan animálható 3D arcrekonstruk
  
 	 \section{3D arcmodell konstruálása}
 	 \label{3d}
-	 \cite{survey} A 3D-s arcok legelterjedtebb statisztikai modellje a 3D Morphable Models (3DMM), amelyet Blanz és Vetter \cite{blanzvetter} mutatott be a közösségnek. \textit{Bernhard et al.} \cite{3dmm} munkája alapján a 3D Morphable Face Model egy generatív modell az arcformára
+	 \cite{survey} A 3D-s arcok legelterjedtebb statisztikai modellje a 3D Morphable Models (3DMM), amelyet Blanz és Vetter \cite{blanzvetter} mutatott be a közösségnek. Bernhard és tsai. \cite{3dmm} munkája alapján a 3D Morphable Face Model egy generatív modell az arcformára
 	 és a megjelenés modellje, amely két kulcsfontosságú ötleten alapul:
 	 
 	  Először is, minden arc
@@ -445,7 +445,7 @@ alteret határoznak meg az alakzat és a textúra reprezentálására főkompone
 	a fotometriai módszereknél jellemzően jelenlévő alacsony frekvenciájú torzítást, és
 	növelik a nagyfrekvenciájú részleteket a geometriai módszerekhez képest. 
 	
-	Diego Nehab \textit{et al}. \cite{hibrid} javaslata egy olyan módszer, amely helymeghatározó információk alacsony frekvenciáját egyesíti a felszíni normálisok magas frekvenciájával. 
+	Diego Nehab és tsai. \cite{hibrid} javaslata egy olyan módszer, amely helymeghatározó információk alacsony frekvenciáját egyesíti a felszíni normálisok magas frekvenciájával. 
 	A módszer különösen hatékony, mivel csak egy lineáris egyenletrendszer megoldása szükséges. 
 
     \subsection{FLAME modell}
@@ -878,7 +878,7 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
     
     A mélyebb neurális hálózatok nehezebben taníthatóak. Mivel amikor növeljük a rétegek számát, a mélytanulásban egy gyakori probléma merül fel, amit eltűnő/robbanó gradiensnek neveznek. Ennek hatására a gradiens 0 vagy túl nagy lesz. Így amikor növeljük a rétegek számát, a hibaarány is nő. 
     
-    Ennek a problémának a megoldására He et al. \cite{resnet} bemutattak egy reziduális (maradékos) tanulási keretrendszert, amely megkönnyíti azon hálózatok tanítását, amelyek lényegesen mélyebbek a korábban használtakhoz képest. 
+    Ennek a problémának a megoldására He és tsai. \cite{resnet} bemutattak egy reziduális (maradékos) tanulási keretrendszert, amely megkönnyíti azon hálózatok tanítását, amelyek lényegesen mélyebbek a korábban használtakhoz képest. 
 
      A rétegeket kifejezetten úgy alakították át, hogy a rétegek a réteg bemeneteire hivatkozva maradványfüggvényeket tanulnak a nem hivatkozott függvények helyett. Ezek a reziduális hálózatok könnyebben optimalizálhatók, és pontosságot nyerhetnek az jelentősen megnövelt mélységből fakadóan.
 
@@ -889,7 +889,7 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
     \begin{figure}[h]	
  		\centering
  		\includegraphics[width=1\linewidth]{Residual-Block}
- 		\caption{He et al. által javasolt reziduális blokk felépítése.
+ 		\caption{He és tsai. által javasolt reziduális blokk felépítése.
  			Forrás:\cite{resnet}}
         \label{fig:resblock}
  	\end{figure}
@@ -898,14 +898,14 @@ A DECA-ban az LBS-t más technikákkal, például a BlendShape animációval kom
 
     \subsection{U-Net}
 
-    Ebben a szekcióban Ronneberger et al. \cite{unet} munkája alapján bemutatjuk az U-Net architektúrát, amelyet a saját megvalósításunkban a szegmentációs maszk elkészítésére, optimalizálására használunk fel. 
+    Ebben a szekcióban Ronneberger és tsai. \cite{unet} munkája alapján bemutatjuk az U-Net architektúrát, amelyet a saját megvalósításunkban a szegmentációs maszk elkészítésére, optimalizálására használunk fel. 
 
     A konvolúciós hálózatok tipikus felhasználási területe az osztályozási feladatok, ahol
 a kép kimenete egyetlen osztálycímke. Azonban számos vizuális feladatban,
 különösen az orvosbiológiai képfeldolgozásban, a kívánt kimeneti eredménynek tartalmaznia kell
 lokalizációt, azaz minden egyes képponthoz osztálycímkét kell rendelni. Továbbá,
 több ezer tanító kép általában elérhetetlen az orvosbiológiai feladatokban.
-Ezért Ciresan et al. \cite{ciresan} egy csúszóablakos elrendezést alkalmaztak, hogy prediktálják a
+Ezért Ciresan és tsai. \cite{ciresan} egy csúszóablakos elrendezést alkalmaztak, hogy prediktálják a
 az egyes képpontok osztálycímkéjét az adott képpont körüli lokális régió bemenetként történő megadásával.
 
 Ezt az architektúrát úgy módosították és bővítették, hogy
@@ -1087,7 +1087,7 @@ hálózat 23 konvolúciós rétegből áll.
 	Ezt az analízis-szintézis és a mélytanulási technikák kombinációja tette lehetővé.
 	
 	
-	Tewari \textit{et al.} \cite{tewari} egy modell-alapú kódoló-dekódoló architektúrát mutatott be, amely a
+	Tewari és tsai. \cite{tewari} egy modell-alapú kódoló-dekódoló architektúrát mutatott be, amely a
 	a betanítható dekódert egy fix dekóderrel helyettesíti. Ez a dekóder a 3DMM paramétereket (látens kód)
 	mint bemenet, amelyet a kódoló jelez, a 3DMM segítségével 3D-rekonstrukcióvá alakítja.
 	Továbbá szintetikus képet készít a rekonstrukcióról egy differenciálható renderelő segítségével.
@@ -1110,7 +1110,7 @@ hálózat 23 konvolúciós rétegből áll.
 		\includegraphics[width=1\linewidth]{sysplan}
 		\caption{ A rendszer felépítése}
 	   \label{fig:sysplan}
- \end{figure}
+    \end{figure}
 
 	Ahogy korábban is említettük, a kitüzőtt céljaink között van, hogy a
 	3D arc rekonstrukció és az arc analízis elérhető legyen felhőn keresztül.
@@ -1130,7 +1130,7 @@ hálózat 23 konvolúciós rétegből áll.
 		\item Frontend
 		\item Backend
 		\item Temporal.io szerver
-		\item 3D arcrekonstrukciós modu
+		\item 3D arcrekonstrukciós modul
 		\item Arcanalízis modul
 		\item Adatbázis
 	\end{itemize}
@@ -1156,7 +1156,7 @@ hálózat 23 konvolúciós rétegből áll.
     Ebben a fejezetben az arcrekonstrukciós hálózatunk felépitését és müködését vizsgáljuk meg és a hozzákapcsolodó technológiákat.
 
     \subsubsection{Tanítási adathalmazok}
-	A rekonstrukciós modellünk nyilvánosan elérhető CELEBA adathalmazból tanul \cite{celeba}. A $CelebFaces Attributes Dataset$ (CelebA) egy nagyméretű arcattribútum adatkészlet, amely több mint 200 000 híresség képét tartalmazza, mindegyikhez 40 attribútum annotáció tartozik. Az adatállomány képei nagy pózvariációkat és háttérzavarokat fednek le. A CelebA nagy változatossággal, nagy mennyiségben és gazdag annotációkkal rendelkezik, többek között az alábbiakkal:
+	A rekonstrukciós modellünk a nyilvánosan elérhető CELEBA adathalmazból tanul \cite{celeba}. A $CelebFaces Attributes Dataset$ (CelebA) egy nagyméretű arcattribútum adatkészlet, amely több mint 200 000 híresség képét tartalmazza, mindegyikhez 40 attribútum annotáció tartozik. Az adatállomány képei nagy pózvariációkat és háttérzavarokat fednek le. A CelebA nagy változatossággal, nagy mennyiségben és gazdag annotációkkal rendelkezik, többek között az alábbiakkal:
 
     \begin{itemize}
         \item 10 177 különböző személyazonosság
@@ -1164,9 +1164,18 @@ hálózat 23 konvolúciós rétegből áll.
         \item 5 jellegzetes arcpont, képenként 40 bináris attribútum annotációja
     \end{itemize}
 
+    \begin{table}[h]
+        \begin{tabular}{lll}
+        Adathalmaz    & \begin{tabular}[c]{@{}l@{}}Darabszám\end{tabular}\\
+        tanuló    & 162770                                                           \\
+        validációs & 19962                                                           \\
+        teszt       & 19868                    
+        \end{tabular}
+    \end{table}
+
 	\subsubsection{Adatok előkészítése}
 
-   A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanitási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálása majd \textit{.csv} fáljokba való kiírást jelent. Yao Feng et al. \cite{deca} megközelítését követve Bulat et. al. \cite{bulat} FAN modelljét használjuk 68 db 2D-s jellegzetes pont (landmark) detektálásához. Egy arcpontok lokalizálására szolgáló architektúra és maradék blokkok kombinálásával egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanították. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
+   A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanítási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálását, majd a pontok \textit{.csv} fáljokba való kiírását jelenti. Yao Feng és tsai. \cite{deca} megközelítését követve \cite{bulat}Bulat és tsai. FAN modelljét használjuk a 68 db 2D-s jellegzetes pont (landmark) detektálásához. A FAN egy arcpontok lokalizálására szolgáló reziduális hálózaton alapuló architektúra, amelyet  egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanítottak. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
 
    \subsubsection{Adatok előkészítésének megvalósítása}
 
@@ -1176,32 +1185,32 @@ hálózat 23 konvolúciós rétegből áll.
     \subsubsection{FAN modell}
     
      face-alignment egy Python-csomag, amely egy olyan eszközkészletet biztosít, amely az arc tájékozódási pontjainak felismerésére, a fej pózának becslésére és az arc igazítására szolgál. 
-Mély tanulási modelleken alapul, és az arcképek előfeldolgozására használható olyan feladatok elvégzése előtt, mint az arcfelismerés vagy az érzelemérzékelés.
-
+     Mély tanulási modelleken alapul, és az arcképek előfeldolgozására használható olyan feladatok elvégzése előtt, mint az arcfelismerés vagy az érzelemérzékelés.
+    
     A csomag több modulból áll, amelyek mindegyike az arcelemzéssel kapcsolatos speciális feladatot lát el. Az alábbiakban röviden áttekintjük az egyes modulokat:
 
     \begin{itemize}
         \item \textbf{észlelés}: 
         
-        Ez a modul az SSD (Single Shot Detector) architektúrán alapuló, előre betanított modelleket használó arcfelismerő funkciókat biztosít. Az arcdetektor betanítható az arcok felismerésére különböző beállítások mellett, például gyenge fényviszonyok, eltakart arcok vagy profilnézet esetén.
+        Ez a modul SSD (Single Shot Detector) architektúrán alapul és előre betanított modelleket használó arcfelismerő funkciókat biztosít. Az arcdetektor betanítható az arcok felismerésére különböző beállítások mellett, például gyenge fényviszonyok, eltakart arcok vagy profilnézet esetén.
 
         \item \textbf{igazítás}: 
         
         Ez a modul funkciókat biztosít az arc tájékozódási pontjainak felismeréséhez és az arcok igazításához.
 		A tájékozódási pont detektor egy mély konvolúciós neurális hálózatot (CNN) használ az arc kulcsfontosságú pontjainak, például a szemeknek, az orrnak és a szájnak a helyzetének a felismerésére. 
-		Az arcigazítási funkció ezután ezeket a tájékozódási pontok pozícióit használja fel az arckép geometriai transzformációjának elvégzéséhez, igazítva azt egy kanonikus referenciakerethez.
+		Az arcigazítási funkció ezután a tájékozódási pontok pozícióit használja fel az arckép geometriai transzformációjának elvégzéséhez.
 
 
         \item \textbf{póz}: 
         
-        Ez a modul funkciókat biztosít az arc fejpózának becslésére, ami a fej kamerához viszonyított orientációját jelenti. A pózbecslő egy CNN-t használ a fej gördülési, dőlési és dőlési szögének becslésére.
-segédeszközök: Ez a modul egy sor segédfunkciót biztosít a képfeldolgozáshoz, mint például a méretváltoztatás, a képkivágás és a színnormalizálás.
+        Ez a modul funkciókat biztosít az arc fejpózának becslésére, ami a fej kamerához viszonyított orientációját jelenti. A pózbecslő egy CNN-t használ a fej gördülési és dőlési szögének becslésére.
+        \item \textbf{segédeszközök}: Ez a modul egy sor segédfunkciót biztosít a képfeldolgozáshoz, mint például a méretváltoztatás, a képkivágás és a színnormalizálás.
 
     \end{itemize}
 
    
     \subsubsection{U-Net tanítási adatok generálása}
-    A szegmentáló hálózat súlyainak durva inicializálása érdekében a hálózatot elő kell tanítanunk. A hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy szürkeárnyalatú maszkot kapunk. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
+    A szegmentáló hálózat súlyainak durva inicializálása érdekében a hálózatot elő kell tanítanunk. A hálózat (U-Net) előtanításához adatokat kell generálnunk. A szegmentációs maszkok elkészítéséhez a $face-toolbox-keras$ \url{https://github.com/shaoanlu/face_toolbox_keras} könyvtárat használjuk azon belül is a BiSeNet modellen alapuló modult \url{https://github.com/zllrunning/face-parsing.PyTorch}. A könyvtár által generált maszk azonban még nem megfelelő számunkra mivel nem csak az arcot veszi figyelembe, hanem a különböző kitakaró tényezőket is. Számunkra a maszkon csak az számit hogy, az adott pixel része-e az arcnak. Ebből adódóan a generált maszkot át kell alakítanunk olyan formában, hogy a maszkon 1-es számmal jelölje azokat a pixeleket, amelyek az arc részei, valamint 0-val, ha az arc nem tartalmazza az adott képpontot. Eredményként egy fekete-fehér maszkot kapunk, amelyen a fehér szín jelöli az arcmaszkot. Ezt a folyamatot az egész tanítási adathalmazon végrehajtjuk. 
     Az előtanított arcrekonstrukciós modellünkkel 3D-s renderelt képeket gyártunk, valamint a bemeneti képeket is felhasználjuk a szegmentációs hálózat előtanításához.
     
 
@@ -1282,13 +1291,13 @@ A textúratérképezés során a háromszögben lévő minden egyes pixel textú
 \subsubsection{SRenderY renderelési módszer és megvalósítása}
 
 
- Az SRenderY egy olyan renderelési módszer, amely a kamera paraméterei, a vertexek pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. 
+ A differenciálható renderelés egy olyan renderelési módszer, amely a kamera paraméterei, a csúcsok pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. 
 
  Az SRenderY módszer mükődése:
 
  \begin{enumerate}
  
-    \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a kimeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
+    \item Egy üres (H, W, 3) méretű képpuffer inicializálása, ahol H és W a kimeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
 
     \item A 3D archáló minden egyes háromszögéhez kiszámítja a 2D-s vetületét a képsíkra a kamera paraméterei alapján. Ez a perspektivikus vetítési egyenlet segítségével történik, 
  amely a világkoordinátarendszer 3D pontjait a képsík 2D pontjaivá alakítja át.
@@ -1300,7 +1309,7 @@ Ennek során kiszámítja a pixel baricentrikus koordinátáit a háromszög cs�
 
     \item A pixel textúrakoordinátáinak interpolálása a háromszög csúcsainak textúrakoordinátáiból a baricentrikus koordináták segítségével.
 
-    \item A interpolált textúrakoordináták felhasználása a megfelelő helyen lévő textúratérkép színértékének mintavételezéséhez.
+    \item Az interpolált textúrakoordináták felhasználása a megfelelő helyen lévő textúratérkép színértékének mintavételezéséhez.
 
     \item A színérték megszorzása a megvilágítási értékkel, amelyet a pixel felszíni normálisa és a fény iránya közötti skalárszorzataként számítunk ki.
 
@@ -1313,7 +1322,7 @@ Ennek során kiszámítja a pixel baricentrikus koordinátáit a háromszög cs�
  \end{enumerate}
 
  Összességében az SRenderY módszer egy sztenderd raszterizáció-alapú renderelési algoritmus, amely figyelembe veszi a perspektivikus vetítést,
-textúratérképezést és a megvilágítást. A DECA keretrendszerben 3D-s archáló 2D-s képének létrehozására használják olyan feladatokhoz, mint az arckifejezés-felismerés és a 3D-s arc rekonstrukció.
+textúratérképezést és a megvilágítást. A DECA keretrendszerre építve 3D-s archáló 2D-s képének létrehozására használjuk.
 
 \subsubsection{Megvilágítás hozzáadása}
 A renderer.py add\_SHlight metódusa egy olyan módszer, amely gömbharmonikus (SH) megvilágítást ad hozzá egy 3D-s archáló 2D-s képéhez.
@@ -1321,7 +1330,7 @@ A renderer.py add\_SHlight metódusa egy olyan módszer, amely gömbharmonikus (
 Az add\_SHlight (\textit{Spherical Harmonics}) módszer működése:
 
 \begin{enumerate}
-    \item Egy üres (H, W, 3) méretű képpuffer kép inicializálása, ahol H és W a bemeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
+    \item Egy üres (H, W, 3) méretű képpuffer inicializálása, ahol H és W a bemeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
 
     \item Kiszámítja a világítás gömbharmonikus (SH) együtthatóit az SH-projekciós módszerrel, amely a világítási függvény ortonormális SH-alapfüggvények halmazára való vetítését jelenti.
 
@@ -1342,9 +1351,9 @@ Az add\_SHlight (\textit{Spherical Harmonics}) módszer működése:
     
 \end{enumerate}
 
-Összességében az add\_SHlight módszer egy meglehetősen szabványos módszer SH megvilágítás hozzáadására egy 3D-s arc háló 2D-s képéhez. A világítási függvény SH-együtthatóinak kiszámítását foglalja magában, 
-az SH-világítás kiértékelése minden egyes felületi normálisnál, és az egyes pixelek színértékének megszorzása az így kapott világítási értékkel. 
-Ezt a módszert a DECA keretrendszerben a 3D-s arcok SH megvilágítással ellátott hálóinak valósághű 2D-s képeinek létrehozására használják.
+Összességében az add\_SHlight módszer egy meglehetősen szabványos módszer SH megvilágítás hozzáadására egy 3D-s arc háló 2D-s képéhez. A világítási függvény SH-együtthatóinak kiszámítását, 
+az SH-világítás kiértékelését minden egyes felületi normálisnál, és az egyes pixelek színértékének megszorzását az így kapott világítási értékkel foglalja magában. 
+Ezt a módszert a DECA keretrendszer alapján a 3D-s arcok SH megvilágítással ellátott hálóinak valósághű 2D-s képeinek létrehozására használjuk.
 
 \subsubsection{Normáltérkép kiszámítása eltolódási térképből}
 
@@ -1412,17 +1421,17 @@ A normálvektort úgy normalizáljuk, hogy egységnyi hosszúságú legyen.
     \begin{enumerate}
         \item \textbf{Adatbővítés}:
         
-        A modell általánosítási képességének javítása érdekében a képzési adatokra adatbővítést alkalmazunk. Ez magában foglalja a képek véletlenszerű vágását, átméretezését és átfordítását, valamint a FLAME paraméterek véletlenszerű torzítását.
+        A modell általánosítási képességének javítása érdekében a tanítási adatokra adatbővítést alkalmazunk. Ez magában foglalja a képek véletlenszerű vágását, átméretezését és átfordítását, valamint a FLAME paraméterek véletlenszerű torzítását.
         \item \textbf{Modellarchitektúra}:
         
         Az arcrekonstrukciós modell egy mély neurális hálózat,
- amely egy kódolóból és egy dekódolóból áll. 
- A kódoló a bemeneti paramétereket egy látens térbe képezi le, 
- míg a dekódoló a látens teret képezi vissza a FLAME paraméterekre. 
- A kódoló egy ResNet-50 hálózat, míg a dekódoló egy teljesen összekapcsolt hálózat kihagyásos kapcsolatokkal.
-
-A kódoló és dekódoló függvényeket arra használjuk, hogy egy emberi arc 3D-s hálós modelljét átalakítsunk vagy visszaalakítsunk egy paraméterezett reprezentációból a FLAME modell segítségével.
-
+       amely egy kódolóból és egy dekódolóból áll. 
+        A kódoló a bemeneti paramétereket egy látens térbe képezi le, 
+        míg a dekódoló a látens teret képezi vissza a FLAME paraméterekre. 
+        A kódoló egy ResNet-50 hálózat, míg a dekódoló egy teljesen összekapcsolt hálózat kihagyásos kapcsolatokkal.
+    
+    A kódoló és dekódoló függvényeket arra használjuk, hogy egy emberi arc 3D-s hálós modelljét átalakítsunk vagy visszaalakítsunk egy paraméterezett reprezentációból a FLAME modell segítségével.
+        
         \item \textbf{Kódoló}:
         A kódoló egy emberi arc 3D-s hálómodelljét veszi fel bemenetként egy numpy tömb formájában, amely a csúcspontok koordinátáit és egy numpy tömböt tartalmaz, amely a csúcspontok színét tartalmazza.
 A függvény ezután a FLAME modell segítségével kiszámítja az arc alakját, arckifejezését és pózát leíró paraméterek halmazát.
@@ -1432,7 +1441,7 @@ A függvény ezután a FLAME modell segítségével kiszámítja az arc alakját
             \item \textbf{FLAME model betöltése}:
             
             Az enkódoló függvény először betölti a FLAME modellt egy előre betanított PyTorch ellenőrzőpont fájlból. 
-Ez a modell lineáris alak, kifejezés és póz alapfüggvényekből, valamint egy sor tanult nemlineáris korrekciós blendshape és skinning súlyokból áll.
+Ez a modell lineáris alak, kifejezés és póz alapfüggvényekből, valamint egy sor tanult nemlineáris korrekciós LBS súlyokból áll.
 
             \item \textbf{Alak, kifejezés és póz paraméterek kiszámítása}:
             
@@ -1442,7 +1451,7 @@ A költségfüggvény olyan feltételeket tartalmaz, amelyek büntetik a FLAME-m
 
             \item \textbf{Paraméteres reprezentáció visszaadása}:
 
-            A kódoló függvény egy szótárat ad vissza, amely tartalmazza a kiszámított alak, kifejezés és póz paramétereit, valamint a nyúzási súlyokat és egyéb modellparamétereket.
+            A kódoló függvény egy szótárat ad vissza, amely tartalmazza a kiszámított alak, kifejezés és póz paramétereit, valamint az LBS súlyokat és egyéb modellparamétereket.
 
         \end{enumerate}
         
@@ -1451,7 +1460,7 @@ A költségfüggvény olyan feltételeket tartalmaz, amelyek büntetik a FLAME-m
         \item \textbf{Dekódoló}:
 
         A dekódoló függvény bemenetként egy emberi arc paraméterezett reprezentációját veszi át, amely egy alak-, kifejezés- és pózparamétereket tartalmazó szótár formájában jelenik meg, 
-valamint a nyúzási súlyokat és egyéb modellparamétereket. A függvény ezután a FLAME modell segítségével létrehozza az arc 3D-s hálómodelljét.
+valamint az LBS súlyokat és egyéb modellparamétereket. A függvény ezután a FLAME modell segítségével létrehozza az arc 3D-s hálómodelljét.
 
         \textbf{A dekódoló lépései}:
         
@@ -1481,10 +1490,10 @@ A kódoló függvény kiszámítja az alak, az arckifejezés és a póz paramét
     \end{enumerate}
 
      \subsubsection{Enkódoló megvalósítása}
-    Az encoders.py modulban található ResnetEncoder osztály az arcrekonstrukciós modellben használt kódoló hálózat PyTorch implementációja, amely egyetlen képből történő 3D arc rekonstrukciójára szolgál. 
- A kódoló bemenetként egy arc képét veszi, és egy látens kódot állít elő, amelyet a generátorhálózat bemeneteként használ.
+    Az encoders.py modulban található ResnetEncoder osztály az arcrekonstrukciós modellben használt $E_c$ és $E_d$ kódoló hálózatok PyTorch implementációja, amely a személyspecifikus jellemzők, valamint a FLAME paraméterek kinyerésére szolgál. 
+     A kódoló bemenetként egy arc képét veszi, és egy látens kódot állít elő, amelyet a dekódoló/generátorhálózat bemeneteként használ.
 
-A ResnetEncoder osztály a PyTorch nn.Module osztály alosztálya, és konvolúciós rétegek és reziduális blokk sorozatából áll.
+A ResnetEncoder osztály a PyTorch nn.Module osztály alosztálya, és konvolúciós rétegek és reziduális blokkok sorozatából áll.
  A kódoló bemenete egy RGB arckép, amely egy sor konvolúciós rétegen halad át az alacsony szintű jellemzők kinyerése érdekében.
  Ezek az alacsony szintű jellemzők ezután egy sor maradék blokkon haladnak keresztül, amelyek a magasabb szintű jellemzők rögzítésére és a jellemzőtérkép dimenziójának csökkentésére szolgálnak.
 
@@ -1503,11 +1512,11 @@ Az ellentétes veszteséget arra használjuk, hogy a látens kódot arra ösztö
  míg a rekonstrukciós veszteség a generált 3D háló és az alapigazság 3D háló közötti különbség minimalizálására szolgál.
  A regularizációs veszteséget a túlillesztés megakadályozására és a modell sima és reális látens kódok tanulására ösztönzi.
 
-Összességében az encoders.py modulban található ResnetEncoder osztály egy hatékony eszköz az arcképek látens kódokká történő kódolásához, amelyek a generátorhálózat bemeneteként használhatók. 
-Az osztály az arcrekonstrukciós modellben használt kódolóhálózat hasznos implementációját biztosítja, és könnyen adaptálható más képalapú 3D rekonstrukciós feladatokhoz.
+Összességében az encoders.py modulban található ResnetEncoder osztály egy hatékony eszköz az arcképek látens kódokká történő kódolásához, amelyek a dekódoló-/generátorhálózat bemeneteként használhatók. 
+Az osztály az arcrekonstrukciós modellben használt kódolóhálózatok hasznos implementációját biztosítja, és könnyen adaptálható más képalapú 3D rekonstrukciós feladatokhoz.
 
  \subsubsection{Dekódoló megvalósítása}
- A decoders.py modulban található Generator osztály a DECA modellben használt generátorhálózat PyTorch implementációja, amely egyetlen képből történő 3D arc rekonstrukciójára szolgál.
+ A decoders.py modulban található Generator osztály a DECA modellben használt dekódoló PyTorch implementációja, amely egyetlen képből történő 3D arc rekonstrukciójára szolgál.
  A generátor bemenetként egy látens kódot és egy kifejezési együtthatókból álló készletet fogad el, és létrehozza a rekonstruált arc 3D hálóját.
  
  A Generator osztály a PyTorch nn.Module osztály alosztálya, és több rétegből áll, beleértve a teljesen összekapcsolt rétegeket, a konvolúciós rétegeket és a maradék blokkokat. 
@@ -1526,13 +1535,13 @@ Az ellentétes veszteség arra ösztönzi a generált 3D hálót, hogy megkülö
  A regularizációs veszteséget a túlillesztés megakadályozására és a modell sima és valósághű 3D-hálók megtanulására ösztönzi.
  
  Összességében a decoders.py moduljában található Generator osztály egy hatékony eszköz a 3D arcok hálóinak egyetlen képből történő generálásához,
- és a modellben használt generátorhálózat hasznos implementációját biztosítja.
+ valamint a modellben használt generátorhálózat hasznos implementációját biztosítja.
 
      \subsubsection{ResNet architektúra megvalósítása}
      Az arcrekonstrukciós hálózat az frnet.py modulban implementált ResNet architektúrát használja a bemeneti képek jellemzőinek kinyerésére. 
-A ResNet architektúra több építőblokkból áll, köztük a BasicBlock, a Bottleneck és a ResNet.
+     A ResNet architektúra több építőblokkból áll, köztük a BasicBlock, a Bottleneck és a ResNet elemekből.
 
-A BasicBlock osztály a PyTorch nn.Module osztály alosztálya, és két konvolúciós rétegből áll, amelyet egy kötegelt normalizáló réteg és egy ReLU aktivációs függvény követ.
+    A BasicBlock osztály a PyTorch nn.Module osztály alosztálya, és két konvolúciós rétegből áll, amelyet egy kötegelt normalizáló réteg és egy ReLU aktivációs függvény követ.
  A bemenet az első konvolúciós rétegen, majd a kötegelt normalizáló és a ReLU rétegen, végül pedig a második konvolúciós rétegen halad át. 
  A második konvolúciós réteg kimenete hozzáadódik a bemenethez a maradék kapcsolat létrehozásához.
 
@@ -1588,7 +1597,7 @@ A modul tartalmazza a Forward Kinematics (FK) algoritmus implementációját is,
     \subsubsection{Tanítási adathalmazok}
     Az arc kifejezések klasszifikációjához a FER-2013 adathalmazt használjuk \url{https://www.kaggle.com/datasets/msambare/fer2013}. Az adatok 48x48 pixeles, szürkeárnyalatos arcképekből állnak. Az arcokat automatikusan úgy regisztrálták, hogy az arc többé-kevésbé középen legyen, és minden képen körülbelül ugyanannyi helyet foglaljon el.
 
-    A feladat az egyes arcok kategorizálása az arckifejezésben megjelenő érzelem alapján a hét kategória egyikébe (0=dühös, 1=undor, 2=félelem, 3=boldog, 4=szomorú, 5=meglepetés, 6=semleges). A gyakorlóhalmaz 28 709 példából, a nyilvános teszthalmaz pedig 3589 példából áll.
+    A feladat az egyes arcok kategorizálása az arckifejezésben megjelenő érzelem alapján a hét kategória egyikébe (0=dühös, 1=undor, 2=félelem, 3=boldog, 4=szomorú, 5=meglepetés, 6=semleges). A tanítóhalmaz 28 709 példából, a nyilvános teszthalmaz pedig 3589 példából áll.
 
     \begin{table}[h]
 \begin{tabular}{lll}
@@ -1619,9 +1628,9 @@ mérges      & 3995                                                          & 9
 
     A különböző hálózatokat Intel(R) Core(TM) i5-7600K CPU @ 3.80GHz processzorral, 16,0 GB DDR4 RAM és NVIDIA GeForce GTX 1660 SUPER 6GB videókártával rendelkező számitógépen tanitottuk, illetve fejlesztettük.
 
-    \subsection{Eredmények}
-    \subsubsection{Arc rekonstrukció}
-    \subsubsection{Arc analizis}
+    \section{Eredmények}
+    \subsection{Arc rekonstrukció}
+    \subsection{Arc analizis}
     A nemek klasszifikálására 97\% pontosságot sikerült elérni, míg az érzelmek klasszifikálására csak 66\%-ot tudtunk elérni.
 
     \begin{figure}[h]	
@@ -1643,14 +1652,46 @@ mérges      & 3995                                                          & 9
 
     A(z) \ref{fig:expr}. ábrán 7 különböző arckifejezésre láthatjuk a becsléseket és megfigyelhetjük, hogy az undort és a félelmet a modellünk képtelen pontosan megbecsülni. Hogy pontosan lássuk a modell milyen kifejezésekre milyen pontossággal ad becslést, készitettünk egy konfuziós mátrixot, amely a(z) \ref{fig:cfmatrix}. ábrán látható.
 
-    \begin{figure}[h]	
+    \begin{figure}[h!]	
 		\centering
 		\includegraphics[width=1\linewidth]{output_cf_matrix.png}
-        \caption{  Az arckifejezések klasszifikálására készült hálózat konfuziós mátrixa.}
+        \caption{Az arckifejezések klasszifikálására készült hálózat konfuziós mátrixa.}
         \label{fig:cfmatrix}
 	\end{figure}
+
+    \subsubsection{Eredmények értékelése}
+ 
+    \cite{facerecresult}Yoo és tsai. (2020) "Facial Expression Recognition Accuracy and Reaction Time Among Elementary School Students" című tanulmányának célja az volt, hogy megvizsgálja az általános iskolások pontosságát és reakcióidejét az arckifejezések felismerésében. A tanulmány szintén FER-2013 adathalmazt használta, amely 35 887 szürkeárnyalatos arcképből áll, amelyeket hét alapvető érzelem (harag, undor, félelem, boldogság, szomorúság, meglepetés és semleges) egyikével jelöltek meg.
+
+    A tanulmányhoz 204 általános iskolás diákot vontak be, és arra kérték őket, hogy töltsenek ki egy arckifejezés-felismerési feladatot. A feladatban a tanulóknak egy sor arckifejezést mutattak, és arra kérték őket, hogy egy hét lehetőségből álló listából válasszák ki az arckifejezésnek leginkább megfelelő érzelmet. A vizsgálat során adatokat gyűjtöttek a diákok életkoráról, neméről és tanulmányi teljesítményéről is.
+
+    A tanulmány megállapította, hogy az érzelmek felismerése a női modelleken jobbnak bizonyult, mint a
+    a szomorúság esetében a férfi modellekhez képest (82,5\%-os és 72,0\%-os átlagos egyetértési arány),
+    félelem (átlagos egyetértési arányok 75,2\% és 68,8\%), undor (átlagos egyetértési arányok
+    84,2\% és 77,4\%) és a megvetés (átlagos egyetértési arány 77,5\% és 71,8\%). Az egyetértési arányok azonban magasabbak voltak a férfi, mint a női modellekben az alábbi esetekben
+    harag (69,4\% és 60,6\%), meglepettség (96,1\% és 92,2\%),
+    és a semleges arc (89,9\% és 86,9\%). 
+
+    Általánosságban elmondható, hogy a bemutatott és a felismert érzelmek közötti átlagos százalékos egyezés
+    82\% volt.
+
     
-    \subsubsection{Felhasználói felület}
+    
+   \begin{figure}[h!]	
+		\centering
+		\includegraphics[width=1\linewidth]{facereqhuman.png}
+        \caption{A különböző érzelmi kategóriák átlagos egyetértési aránya a modellek nemétől függően. Forrás: \cite{facerecresult}}
+        \label{fig:humanfacerec}
+	\end{figure}
+
+    \begin{figure}[h!]	
+		\centering
+		\includegraphics[width=1\linewidth]{facerechuman-confmatrix.png}
+        \caption{A "találati arányok" átlaga és szórása (SD) arckifejezésenként (\%). Forrás: \cite{facerecresult}}
+        \label{fig:humanfacerecmatrix}
+	\end{figure}
+    
+    \subsection{Felhasználói felület}
 	
 
 	\newpage
@@ -1890,6 +1931,10 @@ mérges      & 3995                                                          & 9
     \bibitem{diffrenderer}
     Kato, Hiroharu, et al.
     \textit{Differentiable rendering: A survey. arXiv preprint arXiv:2006.12057 (2020).}
+
+    \bibitem{facerecresult}
+    Dores, Artemisa R., et al.
+    \textit{Recognizing emotions through facial expressions: A largescale experimental study. International journal of environmental research and public health 17.20 (2020): 7420.}
 
 	\end{thebibliography}
 
