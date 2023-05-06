@@ -1,0 +1,101 @@
+% !TeX spellcheck = hu_HU
+\documentclass[12pt,a4]{article}
+\usepackage{xurl}
+
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[super]{nth}
+\usepackage{graphicx}
+\usepackage[section]{placeins}
+\usepackage{mdframed}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{indentfirst}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage[figurename=Ábra]{caption}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	bookmarks=true,
+	pdfpagemode=FullScreen,
+}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\hyphenation{op-er-and op-er-ands}
+
+\def\magyarOptions{defaults=hu-min}
+\PassOptionsToPackage{magyar}{babel}
+\usepackage[inputenc=utf8]{uni8}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+\usepackage{times}
+\begin{document}	
+	
+	\renewcommand*\contentsname{Tartalomjegyzék}	
+	
+	\begin{titlepage}
+        
+		\begin{figure}
+			\centering
+			\begin{minipage}{.5\textwidth}
+				\centering
+				\includegraphics[width=.1\linewidth]{banner.jpg}
+			\end{minipage}%
+			\begin{minipage}{.5\textwidth}
+				\centering
+				\includegraphics[width=.3\linewidth]{nik.png}
+			\end{minipage}
+		\end{figure}
+					\vspace{0.5cm}			
+		\begin{center}			
+			\Large
+			Óbudai Egyetem\\
+			Neumann János Informatikai Kar\\
+			
+			\vspace*{0.5cm}
+			
+			\Huge
+			\textbf{3D-s arckép rekonstrukciója egy 2D-s képből mesterséges intelligencia segítségével}
+			\par\noindent\rule{\textwidth}{0.4pt}
+			
+			\vspace{0.5cm}
+			\normalsize
+			Reconstructing 3D face picture from single 2D picture supported by artificial intelligence
+			
+			\vspace{0.2cm}
+			\large
+			\today
+			
+			\vspace{1cm}
+			
+			Témavezető:\\
+			\textbf{Vámossy Zoltán}\\
+			Egyetemi docens
+			
+			\vspace{1cm}
+			
+			Készítette:\\
+			\textbf{Gaál Bernát Ruben - HBGCXK\\
+			Hua Nam Anh - DQ4LFK}		
+		\end{center}
+	\end{titlepage}
+
+ \end{document}
