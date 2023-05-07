@@ -124,8 +124,8 @@
     \section*{Abstract}
         \textit{Recently, 3D facial reconstruction methods based on deep learning have shown promising results in terms of both quality and efficiency. However, learning neural networks typically requires a large amount of labeled data, which entails corresponding resources.
         }
-        \textit{In the absence of the above, we propose the following solution. A poorly supervised learning network that can be trained with images in an unsupervised environment.To implement this, we have drawn on the material of two existing research studies. From the first one, \cite{deca}DECA, is able to handle small details of the face, facial expressions. The other, \cite{focus}FOCUS, presented a state-of-the-art approach to facial reconstruction with occlusions. Examples of such masking are glasses and hats. These are not only state of the art, but have been shown to perform well in the NoW challenge performance tests. Combining them to create a robust and realistic generating realistic facial images is presented in this paper.}
-        \textit{In addition to the reconstruction, we implemented a facial analysis method that can decide the emotional emotional state and gender. These are built around a user friendly microservice based web application with services running on the cloud.}
+        \textit{In the absence of the above, we propose the following solution. A poorly supervised learning network that can be trained with images in an unsupervised environment.To implement this, we have drawn on the material of two existing research studies. From the first one, \cite{deca}DECA, is able to handle small details of the face and facial expressions. The other, \cite{focus}FOCUS, presented a state-of-the-art approach to facial reconstruction with occlusions. Examples of such masking are glasses and hats. These are not only state of the art, but have been shown to perform well in the NoW challenge performance tests. Combining them to create a robust and realistic generating realistic facial images is presented in this paper.}
+        \textit{In addition to the reconstruction, we implemented a facial analysis method that can decide the emotional state and gender. These are built around a user friendly microservice based web application with services running on the cloud.}
      
 	\par\noindent\rule{\textwidth}{0.4pt}
 
@@ -173,7 +173,7 @@
 	
     \begin{figure}[h]	
 		\centering
-		\includegraphics[width=1\linewidth]{neuron1}
+		\includegraphics[width=0.8\linewidth]{neuron1}
         \label{fig:neuron1}
 		\caption{Neuron felépítése. 
 			Forrás:\cite{ann}}
@@ -185,7 +185,6 @@
 	
 	A jelek átvitele egyik neuronról a másikra a szinapszisoknál egy összetett kémiai folyamat, amelyben specifikus közvetítő anyagok szabadulnak fel a kapcsolódási pont küldői oldalán. A folyamat hatására a fogadó sejtben emelkedik vagy csökken az elektromos feszültség.
 	
-	\newpage
 	\subsection{Mesterséges neurális hálózatok}
 	A mesterséges neurális hálózatok (ANN-artificial neural networks) az előző fejezetben [\autoref{NN}] említett fejlettebb élő szervezetek agyát alkotó neuronokról kapták nevüket. 
 	
@@ -196,7 +195,7 @@
 	 
 	  Egy mesterséges neuron tanulási képessége a súlyok megfelelő beállításával érhető el egy választott tanító algoritmus felhasználásával.
 	\newline
-	\newpage
+	
 	Egy tipikus mesterséges neuron és egy többrétegű neurális hálózat modellezése a \ref{fig:fig2}. ábrán látható. A \ref{fig:fig2}. ábra szerint, ahogy a nyilak is mutatják, az $x_{1},...,x_{n}$ bemenetekről érkező jeláramlás egyirányúnak tekinthető csakúgy, mint a neuron kimeneti jelfolyama. A neuron kimeneti jelét \textit{O} a következő összefüggés adja:
 	\begin{mdframed}
 	\begin{align}
@@ -238,7 +237,7 @@
 			\newline\centering Forrás:\cite{ann2}}
 		\label{fuggvenyek}
 	\end{figure}
-	
+	\clearpage
 	\begin{mdframed}
 	Ma az egyik leggyakrabban használt aktivációs függvény a szigmoid \cite{ann4}, melyet a következő képlettel határoznak meg:
 	\begin{align}
@@ -542,7 +541,7 @@
 
     A saját megvalósításunkban egy előtanított 50 rétegű reziduális hálózatot átviteli tanítással tanítottunk tovább, és finomhangoltuk azt a bemenetként átadott kép személyspecifikus jellemzőinek kinyerése érdekében.
     
-    \subsection{Deep Learning módszerek}
+    \subsection{Mélytanulási módszerek}
 	
 	Az előző szakaszok [\nameref{3d}] 2D-ből 3D arc rekonstrukciós módszerei \textit{modelleket} használnak az előzetes tudás megtestesítésére \cite{survey}: a statisztikai modellillesztési módszerek tartalmaznak egy geometriai (és általában textúra) modellt, a fotometriai módszerek pedig a
 	az arc fényvisszaverő képességét. 
@@ -565,8 +564,8 @@
 	\end{figure}
 	
 	\newpage
-	\subsubsection{Deep Face modellek}
-    Ebben az alfejezetben a deep face modellezési módszereket mutatjuk be \cite{3dmm} Egger és tsai. munkája alapján. \\
+	\subsubsection{Arcrekonstrukciós modellek}
+    Ebben az alfejezetben az arcmodellezési (deep face) módszereket mutatjuk be \cite{3dmm} Egger és tsai. munkája alapján. \\
  
 	A hagyományos modellezési technikák célja, hogy
 	az arc alakját, arckifejezését és megjelenését $w$ vektorként reprezentálják egy
@@ -603,7 +602,7 @@
 	dimenziós PCA-val, bár az ortogonalitás garanciája nélkül.
 	Ez megfelelő veszteségfüggvényekkel biztosítható.
 	
-	\subsection{Deep Face rekonstrukció}
+	\subsection{Arcrekonstrukció mély neurális hálózatokkal}
 	
 	 A következőkben a mély neurális hálózatokon alapuló sűrű monokuláris arcrekonstrukció megközelítéseket tárgyaljuk. Megbeszéljük
 	a felhasznált képzési adatokkal szemben támasztott követelményeket, valamint a különböző tanítási
@@ -1177,7 +1176,39 @@
  	          megvizsgálunk kettő egymást támogató hálózatból áll. Egyik fő 
             épitőeleme a $DECA$ alapján készített rekonstrukciós hálózat, másik a $FOCUS$ megközelítésében implementált szegmentációs hálózat. E két hálózaton egy EM típusú stratégiát alkalmazunk a tanítási folyamat során.
 
-            
+
+    \section{A tervezés során végzett munkafázisok}
+
+        \subsection{Adathalmazok kiválasztása}
+
+        Az adathalmaz kiválasztása rendkívül fontos az eredmény minősége szempontjából. Az egyik cél az arcrekonstrukciós hálózat felépítépítése, ezért szükséges olyan adathalmazok kiválasztása, amelyek nagy mennyiségű arcképet tartalmaznak. Az adathalmazokat olyan forrásokból szükséges kiválasztani, amelyek megbízhatóak és széles körben használtak, mint például a CelebA, LFW, vagy az Imagenet adathalmazok. Az adathalmazoknak tartalmaznia kell arcképeket több különböző pozícióban, háttérrel és fényviszonyokkal, hogy a hálózatunk jól teljesítsen különböző körülmények között.
+
+        Az adathalmaz kiválasztása az érzelmi állapot felismeréséhez fontos szerepet játszik, mivel az adathalmaz minősége hatással van a modell teljesítményére. A feladat az, hogy az arcképek alapján az érzelmi állapotot felismerjük, és a nemet is megállapítsuk. Ennek érdekében olyan adathalmazokat kell kiválasztanunk, amelyek tartalmaznak arcképeket mind férfiakról, mind nőkről, és amelyek különböző érzelmi állapotokat képviselnek.
+
+        Az érzelmi állapotok felismerésére a legmegfelelőbb adathalmazok a különböző színészek, énekesek vagy sportolók képeit tartalmazó adatbázisok, mint például a FER-2013 vagy a FERPlus adathalmaz. Ezek az adathalmazok tartalmaznak olyan arcképeket, amelyekhez címkéket is mellékeltek, azaz az érzelmi állapotot is jelölték, így a modellünk számára egyszerűbb lesz az érzelmek felismerése. Ezen adathalmazok kiválasztásakor fontos figyelembe venni az adatok minőségét, mennyiségét, valamint a felhasználói licencet.
+
+        Az adathalmazban szükséges biztosítani a nemek arányos eloszlását is, amely lehetővé teszi a modell számára, hogy hatékonyan dolgozzon a férfiak és a nők arcképeivel egyaránt. Az adathalmaznak tartalmaznia kell olyan arcképeket, amelyek széles körű különbségeket mutatnak a férfiak és nők fizikai jellemzői között, például az arc formájában, valamint a szemek és az ajkak méretében. Ennek érdekében ajánlott olyan adatbázisokat választani, amelyek tartalmaznak arcképeket mindkét nemről.
+
+        Az adathalmaz összeállítása előtt érdemes alaposan megvizsgálni az adatbázis forrásait, és bizonyosodni arról, hogy az adatok jogosultak-e a felhasználásra. A privát adatokat tartalmazó adatbázisokat el kell kerülni, és olyan adatokat kell választani, amelyek nyilvánosan elérhetők, és szabadon felhasználhatók.
+        
+        \subsection{Keretrendszer kiválasztása}
+
+        Az arcrekonstrukciós hálózat és az arcanalízis hálózat tervezése során fontos szempont a technológia kiválasztása, amely lehetővé teszi a modellünk hatékony és megbízható működését. A pytorch, tensorflow és keras az elmúlt években az iparágban elterjedt neurális hálózat keretrendszerek, amelyek mindegyike képes a nagy számítási teljesítményű modellek létrehozására és azok hatékony működtetésére.
+
+        A pytorch keretrendszer mellett döntöttünk, mert az egyik legelterjedtebb és legnépszerűbb keretrendszer a neurális hálózatok számára. Az erőteljes számítási és automatizálási funkciói, valamint az egyszerű, de hatékony programozási nyelve miatt kiváló választásnak bizonyult. A pytorch átfogó dokumentációja és a közösség által készített rengeteg mintakód is segít abban, hogy könnyedén megértsük a keretrendszer működését és az algoritmusokat.
+        
+        \subsection{Meglévő munkák megvizsgálása}
+
+        Az hálózatok építése előtt érdemes megvizsgálni azokat a kutatási eredményeket, amelyek már elkészültek ezen területeken. Ezek az eredmények felhasználhatóak lehetnek a hálózatunk tervezéséhez, vagy javaslatot tehetnek azokra a paraméterekre, amelyeket érdemes beállítani. Érdemes áttekinteni az összes fontos kutatási eredményt, és kiválasztani azokat, amelyek a legjobban illeszkednek a projektre.
+        
+        \subsection{Tapasztalatok}
+
+        Az arcrekonstrukciós hálózat és az arcanalizáló hálózat fejlesztése egy olyan új terület, amelyet a csapatunk még nem tapasztalt korábban. Ennek eredményeképpen sok időt kellett szánnunk az anyag megértésére és a szükséges ismeretek megszerzésére.
+
+        A publikus adathalmazok száma viszonylag alacsony volt, ami további nehézséget jelentett a fejlesztési folyamat során. A durva matematikai háttér szintén tovább nehezítette a fejlesztést, és sok időt vett igénybe, hogy megértsük az algoritmusokat és a hálózatok működését.
+        
+        A fejlesztői környezet sok komponensből áll, és sokuk nem natív windowson. Ez kihívást jelentett a fejlesztés során, mivel a csapatunk Windows operációs rendszert használt. Ennek ellenére megoldást találtunk a problémákra, és sikerült sikeresen felépítenünk a hálózatokat.
+    
     \section{Megvalósítás}
     
         Ebben a fejezetben a projektünk redszertervét, arcanalízis- és arcrekonstukció felépítését, valamint kulcsfontosságú metódusait mutatjuk be részletesen.
@@ -1274,6 +1305,7 @@
                         szomorúság  & 4830                                                          & 1247                                                            \\
                         mérges      & 3995                                                          & 958                                                            
                     \end{tabular}
+                    \caption{A adathalmaz felosztása a tanításhoz}
                 \end{table}
                     
                 
@@ -1312,6 +1344,9 @@
                             \item a momentum: $0.9$
                             \item a ciklusok száma : $7$
                         \end{itemize}
+        \subsubsection{Tanítási környezet}
+
+        Az érzelemfelismerő és a nemfelismerő hálózatokat Intel(R) Core(TM) i5-7600K CPU @ 3.80GHz processzorral, 16,0 GB DDR4 RAM és NVIDIA GeForce GTX 1660 SUPER 6GB videókáryával rendelkező számítógépen tanítottuk, illetve fejlesztettük.
                     
                         
         \subsection{Arcrekonstrukció}
@@ -1428,7 +1463,7 @@
           A meglévő arcadatbázisokban szereplő képek gyakran távolról készültek.
           Ezért a DECA ortográfiai kameramodelljét használjuk a 3D háló képi térbe történő kivetítéséhez.
           Az arc csúcsait a képre vetítjük, mint $v = s\Pi(M_{i}) + t$, ahol
-          $M_{i} \in \mathbb{R}^{3}$ az $M$ egy csúcsa, $\Pi \in \mathbb{R}^{2 \times \3}$ az ortográfiai 3D-2D vetítési mátrix, $s \in \mathbb{R}$ és $t \in \mathbb{R}^{2}$ pedig az izotróp méretarányt és a 2D eltolást jelölik. Az $s$ és $t$ paramétereket összefoglalóan $c$-vel jelöljük.
+          $M_{i} \in \mathbb{R}^{3}$ az $M$ egy csúcsa, $\Pi \in \mathbb{R}^{2 \times 3}$ az ortográfiai 3D-2D vetítési mátrix, $s \in \mathbb{R}$ és $t \in \mathbb{R}^{2}$ pedig az izotróp méretarányt és a 2D eltolást jelölik. Az $s$ és $t$ paramétereket összefoglalóan $c$-vel jelöljük.
                      
          \paragraph{Kódoló}
 
@@ -1721,7 +1756,6 @@
             \begin{equation}
                 \label{nbr}
                 L_{nbr} = \sum_{x \in \Omega}\Big|\Big|\min_{\forall x^{'} \in N(x)}||I_{T}(x)-I_(R)(x_{'})||\Big|\Big|_{2}^{2}
-                
             \end{equation}
 
             Az \ref{nbr}. egyenletben szereplő pixel-szintű szomszédos veszteség, $L_{nbr}$ , összehasonlítja a célkép $x$ helyén lévő $I_{T}(x)$ pixeleit a renderelt képen a szomszédos régióban lévő $N(x)$ pixelekkel. 
@@ -1840,7 +1874,7 @@
             \label{fig:pretrain-all-loss}
         \end{figure}
 
-        \begin{figure}[H]	
+        \begin{figure}[h]	
             \centering
             \includegraphics[width=1\linewidth]{pretrain-val-images.jpg}
             \caption{Az előtanítás végén készített rekonstrukciók a teszt halmazból kivett képekről.}
@@ -2078,6 +2112,10 @@
 
     A DECA alapján az identitásveszteség kiszámításához egy előtanított arcfelismerő modellt használunk. Az előtanított modell súlyai a \textit{resnet50\_ft\_weight.pkl} fájlban vannak tárolva és a \url{https://github.com/cydonia999/VGGFace2-pytorch} oldalon érhető el.
     A modellt a VGGFace2 nevű nagyméretű arcfelismerési adathalmazon tanították elő.
+
+    \subsubsection{Tanítási környezet}
+
+        Az érzelemfelismerő és a nemfelismerő hálózatokat AMD Ryzen 3 1300X Quad-Core CPU @ 3.50GHz processzorral, 16,0 GB DDR4 RAM és NVIDIA GeForce RTX 3060 12GB GDDR6 videókártyával rendelkező számítógépen tanítottuk, illetve fejlesztettük.
     
     \section{Eredmények}
  	      \subsection{Arcanalízis}
@@ -2265,15 +2303,17 @@
     		      \includegraphics[width=1\linewidth]{focus_visual_results.jpg}
                 \caption{A FOCUS model eredményei. (Fentről lefelé: bemeneti
                 képek, a rekonstrukciós képeink és a becsült maszkok.) Forrás: \cite{focus}}
-                \label{fig:humanfacerecmatrix}
+                \label{fig:focusvisres}
     	       \end{figure} 
 
              \begin{figure}[h]	
     		      \centering
     		      \includegraphics[width=1\linewidth]{deca_results2.png}
                 \caption{A DECA model eredményei. (Fentről lefelé: bementi kép, durva rekonstrukció, részletes rekonstrukció.) Forrás: \cite{deca}}
-                \label{fig:humanfacerecmatrix}
+                \label{fig:decavisres}
     	       \end{figure} 
+
+            Mint láthatjuk a(z) \ref{fig:decavisres}. ábrán, a DECA által készített 3D-s modell sokkal részletesebben tudja rekonstruálni a személyspecifikus jellegzetes arcvonulatukat, mivel Yao Feng és tsai. a modelljüket 3 lépésben tanították. Az első lépés az előtanítás, majd a durva alak kinyerése aztán a részletes adatok kinyerése. Míg a mi megoldásunkban csak az első két lépést végeztül el. Ennek oka az erőforrás és a tanító adatok hiánya.
             
             \clearpage
             \subsubsection{NOW evaluáció}
@@ -2305,9 +2345,325 @@
     	    \end{figure} 
 
             A \ref{fig:cummulative-error}. ábrán látható diagram azt mutatja meg, hogy összes vizsgálati minta hány százaléka milyen hiba tartományba esik. Ebből következtetve, minél meredekebb a görbe, annál jobban teljesít a módszer.
+    
+    \section{A megvalósítás elemzése}
 
-            
+        Az általunk megvalósított arcrekonstrukciós modell eredményeit vizsgálva, azt láthatjuk, hogy a modellünk kevés adattal is sikeresen rekonstruál 3D-s arcképeket. Azonban a rekonstruált arcképek minősége elmarad a már publikált kutatások eredményeitől. Ez részben annak tudható be, hogy alacsony erőforrásokhoz kellett igazítanunk a modellünket. Ugyanakkor úgy gondoljuk, hogy további kutatói munkával, több adattal és jobb optimalizációval a modellünk teljesítménye jelentősen javulhat. Az eredményeink azt sugallják, hogy a modellünk továbbfejlesztése nagyobb adatmennyiség és finomhangolás által nagyobb teljesítményt érhet el a jövőben. 
 
-            
+        Az arcanalízis modellünk teljesítményének értékelésekor arra jutottunk, hogy nem éri el az emberi szintet. Ugyanakkor megfigyeltük, hogy bizonyos érzelmeket mégis nagy pontossággal képes felismerni. Az eredményeink alapján azt gondoljuk, hogy a modellünk hiányos tanító adatokkal rendelkezik, amely korlátozza a teljesítményét. Ennek fényében javasoljuk, hogy a tanító adatbázisunk bővítése segíthetne a modellünk pontosságának javításában.
+    
+        \subsection{Alkalmazások}
+
+        A 3D arcrekonstrukciós és az érzelem felismerő hálózatok együttes alkalmazása számos területen alkalmazható, beleértve az virtuális valóság (VR), bűnüldözés, marketing és szórakoztató ipar területeit. 
         
+        Az egyik felhasználási lehetőség egy olyan alkalmazás, amely lehetővé teszi, hogy az emberek virtuálisan próbálhassanak fel ruhákat, kiegészítőket vagy ékszereket. A 3D arcrekonstrukciós hálózat felhasználható lenne az arcok pontosságával és élethűségével, míg az érzelem felismerő hálózat meghatározná az éppen vásárló kedvenc termékét vagy annak ellenkezőjét, és ennek megfelelően javaslatokat adna a további vásárlásra.
+
+        Alkalmazásuk hasznos lehet klinikai vizsgálatokban is.
+        Például az érzelmek felismerése és az arcok élethű rekonstrukciója segíthet az orvosoknak azonosítani azokat a tüneteket, amelyeket a betegek arckifejezései mutatnak, például az arcfájdalmat vagy a depressziót. Az arcrekonstrukciós hálózat segítségével az orvosok pontosabb diagnózist adhatnak, az érzelem felismerő hálózat pedig segíthet az orvosoknak megérteni a beteg állapotát és javaslatokat adni az esetleges kezelésre.
+
+        Bár a 3D arcrekonstrukció és az érzelem- és nemfelismerés rendszerekben óriási potenciált láthatunk, fontos figyelembe venni a velük járó hátrányokat is. Az ilyen alkalmazásoknak társadalmi kockázata lehet a magánélet és az adatvédelem sérülése, hiszen az ilyen technológiák lehetővé teszik az egyének könnyű és pontos azonosítását, amely miatt felmerülhet a személyes adatok jogosulatlan felhasználása. Az ilyen technológiák használata további etikai és jogi kihívásokat is felvet, amelyeket meg kell oldani a biztonságos és felelős használat érdekében.
+            
+        \subsection{Továbbfejlesztési lehetőségek}
+
+        A továbbfejlesztési lehetőségeink közé tartozik a Kubernetes klaszter konfigurálása és a mikroszerviz komponensek kitelepítése. Ez javítani fogja a rendszerünk skálázhatóságát és megbízhatóságát. Az új rendszerünk monitorozó és logoló rendszereket is tartalmaz majd, amelyek segítségével a rendszer működése könnyen követhető és hibakeresési lehetőségeink is bővülnek.
+
+        Az arcanalízis hálózatunk továbbfejlesztése szintén fontos szerepet játszik a jövőbeli terveinkben. A tanító adathalmazunk bővítésével és a hiperparaméterek optimalizálásával további javulást várunk a hálózat teljesítményében. Ezenkívül az API megtervezése is tervben van.
+
+        Az arcrekonstrukciós hálózatunk fejlesztése is folytatódni fog. Az első lépés a tanító adathalmazunk kibővítése lesz, majd a hiperparaméterek további finomhangolása. Az erőforrások függőleges skálázása is fontos, hogy a rendszer hatékonyan tudjon dolgozni a nagyobb adathalmazokkal. A tanítás során felhasznált veszteségfüggvények halmazának kibővítése és optimalizálása szükséges lesz a részletesebb 3D arcrekonstrukció eléréséhez.
+
+        Végül, az új mikroszerviz architektúránk end-to-end tesztelése is szerepel a terveink között. Ez segít majd azonosítani az esetleges hibákat és biztosítani fogja a rendszerünk teljes funkcionalitását. Összességében, ezek a továbbfejlesztési lehetőségek javítani fogják a rendszerünk hatékonyságát, teljesítményét és megbízhatóságát.
+
+    \section{Tartalmi összefoglaló és következtetések}
+
+        A munkánk célja egy realisztikus 3D arcrekonstrukciós hálózat, egy hét különböző érzelem felismerésére alkalmas hálózat, valamint egy nemek felismerésére szolgáló hálózat létrehozása volt. Ezekhez a hálózatokhoz egy mikroszerviz architektúrára épülő felhasználóbarát webes alkalmazást is megterveztünk.
+        
+        A kutatás során többek között megvizsgáltuk a neurális hálózatok egyes típusainak felépítését, tanítási lehetőségeit, valamint az arcrekonstrukciós lehetőségeket. A kapcsolódó kutatásokat is alaposan elemeztük, beleértve a DECA és FOCUS modelleket, valamint az ezekben alkalmazott renderelési módszereket és arcpont felismerő hálózatokat.
+        
+        Az alkalmazás tervezése során az első lépés a rendszerterv megalkotása volt. 
+        A rendszer két fő része az arcrekonstrukciós és arcanalizáló modul. Ezeken kívül
+        egy React.js frontendből, egy Java backendből és egy MongoDB adatbázisból áll.
+        
+        Részletesen bemutattuk az arcrekonstrukciós és az arcanalizáló hálózatok megvalósítását, 
+        beleértve az egyes rétegek felépítését és a tanítási folyamatokat. Az alkalmazás tesztelése során az eredményeket összehasonlítottuk a meglévő megvalósításokkal.
+
+        Természetesen a személyes cél is nagy szerepet játszott a kutatás során, hiszen a csapat tagjainak fő motivációja az volt, hogy megismerjék és kipróbálják a különböző technológiákat, különös tekintettel a mesterséges intelligencia által nyújtott lehetőségeket.
+
+        Az elért eredmények bemutatása és azok összehasonlítása meglévő megvalósításokkal kiemelkedő fontosságú volt ahhoz, hogy lássuk, milyen előnyöket biztosít az általunk kifejlesztett rendszer. Az eredmények alapján megállapítható, hogy kutatásunk céljait nagyrészt elérte, és a létrehozott rendszerünk pontos és hatékony arcrekonstrukciót és arcanalízist biztosít a felhasználók számára. A fejlesztés során megismertük a különböző keretrendszereket és azok használatát, ezáltal személyes céljainkat is elértük.
+
+    \section{Summary of contents and conclusions}
+
+        The aim of our work was to create a realistic 3D face reconstruction network, a network for the recognition of seven different emotions and a network for sex recognition. For these networks, we also designed a user-friendly web application based on a microservice architecture.
+    
+        Among other things, the research investigated the structure of different types of neural networks, their learning approaches, and face reconstruction possibilities. Related research has also been thoroughly analysed, including DECA and FOCUS models and the rendering methods and face recognition networks used in them.
+
+        The first step was to create a system design. 
+        The two main parts of the system are the face reconstruction and face analysis modules. In addition to these, the system contains a React.js frontend, a Java backend and a MongoDB database.
+
+        We have discussed the implementation of face reconstruction and face analysis networks in detail, 
+        including the structure of each layer and the learning process. The results of the evaluation of the application were compared with existing implementations.
+
+        As a matter of fact, a personal goal also played a big part in the research, as the main motivation for the team members was to learn about and try out different technologies, especially the possibilities offered by artificial intelligence.
+
+        Demonstrating the results achieved and comparing them with existing implementations was of paramount importance to see the benefits of the system we developed. Based on the results, it can be concluded that the objectives of our research have been largely achieved and that the system we have created provides users with accurate and efficient facial reconstruction and facial analysis. During the development, we have learned about the different frameworks and their usage, thus achieving our personal goals.
+        
+    \newpage
+	\renewcommand{\refname}{Hivatkozások}
+	\begin{thebibliography}{9}
+		
+		\bibitem{tewari}
+		Tewari, A., Zollhofer, M., Kim, H., Garrido, P., Bernard, F., Perez,
+		P., Theobalt, C. (2017).
+		\textit{Mofa: Model-based deep convolutional face au-
+		toencoder for unsupervised monocular reconstruction. In Proceedings of
+		the IEEE International Conference on Computer Vision Workshops (pp.
+		1274-1283)}
+		
+		\bibitem{tran}
+		Tuan Tran, A., Hassner, T., Masi, I., Medioni, G. (2017). 
+		\textit{Regressing
+		robust and discriminative 3D morphable models with a very deep neural
+		network. In Proceedings of the IEEE conference on computer vision and
+		pattern recognition (pp. 5163-5172)}
+		
+		\bibitem{olszewski}
+		Olszewski, K., Lim, J. J., Saito, S., Li, H. (2016).
+		\textit{High-fidelity facial and
+		speech animation for VR HMDs. ACM Transactions on Graphics (TOG),
+		35(6), 1-14}
+		
+		\bibitem{styner}
+		Styner, M. A., Rajamani, K. T., Nolte, L. P., Zsemlye, G., Székely, G.,
+		Taylor, C. J., Davies, R. H. (2003, July).
+		\textit{ Evaluation of 3D correspondence
+		methods for model building. In Biennial International Conference on In-
+		formation Processing in Medical Imaging (pp. 63-75). Springer, Berlin,
+		Heidelberg}
+		
+		\bibitem{survey} 
+		Morales, A., Piella, G., Sukno, F. M. (2021). 
+		\textit{Survey on 3D face re-
+		construction from uncalibrated images. Computer Science Review, 40,
+		100400.}
+		
+		\bibitem{auto}
+		Kala, R. (2016).
+		\textit{On-road intelligent vehicles: Motion planning for intel-
+		ligent transportation systems. Butterworth-Heinemann.}	
+		
+		\bibitem{scanner}
+		Kovacs, L., Zimmermann, A., Brockmann, G., Gühring, M., Baurecht,H., Papadopulos, N. A., ... Zeilhofer, H. F. (2006).
+		\textit{Three-dimensional
+		recording of the human face with a 3D laser scanner. Journal of plastic,
+		reconstructive and aesthetic surgery, 59(11), 1193-1202}
+		
+		\bibitem{blanzvetter}
+		Blanz, V., Vetter, T. (1999, July).
+		\textit{A morphable model for the synthesis
+		of 3D faces. In Proceedings of the 26th annual conference on Computer
+		graphics and interactive techniques (pp. 187-194)}
+		
+		\bibitem{3dmm}
+		Egger, B., Smith, W. A., Tewari, A., Wuhrer, S., Zollhoefer, M., Beeler,
+		T.,... Vetter, T. (2020).
+		\textit{3d morphable face models—past, present, and
+		future. ACM Transactions on Graphics (TOG), 39(5), 1-38}
+		
+		\bibitem{dolphins}
+		Cashman, T. J., Fitzgibbon, A. W. (2012).
+		\textit{What shape are dolphins?
+		building 3d morphable models from 2d images. IEEE transactions on pat-
+		tern analysis and machine intelligence, 35(1), 232-244}
+		
+		\bibitem{photometric}
+		Ackermann, J., Goesele, M. (2015).
+		\textit{A survey of photometric stereo
+			techniques. Foundations and Trends® in Computer Graphics and Vision,
+			9(3-4), 149-254, 149–254.}
+		
+		\bibitem{multiplex}
+		Hernández, C., Vogiatzis, G., Brostow, G. J., Stenger, B., Cipolla,
+		R. (2007, October).
+		\textit{Non-rigid photometric stereo with colored lights. In
+			2007 IEEE 11th International Conference on Computer Vision (pp. 1-8).
+			IEEE}
+		
+		\bibitem{hibrid}
+		Nehab, D., Rusinkiewicz, S., Davis, J., Ramamoorthi, R. (2005).
+		\textit{Efficiently combining positions and normals for precise 3D geometry. ACM transactions on graphics (TOG), 24(3), 536-543.}
+			
+		\bibitem{patelsmith}
+		Patel, A., Smith, W. A. (2012).
+		\textit{Driving 3D morphable models using shading cues. Pattern Recognition, 45(5), 1993-2004}
+		
+		\bibitem{ann}
+		Abraham, A. (2005).
+		\textit{Artificial neural networks. Handbook of measuring system design}
+		
+		\bibitem{ann2}
+		Jain, A. K., Mao, J., Mohiuddin, K. M. (1996).
+		\textit{Artificial neural networks: A tutorial. Computer, 29(3), 31-44}
+		
+		\bibitem{ann3}
+		\textit{MARCELL, Borza. Mesterséges neurális hálózatok matematikai alapjai.}
+		
+		\bibitem{ann4}
+		Tamás, K. (2002).
+		\textit{A mesterséges neurális hálók a jövőkutatás
+			szolgálatában.}
+		
+		\bibitem{krenker}
+		Krenker, A., Bester, J., Kos, A. (2011).
+		\textit{Introduction to the artificial neural networks. Artificial Neural Networks: Methodological Advances and
+			Biomedical Applications. InTech, 1-18.}
+		
+		\bibitem{saragih}
+		Saragih, J. M., Lucey, S., Cohn, J. F. (2011, March). 
+		\textit{Real-time avatar
+			animation from a single image. In 2011 IEEE International Conference
+			on Automatic Face and Gesture Recognition (FG) (pp. 117-124). IEEE}
+		
+		\bibitem{CNN}
+		Indolia, S., Goswami, A. K., Mishra, S. P., Asopa, P. (2018).
+		\textit{ Conceptual
+			understanding of convolutional neural network-a deep learning approach.
+			Procedia computer science, 132, 679-688.}
+	
+	
+	\bibitem{synthetic}
+	Richardson, E., Sela, M., Kimmel, R. (2016, October). 
+	\textit{3D face reconstruction by learning from synthetic data. In 2016 fourth international conference on 3D vision (3DV) (pp. 460-469). IEEE.}
+	
+	\bibitem{keras}
+	Manaswi, N. K. (2018).
+	\textit{Understanding and working with Keras. In Deep
+		Learning with Applications Using Python (pp. 31-43). Apress, Berkeley,
+		CA.}
+	
+	\bibitem{yudong}
+	Guo, Y., Cai, J., Jiang, B., Zheng, J. (2018).
+	\textit{Cnn-based real-time
+		dense face reconstruction with inverse-rendered photo-realistic face images. IEEE transactions on pattern analysis and machine intelligence,
+		41(6), 1294-1307.}
+	
+	\bibitem{elad}
+	 Richardson, E., Sela, M., Kimmel, R. (2016, October).
+	\textit{3D face reconstruction by learning from synthetic data. In 2016 fourth international conference on 3D vision (3DV) (pp. 460-469). IEEE.}
+	
+	\bibitem{yudeng}
+	Deng, Y., Yang, J., Xu, S., Chen, D., Jia, Y., Tong, X. (2019).
+	\textit{Accurate
+		3d face reconstruction with weakly-supervised learning: From single image
+		to image set. In Proceedings of the IEEE/CVF Conference on Computer
+		Vision and Pattern Recognition Workshops (pp. 0-0)}
+	
+	\bibitem{chen}
+	Chen, D., Hua, G., Wen, F., Sun, J. (2016, October). 
+	\textit{Supervised transformer network for efficient face detection. In European Conference on
+		Computer Vision (pp. 122-138). Springer, Cham.}
+	
+	\bibitem{kingma}
+	Kingma, D. P., Ba, J. (2014).
+	\textit{Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.}
+	
+	\bibitem{deca}
+	Feng, Y., Feng, H., Black, M. J., Bolkart, T. (2021).
+	\textit{Learning an animatable detailed 3D face model from in-the-wild images. ACM Transactions
+		on Graphics (TOG), 40(4), 1-13.}
+	
+	\bibitem{focus}
+	Li, C., Morel-Forster, A., Vetter, T., Egger, B., Kortylewski, A. (2021).
+	\textit{To fit or not to fit: Model-based Face Reconstruction and Occlusion Segmentation from Weak Supervision. arXiv preprint arXiv:2106.09614.}
+	
+	\bibitem{flame}
+	Tianye Li, Timo Bolkart, Michael. J. Black, Hao Li, and Javier Romero
+	(2017).
+	\textit{Learning a model of facial shape and expression from 4D scans.
+		ACM Transactions on Graphics, (Proc. SIGGRAPH Asia) 36, 6 (2017),
+		194:1–194:17.}
+	
+	\bibitem{liwen}
+	Liwen Hu, Shunsuke Saito, Lingyu Wei, Koki Nagano, Jaewoo Seo, Jens
+	Fursund, Iman Sadeghi, Carrie Sun, Yen-Chun Chen, and Hao Li. (2017).
+	(2017).
+	\textit{Avatar Digitization from a Single Image for Real-time Rendering. ACM
+		Transactions on Graphics (TOG) 36, 6 (2017), 195:1–195:14.}
+	
+	\bibitem{bulat}
+	Adrian Bulat and Georgios Tzimiropoulos (2017).
+	\textit{How far are we from solving the 2D and 3D Face Alignment problem? (and a dataset of 230,000 3D facial landmarks). In International Conference on Computer Vision.}
+	
+	\bibitem{mohammed}
+	Mohammed, S. B., Abdulazeez, A. M. (2021).
+	\textit{Deep Convolution Neural
+		Network for Facial Expression Recognition. PalArch’s Journal of Archaeology of Egypt/Egyptology, 18(4), 3578-3586.}
+	
+	\bibitem{arcface}
+	Deng, J., Guo, J., Xue, N., and Zafeiriou, S. (2019).
+	\textit{Arcface: Additive angular margin loss for deep face recognition. In Proceedings of the
+		IEEE/CVF conference on computer vision and pattern recognition (pp.
+		4690-4699).}
+	
+	\bibitem{feafa}
+	Yan, Y., Lu, K., Xue, J., Gao, P., and Lyu, J. (2019, July).
+	\textit{Feafa: A
+		well-annotated dataset for facial expression analysis and 3d facial animation. In 2019 IEEE International Conference on Multimedia and Expo
+		Workshops (ICMEW) (pp. 96-101). IEEE.}
+	
+	\bibitem{paysan}
+	Paysan, P., Knothe, R., Amberg, B., Romdhani, S., and Vetter, T. (2009, September).
+	\textit{A 3D face model for pose and illumination invariant
+		face recognition. In 2009 sixth IEEE international conference on advanced
+		video and signal based surveillance (pp. 296-301). Ieee.}
+
+    \bibitem{PCA}
+	Castelán, Mario, and Edwin R. Hancock.
+	\textit{A simple coupled statistical model for 3d face shape recovery. 18th International Conference on Pattern Recognition (ICPR'06). Vol. 1. IEEE, 2006.}
+
+
+    \bibitem{resnet}
+	Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+	\textit{Deep Residual Learning for Image Recognition. In IEEE Conference on Computer Vision and Pattern Recognition  2016. (CVPR). 770–778.}
+
+    \bibitem{tl}
+    Weiss, Karl, Taghi M. Khoshgoftaar, and DingDing Wang.
+    \textit{A survey of transfer learning." Journal of Big data 3.1 (2016): 1-40.}
+
+    \bibitem{unet}
+    Olaf Ronneberger, Philipp Fischer, and Thomas Brox.
+    \textit{U-net: Convolutional networks for biomedical image segmentation. In International Conference on Medical image computing and computer-assisted intervention. Springer, 234–241 (2015.)}
+
+    \bibitem{celeba}
+    Liu, Z., Luo, P., Wang, X., Tang, X.
+    \textit{Deep learning face attributes in the wild. In: Proceedings of the IEEE international conference on computer vision. 2015. p. 3730-3738.}
+
+    \bibitem{ciresan}
+    Ciresan, D.C., Gambardella, L.M., Giusti, A., Schmidhuber, J.
+    \textit{Deep neural networks segment neuronal membranes in electron microscopy images. In: NIPS, pp. 2852–2860 (2012)}
+
+    \bibitem{diffrenderer}
+    Kato, Hiroharu, et al.
+    \textit{Differentiable rendering: A survey. arXiv preprint arXiv:2006.12057 (2020).}
+
+    \bibitem{facerecresult}
+    Dores, Artemisa R., et al.
+    \textit{Recognizing emotions through facial expressions: A largescale experimental study. International journal of environmental research and public health 17.20 (2020): 7420.}
+
+    \bibitem{pretrained-resnet}
+    Xuan Cao, Zhang Chen, Anpei Chen, Xin Chen, Shiying Li, and Jingyi Yu. 2018a.
+    \textit{Sparse Photometric 3D Face Reconstruction Guided by Morphable Models. In    IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 4635–4644.}
+
+    \bibitem{regularization-survey}
+    Tian, Yingjie, and Yuqi Zhang.
+    \textit{A comprehensive survey on regularization strategies in machine learning. Information Fusion 80 (2022): 146-166.}
+
+    \bibitem{now}
+    Sanyal, Soubhik, et al.
+    \textit{Learning to regress 3D face shape and expression from an image without 3D supervision. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019. p. 7763-7772.}
+    
+
+    \bibitem{ruder}
+    Ruder, Sebastian
+    \textit{An overview of gradient descent optimization algorithms. arXiv preprint arXiv:1609.04747, 2016.}
+
+	\end{thebibliography}
  \end{document}
