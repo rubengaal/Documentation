@@ -67,7 +67,7 @@
           \end{tabular}%
         }\hfill
         \textbf{\begin{tabular}{@{}c@{}}
-          INFORMATIKAI KAR
+          NEUMANN JÁNOS \\ INFORMATIKAI KAR
           \end{tabular}%
         }\hfill
         \makebox[0pt][r]{%
@@ -112,8 +112,8 @@
 		A felsoroltak hiányában mi az alábbi megoldást javasoljuk. Egy gyengén
 		felügyelt tanítású hálózatot, amit lehetséges kontrollálatlan környezetben készült képekkel betanítani.
 		Ennek megvalósításához kettő már kész kutatás anyagát vettük igénybe. Az
-		első, \cite{deca}DECA képes kezelni az arc kisebb részleteit, arckifejezéseit. A
-		másik, a \cite{focus}FOCUS bemutatott egy korszerű megközelítést az arckép rekonstrukciójára kitakarások mellet. Ilyen kitakarások például a szemüveg és sapka. Ezek a kutatások nem csak korszerűek, de a NoW challenge teljesítményértekelései alapján bizonyítottan jól teljesítenek. Ezeket ötvözve egy robosztus, illetve realisztikus
+		első, DECA \cite{deca} képes kezelni az arc kisebb részleteit, arckifejezéseit. A
+		másik, a FOCUS \cite{focus} bemutatott egy korszerű megközelítést az arckép rekonstrukciójára kitakarások mellett. Ilyen kitakarások például a szemüveg és sapka. Ezek a kutatások nem csak korszerűek, de a NoW challenge teljesítményértekelései alapján bizonyítottan jól teljesítenek. Ezeket ötvözve egy robosztus, illetve realisztikus
 		arcképek generálására alkalmas módszert mutatunk be ebben a tanulmányban.
 		A rekonstrukció mellet implementáltunk egy arckép analízálására alkalmas módszert, amely képes eldönteni az arcképen lévő személy érzelmi
 		állapotát és nemét. Ezek köré egy felhasználó barát mikroszerviz alapú web
@@ -124,14 +124,14 @@
     \section*{Abstract}
         \textit{Recently, 3D facial reconstruction methods based on deep learning have shown promising results in terms of both quality and efficiency. However, learning neural networks typically requires a large amount of labeled data, which entails corresponding resources.
         }
-        \textit{In the absence of the above, we propose the following solution. A poorly supervised learning network that can be trained with images in an unsupervised environment.To implement this, we have drawn on the material of two existing research studies. From the first one, \cite{deca}DECA, is able to handle small details of the face and facial expressions. The other, \cite{focus}FOCUS, presented a state-of-the-art approach to facial reconstruction with occlusions. Examples of such masking are glasses and hats. These are not only state of the art, but have been shown to perform well in the NoW challenge performance tests. Combining them to create a robust and realistic generating realistic facial images is presented in this paper.}
+        \textit{In the absence of the above, we propose the following solution. A poorly supervised learning network that can be trained with images in an unsupervised environment.To implement this, we have drawn on the material of two existing research studies. From the first one, DECA \cite{deca}, is able to handle small details of the face and facial expressions. The other, FOCUS \cite{focus}, presented a state-of-the-art approach to facial reconstruction with occlusions. Examples of such masking are glasses and hats. These are not only state of the art, but have been shown to perform well in the NoW challenge performance tests. Combining them to create a robust and realistic generating realistic facial images is presented in this paper.}
         \textit{In addition to the reconstruction, we implemented a facial analysis method that can decide the emotional state and gender. These are built around a user friendly microservice based web application with services running on the cloud.}
      
 	\par\noindent\rule{\textwidth}{0.4pt}
 
     \section{Bevezetés}
         Az elmúlt évek során egyre több figyelmet kaptak a digitális képfeldolgozáson alapuló technológiák az informatikában. 
-        Mint ahogy \cite{survey}Araceli Morales és tsai. is megemlítették a munkájukban, az arcfelismerő technológiák széles körben elterjedtek napjainkban, beleértve a biztonságot, animációt és egészségügyet. 
+        Mint ahogy Araceli Morales és tsai. \cite{survey} is megemlítették a munkájukban, az arcfelismerő technológiák széles körben elterjedtek napjainkban, beleértve a biztonságot, animációt és egészségügyet. 
         Illetve, ezen szakmai területen mostanság felkapott, hogy 3D-s adatok implementálásával megkerüljék a 2D arckép által megszabott határokat, mivel a 2D-s kép képtelen az emberi arc geometriájának eltárolására.
         A 3D arcfelismerés sokkal pontosabb adatokat ad vissza, például pózban és megvilágításban, amelyek hátulütői a 2D-nek. Azonban ennek is vannak hátrányai, hogy például sokkal nagyobb komplexitású képfeldolgozást igényel, ezáltal szűkítve a lehetőségeket.
 
@@ -145,11 +145,11 @@
 
         Ezek a módszerek mind megfelelnek 3D-s adatok gyűjtésére, azonban az első két megvalósítás hátránya, hogy előre megszabott feltételeknek megfelelő környezetet és drága felszereléseket igényelnek egy jó minőségű arc szkenneléshez. Ellenben, az RGB-D kamerák olcsóbbak és könnyebben használhatóak, de a minőség korlátozott.
 
-        A fent említett megközelítések általában költséges optimalizálási folyamatot igényelnek a jó minőségű 3D-s arc visszanyerése érdekében. Két évtized telt el \cite{blanzvetter}Blanz és Vetter úttörő munkája óta, amely először mutatta be hogyan lehet egyetlen képből rekonstruálni az arc 3D-s geometriáját. Azóta a 3D arcrekonstrukciós módszerek rohamosan fejlődtek, de a korábbi modellek csak az arc durva alakját tudták rekonstruálni, és képtelenek voltak kinyerni az arckifejezéstől függő geometriai részleteket, mint például a ráncokat, amik fontosak a realisztikusság szempontjából.
+        A fent említett megközelítések általában költséges optimalizálási folyamatot igényelnek a jó minőségű 3D-s arc visszanyerése érdekében. Két évtized telt el Blanz és Vetter \cite{blanzvetter} úttörő munkája óta, amely először mutatta be hogyan lehet egyetlen képből rekonstruálni az arc 3D-s geometriáját. Azóta a 3D arcrekonstrukciós módszerek rohamosan fejlődtek, de a korábbi modellek csak az arc durva alakját tudták rekonstruálni, és képtelenek voltak kinyerni az arckifejezéstől függő geometriai részleteket, mint például a ráncokat, amik fontosak a realisztikusság szempontjából.
 
         Később jöttek újabb modellek, melyek képesek voltak kiragadni a fent említett geometriai részleteket, azonban hátrányuk, hogy egy nagy volumenű, jó minőségű tanító adathalmazt követelnek. Illetve, egy másik hátrányuk, hogy inkonzisztens módon teljesítettek a kitakarásokkal szemben. A kitakarások mindenütt jelen vannak, és eleve nehezen kezelhetőek az alakjuk, megjelenésük és a pozíciójuk sokfélesége miatt. Ezáltal okozott probléma az, hogy az arcmodell alkalmazkodik az eltakart arcrégióhoz, és ennek eredményeként a rekonstruált arc torz lesz. Ezért nyitott kérdés marad annak eldöntése, hogy mely pixelek illeszkedjenek, és melyek ne illeszkedjenek az arcra egy 3D arc rekonstrukciója során kitakarások jelenlétében. A közelmúltban számos olyan módszert javasoltak, amelyek gyengén felügyelt tanítású konvolúciós neurális hálózatokat(CNN) használnak a hatékony, robosztus és a fent említett kihívásokat leküzdő arcrekonstrukció eléréséhez.
 
-        Tehát, a jelenlegi monokuláris 3D arcrekonstrukciós módszerek képesek finom geometriai részleteket visszaadni, azonban számos megkötéssel küzdenek. Egyes módszerek olyan arcokat generálnak, amelyeket nem lehet valósághűen animálni, mivel nem modellezik, hogy hogyan változnak a ráncok az arckifejezésekkel. Más módszerek kiváló minőségű szkennelt arcokat használnak a tanításhoz és nem jól általánosíthatóak a természetes körülményekben készült képekre. A \cite{deca}Yao Feng és tsai. által bemutatott DECA modell a legelső olyan megközelítés, amely regresszálja a 3D arcformát és az animálható részleteket, amelyek egy személyre jellemzőek, de az arckifejezéssel változnak, ezáltal képesek az arc valósághű animálására.
+        Tehát, a jelenlegi monokuláris 3D arcrekonstrukciós módszerek képesek finom geometriai részleteket visszaadni, azonban számos megkötéssel küzdenek. Egyes módszerek olyan arcokat generálnak, amelyeket nem lehet valósághűen animálni, mivel nem modellezik, hogy hogyan változnak a ráncok az arckifejezésekkel. Más módszerek kiváló minőségű szkennelt arcokat használnak a tanításhoz és nem jól általánosíthatóak a természetes körülményekben készült képekre. A Yao Feng és tsai. \cite{deca} által bemutatott DECA modell a legelső olyan megközelítés, amely regresszálja a 3D arcformát és az animálható részleteket, amelyek egy személyre jellemzőek, de az arckifejezéssel változnak, ezáltal képesek az arc valósághű animálására.
 
         A kitakarásokkal szemben a legtöbb megközelítés a 3D arc illesztéséhez inverz renderelést alkalmaz egy adott eltakaró szegmentálásához. Ennek hátránya, hogy egy szegmentációs modellhez nagy mennyiségű címkézett adatra van szükség. Chunlu Li és tsai. \cite{focus} ezzel ellentétben egy olyan modellalapú megközelítést mutatnak be a 3D arc rekonstrukciójához, amely rendkívül robosztus az arcot kitakaró tényezőkkel szemben, de nem igényel semmilyen címkét a kitakarásokról a tanításhoz.
 
@@ -166,7 +166,7 @@
 
     \section{Előzetes kutatások}
 	\subsection{Neurális hálózat}
-    Ebben a fejezetben \cite{ann}Abraham és tsai. munkája alapján bemutatjuk a neurális hálózatok működését.
+    Ebben a fejezetben Abraham és tsai. \cite{ann} munkája alapján bemutatjuk a neurális hálózatok működését.
     
 	\label{NN}
 	Az emberi agy bizonyítja a hatalmas neurális hálózatok létezését, amelyek sikeresen végeznek el kognitív, észlelési és irányítási feladatokat. Ilyen számításigényes feladat például az arcfelismerés, a beszéd és a testmozgás. Az agy hatékonyan kihasználja a masszív párhuzamosságot, számítási struktúrája nagy mértékben párhuzamos, és jó információfeldolgozási képességgel rendelkezik.
@@ -174,12 +174,12 @@
     \begin{figure}[h]	
 		\centering
 		\includegraphics[width=0.8\linewidth]{neuron1}
-        \label{fig:neuron1}
 		\caption{Neuron felépítése. 
-			Forrás:\cite{ann}}
+			Forrás: \cite{ann}}
+        \label{fig:neuron1}
 	\end{figure}
  
-	Az emberi agy több, mint 10 milliárd egymással összefüggő neuron gyűjteménye. Mindegyik neuron egy sejt \ref{fig:neuron1}, amely biokémiai reakciókat használ az információ fogadáshoz, feldolgozáshoz és továbbításhoz.
+	Az emberi agy több, mint 10 milliárd egymással összefüggő neuron gyűjteménye. Mindegyik neuron egy sejt (\ref{fig:neuron1}. ábra), amely biokémiai reakciókat használ az információ fogadáshoz, feldolgozáshoz és továbbításhoz.
 	
 	Az idegrostok faszerű hálózatai, az úgynevezett dendritek kapcsolódnak a sejttesthez, ahol a sejtmag található. A sejttestből egyetlen hosszú rost nyúlik, melyet \textit{axon}nak neveznek. Az \textit{axon} szálakra és alszálakra ágazik, majd szinapszisain keresztül kapcsolódik más neuronokhoz. Az itt létrejövő szinaptikus kapcsolat erőssége határozza meg az emberi agy tanulását .
 	
@@ -188,7 +188,7 @@
 	\subsection{Mesterséges neurális hálózatok}
 	A mesterséges neurális hálózatok (ANN-artificial neural networks) az előző fejezetben [\autoref{NN}] említett fejlettebb élő szervezetek agyát alkotó neuronokról kapták nevüket. 
 	
-	Mint azt \cite{ann}Abraham és tsai. is említik, a neurális hálózatok alapvető feldolgozási elemeit mesterséges neuronoknak nevezzük, vagy csak egyszerűen neuronoknak vagy csomópontoknak. A neuron leegyszerűsített matematikai modelljében a szinapszisok hatásai kapcsolati súlyokkal vannak reprezentálva, amelyek szabályozzák a bemeneti jelek hatását.
+	Mint azt Abraham és tsai. \cite{ann} is említik, a neurális hálózatok alapvető feldolgozási elemeit mesterséges neuronoknak nevezzük, vagy csak egyszerűen neuronoknak vagy csomópontoknak. A neuron leegyszerűsített matematikai modelljében a szinapszisok hatásai kapcsolati súlyokkal vannak reprezentálva, amelyek szabályozzák a bemeneti jelek hatását.
 	
 	A neuronok által mutatott nemlineáris karakterisztikát átviteli függvény segítségével ábrázoljuk. A neuron impulzusát ezután a bemeneti jelek súlyozott összegeként számíthatjuk ki az átviteli 
     függvénnyel transzformálva.
@@ -196,7 +196,7 @@
 	  Egy mesterséges neuron tanulási képessége a súlyok megfelelő beállításával érhető el egy választott tanító algoritmus felhasználásával.
 	\newline
 	
-	Egy tipikus mesterséges neuron és egy többrétegű neurális hálózat modellezése a \ref{fig:fig2}. ábrán látható. A \ref{fig:fig2}. ábra szerint, ahogy a nyilak is mutatják, az $x_{1},...,x_{n}$ bemenetekről érkező jeláramlás egyirányúnak tekinthető csakúgy, mint a neuron kimeneti jelfolyama. A neuron kimeneti jelét \textit{O} a következő összefüggés adja:
+	Egy tipikus mesterséges neuron és egy többrétegű neurális hálózat modellezése a(z) \ref{fig:fig2}. ábrán látható. A(z) \ref{fig:fig2}. ábra szerint, ahogy a nyilak is mutatják, az $x_{1},...,x_{n}$ bemenetekről érkező jeláramlás egyirányúnak tekinthető csakúgy, mint a neuron kimeneti jelfolyama. A neuron kimeneti jelét \textit{O} a következő összefüggés adja:
 	\begin{mdframed}
 	\begin{align}
 		&O = f(net) = f(\sum{j=1}^{n}w_{j}x_{j}) 
@@ -234,9 +234,11 @@
 		\centering
 		\includegraphics[width=1\linewidth]{fuggvenyek}
 		\caption{(a) küszöbfüggvény, (b) lineáris, (c) szigmoid, (d) Gauss 
-			\newline\centering Forrás:\cite{ann2}}
+			\newline\centering Forrás: \cite{ann2}}
 		\label{fuggvenyek}
 	\end{figure}
+    Az egyes aktivációs függvények a(z) \ref{fuggvenyek}. ábrán láthatóak.
+ 
 	\clearpage
 	\begin{mdframed}
 	Ma az egyik leggyakrabban használt aktivációs függvény a szigmoid \cite{ann4}, melyet a következő képlettel határoznak meg:
@@ -251,7 +253,7 @@
 	Bár a mesterséges neuron működési elvei és 
 	egyszerű szabályrendszere elsőre talán nem tűnik érdekesnek, azonban e modellek teljes potenciálja és számítási teljesítménye akkor kel életre, 
 	amikor mesterséges neurális hálózatokká
-	kezdjük őket összekapcsolni [\ref{fig:fig2}. ábra]. 
+	kezdjük őket összekapcsolni (\ref{fig:fig2}. ábra). 
 	Ezek a mesterséges neurális hálózatok 
 	kihasználják az egyszerű tényt, 
 	hogy a komplexitás néhány alapvető
@@ -263,7 +265,7 @@
 	alapvető építőelemeikben (\textit{mesterséges neuronok}) feldolgozzák az információt nemlineáris,
 	elosztott, párhuzamos és lokális módon.
 	
-	\cite{krenker}Krenker és tsai. 
+	Krenker és tsai. \cite{krenker} 
 	   munkája alapján az egyes mesterséges 
 	neuronok összekapcsolásának módját 
 	\textit{topológiának}, \textit{architektúrának} 
@@ -276,13 +278,13 @@
 		\includegraphics[width=1\linewidth]{topologies}
         
 		\caption{Előrecsatolt (FNN) és rekurrens (RNN) \newline\centering  neurális hálózati topológiák. 
-			Forrás:\cite{krenker}}
+			Forrás: \cite{krenker}}
         \label{fig:topologies}
 	\end{figure}
 	
-	A \ref{fig:topologies}. ábra ezt a két topológiát mutatja. Az ábra bal oldala egy egyszerű előrecsatolt topológiát ábrázol, ahol az információ a bemenetekről kimenetekre áramlik egyirányúan. Az ábra jobb oldala pedig egy egyszerű rekurrens topológiát ábrázol, ahol az információ egy része nem csak egy irányban áramlik a bemenetről a kimenetre, hanem ellenkező irányban is.
+	A(z) \ref{fig:topologies}. ábra ezt a két topológiát mutatja. Az ábra bal oldala egy egyszerű előrecsatolt topológiát ábrázol, ahol az információ a bemenetekről kimenetekre áramlik egyirányúan. Az ábra jobb oldala pedig egy egyszerű rekurrens topológiát ábrázol, ahol az információ egy része nem csak egy irányban áramlik a bemenetről a kimenetre, hanem ellenkező irányban is.
 
-	Fontos megemlíteni, hogy a mesterséges neurális hálózat könnyebb kezelése, és matematikai leírása érdekében az egyes neuronokat rétegekbe soroljuk. A \ref{fig:topologies}. ábrán láthatjuk a bemeneti, a rejtett és a kimeneti réteget.
+	Fontos megemlíteni, hogy a mesterséges neurális hálózat könnyebb kezelése, és matematikai leírása érdekében az egyes neuronokat rétegekbe soroljuk. A(z) \ref{fig:topologies}. ábrán láthatjuk a bemeneti, a rejtett és a kimeneti réteget.
 	
 	A háló input rétegében minden neuron kapcsolatban áll a \textit{rejtett} (köztes) réteggel, így tovább adhatja a bemenetként kapott adatokat. A bemeneti réteg neuronjai súlyozott szinapszisokkal kapcsolódnak a belső rétegekhez.\\
 	
@@ -308,9 +310,9 @@
 	költségfüggvényt.
 	
 	\subsection{Neurális hálók tanítása}
-    Ebben a fejezetben \cite{krenker}Krenker és tsai. munkája alapján mutatjuk be a nerális hálózatok tanítási módszereit.
+    Ebben a fejezetben Krenker és tsai. \cite{krenker} munkája alapján mutatjuk be a nerális hálózatok tanítási módszereit.
  
-	A tanulási folyamat az \cite{ann2}ANN kontextusában a
+	A tanulási folyamat az ANN \cite{ann2} kontextusában a
 	hálózat architektúrája és a kapcsolati súlyok frissítéseként értelmezhető annak érdekében, hogy a háló hatékonyan tudjon elvégezni egy adott feladatot.
 	A hálózatnak a rendelkezésre álló tanító mintákból kell megtanulnia a kapcsolati súlyokat. A teljesítmény idővel javul a súlyok iteratív frissítésével.
 	Az ANN-eket automatikus, példákból való tanulása teszi 
@@ -356,7 +358,7 @@
 
     \subsubsection{Átviteli tanítás}
     
-     \cite{tl}A hagyományos gépi tanulási módszerek egyik feltételezése, hogy a tanítási és tesztelési adatok ugyanabból a tartományból származnak, így a bemeneti jellemzőtér és az adatok eloszlási jellemzői megegyeznek. Néhány valós gépi tanulási forgatókönyvben azonban ez a feltételezés nem áll fenn. Vannak olyan esetek, amikor a tanítási adatok gyűjtése drága vagy nehézkes. Ezért nagy teljesítményű tanulók létrehozására van szükség, amelyeket különböző tartományokból könnyebben beszerezhető adatokkal tanítanak. Ezt a módszert átviteli tanításnak nevezzük.
+     A hagyományos gépi tanulási módszerek \cite{tl} egyik feltételezése, hogy a tanítási és tesztelési adatok ugyanabból a tartományból származnak, így a bemeneti jellemzőtér és az adatok eloszlási jellemzői megegyeznek. Néhány valós gépi tanulási forgatókönyvben azonban ez a feltételezés nem áll fenn. Vannak olyan esetek, amikor a tanítási adatok gyűjtése drága vagy nehézkes. Ezért nagy teljesítményű tanulók létrehozására van szükség, amelyeket különböző tartományokból könnyebben beszerezhető adatokkal tanítanak. Ezt a módszert átviteli tanításnak nevezzük.
 
      Az átviteli tanítás alapvető célja a modell fejlesztésének felgyorsítása egy meglévő modellből kiindulva és annak tovább hangolása a specifikus problémára.
  
@@ -364,11 +366,11 @@
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{CNN}
+		\caption{CNN. Forrás: \cite{CNN}}
         \label{fig:cnn}
-		\caption{CNN(Convolutinal Neural Network)}
 	\end{figure}
  
-	\cite{CNN}Indolia és tsai. értelmezésében a konvolúciós neurális hálózat (CNN) egy
+	Indolia és tsai. \cite{CNN} értelmezésében a konvolúciós neurális hálózat (CNN) (\ref{fig:cnn}. ábra) egy
 	mélytanulási megközelítés, amelyet széles körben használnak komplex problémák megoldására és felülmúlja a hagyományos gépi tanulási megközelítéseket. A konvolúciós neurális hálózat mély előrecsatolt architektúrával rendelkezik és jobban képes általánosítani, mint a teljesen összekapcsolt rétegekkel rendelkező hálózatok.
 	A CNN, mint a hierarchikus jellemző detektorok biológiailag inspirált koncepciója, képes nagymértékben megtanulni
 	absztrakt jellemzőket és hatékonyan képes azonosítani az objektumokat.
@@ -393,7 +395,7 @@
 	
 	Egy bizonyos 
 	neuron fogadja az X bemeneti vektort, és Y kimenetet állít elő azáltal,
-	hogy valamilyen F függvényt hajt végre rajta az alábbi általános egyenlet alapján (\ref{eq1}).
+	hogy valamilyen F függvényt hajt végre rajta az alábbi általános egyenlet [\ref{eq1}] alapján.
 	\begin{mdframed}
 	\begin{equation}
     \label{eq1}
@@ -422,7 +424,7 @@
     \begin{figure}[h]	
 		\centering
 		\includegraphics[width=1\linewidth]{element}
-		\caption{\cite{CNN} A CNN elemi összetevői}
+		\caption{A CNN elemi összetevői. Forrás: \cite{CNN}}
         \label{fig:cnnelem}
 	\end{figure}
  
@@ -435,13 +437,15 @@
 	
 	A következő rétegben lévő egyes neuronok az azt követő rétegben lévő neuronokhoz kapcsolódnak. Ezt a helyi korrelációt receptív mezőnek nevezzük.
 	
-	A bemeneti kép lokális jellemzőit a receptív mező segítségével nyerjük ki. Az előző rétegben egy adott régióhoz tartozó neuron receptív mezeje egy súlyvektort alkot, amely a sík minden pontján egyenlő marad, ahol a sík a következő rétegben lévő neuronokra utal. Mivel a síkban lévő neuronok azonos súlyokkal rendelkeznek, így a különböző helyeken előforduló hasonló jellemzők a bemeneti adatokon belül felismerhetők.
-	
-	\begin{figure}[h]	
+    \begin{figure}[h]	
 		\centering
 		\includegraphics[width=0.7\linewidth]{receptiv}
-		\caption{\cite{CNN} Az adott neuron receptív mezeje a következő rétegben}
+		\caption{Az adott neuron receptív mezeje a következő rétegben. Forrás: \cite{CNN}}
+        \label{fig:neuron-receptive}
 	\end{figure}
+ 
+	A bemeneti kép lokális jellemzőit a receptív mező (\ref{fig:neuron-receptive}. ábra) segítségével nyerjük ki. Az előző rétegben egy adott régióhoz tartozó neuron receptív mezeje egy súlyvektort alkot, amely a sík minden pontján egyenlő marad, ahol a sík a következő rétegben lévő neuronokra utal. Mivel a síkban lévő neuronok azonos súlyokkal rendelkeznek, így a különböző helyeken előforduló hasonló jellemzők a bemeneti adatokon belül felismerhetők.
+	
 		\newpage
 	A súlyvektor, más néven szűrő vagy kernel a bemeneti vektoron csúszik át a jellemzőtérkép létrehozásához.
 	A szűrő vízszintes és függőleges irányú csúsztatásának módszerét nevezzük konvolúciós műveletnek. A helyi receptív mező jelensége miatt a betanítható paraméterek száma jelentősen csökken.
@@ -467,14 +471,14 @@
 
     \begin{figure}[h]	
 		\centering
-		\includegraphics[width=0.7\linewidth]{pooling}
-		\caption{\cite{CNN} 2 x 2 ablak kiválasztásával végzett összevonási művelet}
+		\includegraphics[width=0.5\linewidth]{pooling-op.jpg}
+		\caption{2 x 2 ablak kiválasztásával végzett összevonási művelet. Forrás: \cite{CNN}}
         \label{fig:pooling}
 	\end{figure}
  
 	Az összevonás művelet elvégzéséhez kiválasztunk egy ablakot,
 	és az abban az ablakban lévő bemeneti elemeket átadjuk
-	egy összevonó függvénynek a \ref{fig:pooling}. ábrán látható módon.
+	egy összevonó függvénynek a(z) \ref{fig:pooling}. ábrán látható módon.
 	
 	\newpage
 	
@@ -518,11 +522,12 @@
  		\centering
  		\includegraphics[width=1\linewidth]{ResNet}
  		\caption{ResNet architektúrák felépítése. (felülről a 3.)
- 			Forrás:\cite{resnet}}
+ 			Forrás: \cite{resnet}}
         \label{fig:resnet}
  	\end{figure}
     
-    A mélyebb neurális hálózatok nehezebben taníthatóak. Amikor növeljük a rétegek számát, a mélytanulásban egy gyakori probléma merül fel, amit eltűnő/robbanó gradiensnek neveznek. Ennek hatására a gradiens 0 vagy túl nagy lesz. Így amikor növeljük a rétegek számát a hibaarány is nő. Ennek a problémának a megoldására \cite{resnet}He és tsai. bemutattak egy reziduális (maradékos) tanulási keretrendszert, amely megkönnyíti azon hálózatok tanítását, amelyek lényegesen mélyebbek a korábban használtakhoz képest. A rétegeket kifejezetten úgy alakították át, hogy a rétegek a réteg bemeneteire hivatkozva maradványfüggvényeket tanulnak a nem hivatkozott függvények helyett. Ezek a reziduális hálózatok könnyebben optimalizálhatók, és pontosságot nyerhetnek a jelentősen megnövelt mélységből fakadóan.
+    A mélyebb neurális hálózatok nehezebben taníthatóak. Amikor növeljük a rétegek számát, a mélytanulásban egy gyakori probléma merül fel, amit eltűnő/robbanó gradiensnek neveznek. Ennek hatására a gradiens 0 vagy túl nagy lesz. Így amikor növeljük a rétegek számát a hibaarány is nő. Ennek a problémának a megoldására He és tsai. \cite{resnet} bemutattak egy reziduális (maradékos) tanulási keretrendszert, amely megkönnyíti azon hálózatok tanítását, amelyek lényegesen mélyebbek a korábban használtakhoz képest. A rétegeket kifejezetten úgy alakították át, hogy a rétegek a réteg bemeneteire hivatkozva maradványfüggvényeket tanulnak a nem hivatkozott függvények helyett. Ezek a reziduális hálózatok könnyebben optimalizálhatók, és pontosságot nyerhetnek a jelentősen megnövelt mélységből fakadóan.
+    A reziduális hálózatok általános felépítését a(z) \ref{fig:resnet}. ábra szemlélteti.
 
     \newpage
     \subsubsection{Reziduális blokkok}
@@ -532,18 +537,104 @@
  		\centering
  		\includegraphics[width=1\linewidth]{Residual-Block}
  		\caption{He és tsai. által javasolt reziduális blokk felépítése.
- 			Forrás:\cite{resnet}}
+ 			Forrás: \cite{resnet}}
         \label{fig:resblock}
  	\end{figure}
   
-    Az eltűnő gradiens problémájának megoldására bevezették a reziduális/maradék blokkokat. A hálózatban úgynevezett kihagyásos kapcsolatok jönnek létre. A kihagyásos kapcsolat egy réteg aktivációit úgy kapcsolja össze a további rétegekkel, hogy közben néhány réteget kihagy. Ez egy reziduális blokkot képez. A reziduális hálózatok ezen reziduális blokkok egymásra halmozásával jönnek létre. Az ilyen típusú kihagyásos kapcsolatok hozzáadásának előnye, hogy ha bármelyik réteg károsítja az architektúra teljesítményét, akkor azt a regularizáció kihagyja. Ez tehát egy nagyon mély neurális hálózat tanítását eredményezi az eltűnő gradiens okozta problémák nélkül. 
+    Az eltűnő gradiens problémájának megoldására bevezették a reziduális/maradék blokkokat (\ref{fig:resblock}. ábra). A hálózatban úgynevezett kihagyásos kapcsolatok jönnek létre. A kihagyásos kapcsolat egy réteg aktivációit úgy kapcsolja össze a további rétegekkel, hogy közben néhány réteget kihagy. Ez egy reziduális blokkot képez. A reziduális hálózatok ezen reziduális blokkok egymásra halmozásával jönnek létre. Az ilyen típusú kihagyásos kapcsolatok hozzáadásának előnye, hogy ha bármelyik réteg károsítja az architektúra teljesítményét, akkor azt a regularizáció kihagyja. Ez tehát egy nagyon mély neurális hálózat tanítását eredményezi az eltűnő gradiens okozta problémák nélkül. 
 
 
     A saját megvalósításunkban egy előtanított 50 rétegű reziduális hálózatot átviteli tanítással tanítottunk tovább, és finomhangoltuk azt a bemenetként átadott kép személyspecifikus jellemzőinek kinyerése érdekében.
+
+    \subsection{3D arcmodell konstruálása}
+        \label{3d}
+
+        Ebben a fejezetben Morales és tsai. \cite{survey} munkája alapján bemutatásra kerülnek a 3D arcmodell konstruálására alkalmas modellek.
+         A 3D-s arcok legelterjedtebb statisztikai modellje a 3D Morphable Models (3DMM), amelyet Blanz és Vetter \cite{blanzvetter} mutatott be a közösségnek. Bernhard és tsai. \cite{3dmm} munkája alapján a 3D Morphable Face Model egy generatív modell az arcformára
+        és a megjelenés modellje, amely két kulcsfontosságú ötleten alapul:
+    	 
+    	  Először is, minden arc
+    	sűrű pont-pont megfeleltetésben van, amelyet általában egy regisztrációs eljárás során egy sor példaarcon állítanak elő, majd
+        a megfeleltetések a további feldolgozási lépések során is megmaradnak. Ennek a megfeleltetésnek köszönhetően az arcok lineáris kombinációi definiálhatók egy értelmes módon, morfológiailag valósághű arcokat (morfokat) létrehozva.
+    	 
+    	 
+    	A második ötlet az arc alakjának és színének szétválasztása, és ezek függetlenítése a külső tényezőktől, például a megvilágítástól és a kamera paraméterektől.
+    	 
+    	  A \textit{morfológiai} modell magában foglalhat egy statisztikai modellt
+    	  az arcok eloszlásáról, amely egy főkomponens elemzés az eredeti munkában.
+       Egy lineáris
+       alteret határoznak meg az alakzat és a textúra reprezentálására főkomponens elemzés \cite{PCA} segítségével, és bemutatják, hogyan lehet a modellt az adatokra illeszteni. 
+
+	 \subsubsection{Arcképfelvétel}
+        Minden 3D statisztikai arcmodell legfontosabb összetevője a 3D alakzatok reprezentatív készlete a megfelelő megjelenési adatokkal együtt. A mintakészlet létrehozásának tipikus módja, hogy az adatokat a valós világból kapjuk meg. Ebben a szakaszban rövid áttekintést adunk Egger és tsai. \cite{3dmm} munkája alapján a különböző megközelítésekről, amelyeket az arcadatok, valamint az arcképek adatainak megszerzésére használatosak.
+	  
+        A bemeneti adathalmazok létrehozása a 3DMM-ek számára kontrollált körülmények között történő felvételre korlátozódnak szemben a nagyobb kihívást jelentő kontrollálatlan felvételekkel.
+	 
+        Megjegyzendő, hogy a kontrollált 3D arcfelvétel nem mindig szükséges. Voltak kísérletek arra, hogy a 3DMM-eket közvetlenül képekből tanulják meg. Például Cashman és Fitzgibbon \cite{dolphins} munkája 2012-ben és a legmodernebb mélytanuláson alapuló módszerek egyszerre tanulnak 3DMM-et és regresszió-alapú illesztést 2D-s tanítási adatokból.
+	 
+	 \subsubsection{Alakfelvétel}
+    	 Egger és tsai. \cite{3dmm} munkája alapján a háromdimenziós forma vitathatatlanul a 3DMM legfontosabb összetevője. Az alakzat ábrázolásának kérdése
+    	 a 3DMM-ek összefüggésében nem került széles körben figyelembe vételre.
+    	 
+	   Messze a
+	   leggyakrabban használt reprezentáció a háromszögháló. Vannak ritka kivételek, de ebben a munkában ezeket nem fogjuk megemlíteni.
+	 
+    A háromszöghálós reprezentáció sűrű megfeleltetéssel megköveteli, hogy minden minta azonos topológiát mutasson, és hogy a csúcsok minden mintán ugyanazt a szemantikai pontot kódolják. A minták közötti megfelelés megállapítása önmagában is kihívást jelentő téma. Ebben a szakaszban a nyers 3D adatokra összpontosítunk.
+	
+	
+	\paragraph{Statisztika alapú modell illesztési módszerek}
+    Ebben a szakaszban Morales és tsai. \cite{survey} munkája alapján bemutatásra kerülnek a statisztika alapú modell illesztési módszerek.
+	
+    A statisztikai 3D arcmodell a legnépszerűbb módszer az előzetes információ hozzáadására, mivel ezek kódolják az arc geometriai variációit, esetleg a megjelenéssel együtt.
+	
+	Az ilyen modellek tartalmaznak egy átlagos arcot, valamint annak geometriájának és az arcmintázatának a variációit és a megjelenését.
+	 
+	  3D arcmodell illesztése fényképre
+	a modell paraméterein kívül,
+	a 3D póz és a megvilágítás meghatározásával történik úgy, hogy
+	az eredményül kapott 3D-s arc képsíkjába történő vetülete
+	a lehető legjobban hasonlítson az adott képhez.
+	
+	\paragraph{Geometriai módszerekhez}
+	A geometriai módszerek Egger és tsai. \cite{3dmm} megfogalmazásában közvetlenül becslik egy alakzat 3D-s koordinátáit, vagy ugyanazon felület megfigyelésével
+	két vagy több nézőpontból (ebben az esetben a kihívás a megfelelő pontok azonosítása a képek között), vagy pedig egy vetített minta megfigyelésével (ebben az esetben a kihívás az ismert minta és a róla készült vetület kép közötti megfeleltetés azonosítása).
+	
+	A módszerek vagy aktívnak tekinthetők, azaz fényt
+	vagy más jeleket sugároznak, vagy passzívak.
+	
+	
+	A lézerszkennerek, a \textit{Time-of-Flight} érzékelők és a strukturált fényrendszerek \textit{aktív} rendszerek, míg a több nézetből álló fotogrammetria \textit{passzív} alternatíva.
+	
+	\paragraph{Fotometriai módszerek}
+	A fotometriai módszerek \cite{3dmm} jellemzően a felület orientációját becslik, amelyből integrálással vissza lehet nyerni a 3D alakot.
+	
+    A kihívás itt az, hogy olyan modelleket válasszunk, amelyek pontosan megragadják a felszín reflexiós tulajdonságait, valamint elegendő mérési eredményt kapjunk ahhoz, hogy e modellek invertálása jól megoldható legyen. 
+    
+    A geometriai módszerekhez képest a fotometriai módszerek
+    jellemzően nagyobb alaki részletességet kínálnak, és nem függnek az
+    összeilleszthető jellemzők meglététől
+    (tehát sima, jellegtelen felületek esetén is alkalmazhatóak), de gyakran szenvednek alacsony frekvenciájú torzításoktól a rekonstruált képekben
+    a fényvisszaverő képesség és a megvilágítás modellezési hibái miatt.
+    
+    
+    A fotometriai sztereót \cite{photometric} a felszín normálisa adja meg minden egyes képpontnál a jelenet rögzített pozícióból történő megfigyelésével, legalább három különböző megvilágítási körülmény között.
+    
+    A szükséges képkockák számát spektrális multiplexálással \cite{multiplex} lehet csökkenteni.
+    	
+	\paragraph{Hibrid módszerek}
+	A hibrid módszerek \cite{3dmm} a
+	geometriai és a fotometriai módszerek kombinációja. 
+	
+	Csökkentik a
+	a fotometriai módszereknél jellemzően jelenlévő alacsony frekvenciájú torzítást, és
+	növelik a nagyfrekvenciájú részleteket a geometriai módszerekhez képest. 
+	
+	Diego Nehab és tsai. \cite{hibrid} javaslata egy olyan módszer, amely helymeghatározó információk alacsony frekvenciáját egyesíti a felszíni normálisok magas frekvenciájával. 
+	A módszer különösen hatékony, mivel csak egy lineáris egyenletrendszer megoldása szükséges.
     
     \subsection{Mélytanulási módszerek}
 	
-	Az előző szakaszok [\nameref{3d}] 2D-ből 3D arc rekonstrukciós módszerei \textit{modelleket} használnak az előzetes tudás megtestesítésére \cite{survey}: a statisztikai modellillesztési módszerek tartalmaznak egy geometriai (és általában textúra) modellt, a fotometriai módszerek pedig a
+	Az előző szakasz [\nameref{3d}] 2D-ből 3D arc rekonstrukciós módszerei \textit{modelleket} használnak az előzetes tudás megtestesítésére \cite{survey}: a statisztikai modellillesztési módszerek tartalmaznak egy geometriai (és általában textúra) modellt, a fotometriai módszerek pedig a
 	az arc fényvisszaverő képességét. 
 	
 	
@@ -556,16 +647,8 @@
 	
 	A paraméter becslési oldalon ki tudjuk használni a mély hálózatok előnyeit, a gyorsaságot és a robusztusságot, hogy megbízható teljesítményt érjünk el a nem ellenőrzött képeken.
 	
-	\begin{figure}[h]	
-		\centering
-		\includegraphics[width=1\linewidth]{deep}
-		\caption{A klasszikus analízis-szintézis és a mélytanulási megközelítések közötti kapcsolat. 
-			Forrás:\cite{3dmm}}
-	\end{figure}
-	
-	\newpage
-	\subsubsection{Arcrekonstrukciós modellek}
-    Ebben az alfejezetben az arcmodellezési (deep face) módszereket mutatjuk be \cite{3dmm} Egger és tsai. munkája alapján. \\
+	\subsubsection{Mély arcrekonstrukciós modellek}
+    Ebben az alfejezetben az mély arcmodellezési (deep face) módszereket mutatjuk be Egger és tsai. \cite{3dmm} munkája alapján. \\
  
 	A hagyományos modellezési technikák célja, hogy
 	az arc alakját, arckifejezését és megjelenését $w$ vektorként reprezentálják egy
@@ -602,14 +685,14 @@
 	dimenziós PCA-val, bár az ortogonalitás garanciája nélkül.
 	Ez megfelelő veszteségfüggvényekkel biztosítható.
 	
-	\subsection{Arcrekonstrukció mély neurális hálózatokkal}
+	\subsubsection{Arcrekonstrukció mély neurális hálózatokkal}
 	
 	 A következőkben a mély neurális hálózatokon alapuló sűrű monokuláris arcrekonstrukció megközelítéseket tárgyaljuk. Megbeszéljük
 	a felhasznált képzési adatokkal szemben támasztott követelményeket, valamint a különböző tanítási
 	stratégiákat. 
 	
 	
-	Nézzük meg először közelebbről a rekonstrukciós problémát. \cite{blanzvetter}Blanz és Vetter egy optimalizációs megközelítésen alapuló parametrikus modell illesztésével, azaz a gradiens süllyedéssel kezeli a monokuláris arc rekonstrukcióját. 
+	Nézzük meg először közelebbről a rekonstrukciós problémát. Blanz és Vetter \cite{blanzvetter} egy optimalizációs megközelítésen alapuló parametrikus modell illesztésével, azaz a gradiens süllyedéssel kezeli a monokuláris arc rekonstrukcióját. 
 	
 	 A mélytanulási megközelítések hasonló optimalizálási stratégiát követnek, de az optimalizálási probléma 
 	tesztelés idején történő megoldása helyett például egy paraméterregresszort tanítanak be egy nagyméretű képadathalmaz alapján. A regresszor úgy értelmezhető, mint egy kódoló hálózat, amely egy 2D-s képet
@@ -621,7 +704,7 @@
 	Ez a módszertan széles körben elterjedt, és lehetővé teszi a klasszikus
 	modellalapú és mélytanulási megközelítések ötvözését.
 	
-	\subsubsection{Felügyelt rekonstrukció}
+	\paragraph{Felügyelt rekonstrukció}
 	Felügyelt regressziós megközelítések
 	párosított tanítási adatok segítségével, azaz egy monokuláris  képgyűjtemény
 	és a megfelelő 3DMM paraméterei segítségével tanulnak.
@@ -633,14 +716,14 @@
 	Az egyik lehetőség az lenne, hogy a felhasználók határozzák meg az adatot. Míg ez egy népszerű stratégia, amelyet gyakran alkalmaznak rekonstrukciós problémáknál \cite{saragih}, 
 	a sűrű geometria, a megjelenés és a helyszín megvilágítás pontos meghatározása szinte megoldhatatlan.
 	
-	Hasonló megközelítést alkalmaztak például \cite{olszewski}Olszewski munkájában,ahol három professzionális animátor kézzel készítette el a \textit{blendshape} animációt egy videokliphez illesztve. A sűrű rekonstrukciós feladatokhoz egyes megközelítéseket ellenőrzött, több nézetből készült felvételek alapján tanítanak be.
+	Hasonló megközelítést alkalmaztak például Olszewski \cite{olszewski} munkájában,ahol három professzionális animátor kézzel készítette el a \textit{blendshape} animációt egy videokliphez illesztve. A sűrű rekonstrukciós feladatokhoz egyes megközelítéseket ellenőrzött, több nézetből készült felvételek alapján tanítanak be.
 	
 	Így megkapható az adat egy több nézetből történő rekonstrukciós megközelítéssel, amelyet egy 3DMM illesztése követ. Ezáltal megkapjuk a 3D adatot. Általában az alapadatok nagyon jó minőségűek,
 	de a monokulárisan rögzített képek eloszlása nem
 	egyezik meg a kontrollálatlan adatokkal, ami általánosítási problémákhoz vezethet
 	a tesztelés idejében.\\
 	
-	\cite{tran}Anh Tuan Tran megközelítése monokuláris rekonstrukciót végez ugyanarról a személyről készült több képre, és kiszámít egy konszolidált arcazonosságot a 3DMM paraméterek egyszerű átlagolása alapján. \\
+	Anh Tuan Tran \cite{tran} megközelítése monokuláris rekonstrukciót végez ugyanarról a személyről készült több képre, és kiszámít egy konszolidált arcazonosságot a 3DMM paraméterek egyszerű átlagolása alapján. \\
 	
 	Jelenleg a kutatóközösségben számos megközelítés szintetikus tanítási adatokat használ tanításhoz, mivel könnyen beszerezhető és tökéletes annotációkkal rendelkeznek. 
 	
@@ -662,33 +745,32 @@
 	a tanítás önfelügyelt \textit{bootstrappelése}. A további megközelítéseket, amelyek tanítása nem igényel
 	alapigazságadatokat a következő fejezetben vizsgáljuk meg.
 	
-	\subsubsection{Önfelügyelt rekonstrukció}
+	\paragraph{Önfelügyelt rekonstrukció}
 	A konvolúciós neurális hálózatok felügyelt tanítása annotált adathalmazt igényel. A legtöbb
 	eddig tárgyalt módszer ilyen - szintetikus vagy valós - adathalmazokat használ.
 	
-	\cite{3dmm}A közelmúltban egyes megközelítések önfelügyeletet alkalmazó
+	A közelmúltban egyes megközelítések \cite{3dmm} önfelügyeletet alkalmazó
 	tanulást használtak, azaz 3D címkék nélküli, valós képi adathalmazokon történő tanítást.
 	Ezt az analízis-szintézis és a mélytanulási technikák kombinációja tette lehetővé.
 	
-	\cite{tewari}Tewari és tsai. egy modell-alapú kódoló-dekódoló architektúrát mutattak be, amely a
+	Tewari és tsai. \cite{tewari} egy modell-alapú kódoló-dekódoló architektúrát mutattak be, amely a
 	a betanítható dekódolót egy fix dekódolóval helyettesíti. Ez a dekódoló a 3DMM paramétereket (látens kód)
 	mint bemenet, amelyet a kódoló jelez a 3DMM segítségével 3D-rekonstrukcióvá alakítja.
 	Továbbá szintetikus képet készít a rekonstrukcióról egy differenciálható renderelő segítségével.
 	A rendereléshez szükséges külső paramétereket szintén a kódoló jelzi előre. 
 	
-	\cite{3dmm}Az alkalmazott veszteségfüggvény nagyon hasonlít az analízis-szintézisben használthoz, ami fotometriai igazítást és statisztikai szabályozást foglal magába. Egy ilyen technikára úgy is gondolhatunk, mint egy közös analízis-szintézis optimalizálási probléma egy nagyméretű tanulási
+	Az alkalmazott veszteségfüggvény nagyon hasonlít az analízis-szintézisben használthoz, ami fotometriai igazítást és statisztikai szabályozást foglal magába. Egy ilyen technikára úgy is gondolhatunk, mint egy közös analízis-szintézis optimalizálási probléma egy nagyméretű tanulási
 	adathalmazon egyetlen kép helyett. Ez lehetővé teszi a paraméterregresszor tanítását 3D felügyelet nélkül.
 
-    \section{Matematikai háttér}
-        \subsection{Regularizáció}
+    \subsection{Regularizáció}
 
-        Ebben a fejezetben \cite{regularization-survey}Tian és tsai. munkája alapján bemutatjuk az általnunk használt fontosabb regularizációs módszereket.
+        Ebben a fejezetben Tian és tsai. \cite{regularization-survey} munkája alapján bemutatjuk az általnunk használt fontosabb regularizációs módszereket.
 
         \begin{figure}[h]	
      		 \centering
      		 \includegraphics[width=0.5\linewidth]{overfitting.jpg}
      		 \caption{Példa túlillesztésre.
-     			    Forrás:\cite{regularization-survey}}
+     			    Forrás: \cite{regularization-survey}}
                 \label{fig:overfitting}
      	\end{figure}
         
@@ -706,28 +788,28 @@
 
         Számos gyakorlati probléma, például a jellemzőválasztás, a ritka jelek szétválasztása és a ritka PCA során bizonyos változóknak ritkának kell lenniük. A ritka változó olyan változó, amelynek értékei többnyire nullát vesznek fel. A ritkított regularizáció általában büntetést érvényesít a változókra.
         
-        \paragraph{Ritkavektor-alapú regularizáció}
-        Az $l_{0}$ normál ($|| x ||_{0}$) az $x$ vektor nem nulla összetevőinek számát határozza meg.
+        \subsubsection{Ritkavektor-alapú regularizáció}
+        Az $l_{0}$ norma ($|| x ||_{0}$) az $x$ vektor nem nulla összetevőinek számát határozza meg.
         
-        Az $l_{1}$ normál a következőképpen definiálható:
+        Az $l_{1}$ norma a következőképpen definiálható:
         \begin{equation}
             ||x||_{1} = \sum_{j=1}^{N}|x_{j}|
         \end{equation}
-        , ahol $x_{j} \in x$. Az $l_{1}$ normális regularizációval könnyen megoldhatóak konvex optimalizálási problémák, azonban torzítást eredményez a nagy együtthatók esetében.
+        , ahol $x_{j} \in x$. Az $l_{1}$ norma regularizációval könnyen megoldhatóak konvex optimalizálási problémák, azonban torzítást eredményez a nagy együtthatók esetében.
 
-        Az $l_{0}$ normál és az $l_{1}$ normál közötti szakadék áthidalása érdekében jelentős érdeklődés mutatkozik a nemkonvex $l_{p}$ normál használata iránt. Az $l_{p}$ normál kiszámítható, mint:
+        Az $l_{0}$ norma és az $l_{1}$ norma közötti szakadék áthidalása érdekében jelentős érdeklődés mutatkozik a nemkonvex $l_{p}$ norma használata iránt. Az $l_{p}$ norma kiszámítható, mint:
         \begin{equation}
             || x ||_{p} = (\sum_{j = 1}^{N}|x_{j}|^{p})^{\frac{1}{p}}
         \end{equation}
         , ahol $x_{j} \in x$ és $0 < p < 1$. 
 
         
-        \paragraph{Ritkamátrix-alapú regularizáció}
+        \subsubsection{Ritkamátrix-alapú regularizáció}
         A nagy kovariancia- vagy inverz kovariancia-mátrixok becslése a közelmúltban egyre nagyobb hangsúlyt kapott a nagydimenziós adatok elterjedtsége miatt.
 
-        Egy mátrix $l_{2,1}$ normálját először az $l_{1}$ normál forgatási invariánsaként vezették be, amelyet a kiugró értékekkel szembeni robusztusság nehézségeinek leküzdésére javasolnak.
+        Egy mátrix $l_{2,1}$ normáját először az $l_{1}$ norma forgatási invariánsaként vezették be, amelyet a kiugró értékekkel szembeni robusztusság nehézségeinek leküzdésére javasolnak.
 
-        Egy mátrix $l_{2,1}$ normálja meghatározható, mint:
+        Egy mátrix $l_{2,1}$ normája meghatározható, mint:
         \begin{equation}
             M(X) = ||X||_{2,1} = \sum_{j=1}^{n}(\sum_{i=1}^{m}X_{ij}^{2})^{\frac{1}{2}}
         \end{equation}
@@ -739,11 +821,11 @@
     
     \section{Kapcsolódó kutatások}
 
-        Ahogy láthatjuk, a fellépő komplex kihívásokat különböző munkák minél kreatívabb megközelítéssekkel kísérelték meg legyőzni. Ezekről tovább \cite{blanzvetter}Vetter és Blanz  munkájában és további dokumentumokban lehet olvasni. Ebben a fejezetben megvizsgáljuk a \cite{deca}Yao Feng és tsai. valamint \cite{focus}Chunlu Li és tsai. által bemutatott megközelítéseket, és megnézzük, hogy miért is fontosak a mi munkánk szempontjából.
+        Ahogy láthatjuk, a fellépő komplex kihívásokat különböző munkák minél kreatívabb megközelítéssekkel kísérelték meg legyőzni. Ezekről tovább Vetter és Blanz \cite{blanzvetter} munkájában és további dokumentumokban lehet olvasni. Ebben a fejezetben megvizsgáljuk a Yao Feng és tsai. \cite{deca} valamint Chunlu Li és tsai. \cite{focus} által bemutatott megközelítéseket, és megnézzük, hogy miért is fontosak a mi munkánk szempontjából.
 
         \subsection{DECA} \label{DECA}
  	
-            \cite{deca}Yao Feng és tsai. az egyetlen kontrollálatlan környezetben készült 2D-s képből rekonstruált, animálható 3D fejmodell készítése érdekében fejlesztették ki a DECA (Detailed Expression Capture And Animation) modelljét. Egy kontrollálatlan környezetben készült képekkel tanított animálható elmozdulási modellt javasolnak, amely az arckifejezési paraméterek változtatásával képes hiteles geometriai részletek előállítására. Az előbbi cél elérése érdekében egy újszerű részletkonzisztencia költségfüggvényt mutatnak be a statikus és az arckifejezésekre dinamikusan változó geometriai adatok szétválasztására. Ammennyiben a tanítás során két kép érkezik különböző arckifejezésekkel, megfigyelhető, hogy a 3D arcformájuk és a személyspecifikus részleteik megegyeznek. Ezt a megfigyelést használják ki a részletkódok felcserélésével az azonos személyről készült különböző képek között és kikényszerítik, hogy az újonnan renderelt eredmények úgy nézzenek ki, mint az eredeti, bemenetként átadott képek. A geometriai részletek rekonstrukciója robosztus a jellemző kitakarásokra, a pózok nagyfokú változására és a megvilágítási variációkra.
+            Yao Feng és tsai. \cite{deca} az egyetlen kontrollálatlan környezetben készült 2D-s képből rekonstruált, animálható 3D fejmodell készítése érdekében fejlesztették ki a DECA (Detailed Expression Capture And Animation) modelljét. Egy kontrollálatlan környezetben készült képekkel tanított animálható elmozdulási modellt javasolnak, amely az arckifejezési paraméterek változtatásával képes hiteles geometriai részletek előállítására. Az előbbi cél elérése érdekében egy újszerű részletkonzisztencia költségfüggvényt mutatnak be a statikus és az arckifejezésekre dinamikusan változó geometriai adatok szétválasztására. Ammennyiben a tanítás során két kép érkezik különböző arckifejezésekkel, megfigyelhető, hogy a 3D arcformájuk és a személyspecifikus részleteik megegyeznek. Ezt a megfigyelést használják ki a részletkódok felcserélésével az azonos személyről készült különböző képek között és kikényszerítik, hogy az újonnan renderelt eredmények úgy nézzenek ki, mint az eredeti, bemenetként átadott képek. A geometriai részletek rekonstrukciója robosztus a jellemző kitakarásokra, a pózok nagyfokú változására és a megvilágítási variációkra.
     
             Egy olyan módszert mutatnak be, amellyel egyetlen természetes körülmények között rögzített 2D-s képből részletes és animálható 3D-s arcmodell hozható létre. A szerzők kétlépcsős megközelítést javasolnak: először egy 2D-s arcmezőkön betanított neurális hálózat segítségével megbecslik az arc 3D-s geometriáját, majd egy másik, már betanított deformációs modellen alapuló neurális hálózat segítségével részletekkel egészítik ki a 3D-s modellt.
     
@@ -756,7 +838,7 @@
      		 \centering
      		 \includegraphics[width=1\linewidth]{deca}
      		 \caption{ DECA tanítás és animáció.
-     			    Forrás:\cite{deca}}
+     			    Forrás: \cite{deca}}
                 \label{fig:deca}
      	      \end{figure}
 
@@ -764,7 +846,7 @@
     	        Első lépésként egy durva rekonstrukciót a FLAME modelltérben \cite{flame}
                 tanítanak be analízis-szintézis módon: egy bemenetként átadott \textit{I} 2D-s képből látens kódot készítenek, ezt dekódolják annak érdekében, hogy egy $I_{r}$ 2D-s képet hozzanak létre, valamint minimalizálják a szintetizált és a bemeneti kép közötti különbséget.
             
-    	        A(z) \ref{fig:deca}. ábrán látható módon, egy $E_{c}$ kódolót tanítanak be, amely egy \cite{liwen}ResNet50 hálózatból, és egy azt követő teljesen összekapcsolt rétegből áll egy alacsony dimenziós látens kód regressziója céljából. Ez a látens kód tartalmazza a $\omega$ (identitás), $\psi$ (arckifejezés), $\theta$ (póz) \cite{flame}FLAME paramétereket (azaz reprezentálja a durva geometriát), az albedó együtthatókat $\alpha$, a kamera $c$ és a megvilágítási $l$ paramétereket.
+    	        A(z) \ref{fig:deca}. ábrán látható módon, egy $E_{c}$ kódolót tanítanak be, amely egy ResNet50 \cite{liwen} hálózatból, és egy azt követő teljesen összekapcsolt rétegből áll egy alacsony dimenziós látens kód regressziója céljából. Ez a látens kód tartalmazza a $\omega$ (identitás), $\psi$ (arckifejezés), $\theta$ (póz) FLAME \cite{flame} paramétereket (azaz reprezentálja a durva geometriát), az albedó együtthatókat $\alpha$, a kamera $c$ és a megvilágítási $l$ paramétereket.
     
                 A durva rekonstrukcióhoz hasonlóan egy $E_{d}$ kódolót is betanítanak (amelynek architektúrája megegyezik a $E_{c}$-vel), hogy a bemeneti képet egy 128 dimenziós látens kódba kódolja, amely a személyre jellemző részleteket reprezentálja. 
     
@@ -798,12 +880,12 @@
         	 	     \centering
         	 	     \includegraphics[width=1\linewidth]{ldetail}
         	 	     \caption{Részletkonzisztencia veszteség \\
-        	 		    Forrás:\cite{deca}}
+        	 		    Forrás: \cite{deca}}
                   \label{fig:ldetail}
     	        \end{figure}
     
                 Yao Feng és tsai. az identitás-függő és a kifejezésektől függő részletek
-     	        szétválasztása érdekében egy új részletkonzisztencia veszteség függvényt
+     	        szétválasztása érdekében egy új részletkonzisztencia veszteség függvényt (\ref{fig:ldetail}. ábra)
      	        javasolnak. A metódus nélkül a személyspecifikus látens kód $\delta$ rögzíti az
                 identitástól és a kifejezésektől függő részleteket. 
                 Ebből kifolyólag a rekonstruált részletek nem repozicionálhatóak a FLAME állkapocs póz $\theta_{jaw}$ és arckifejezés $\psi$ paramétereinek megváltoztatásával. Amennyiben adott két kép $I_{i}$ és $I_{j}$ ugyanarról az alanyról ($c_{i} = c_{j}$), a veszteséget a következőképpen határozzuk meg:
@@ -824,17 +906,17 @@
      	          megtanul egy kifejezésfüggő elmozdulási modellt. A sárga doboz tartalmazza
      	          az elmozdulási konzisztencia-veszteséget, amelyet részletesebben
                 a(z) \ref{fig:ldetail}. ábra szemléltet.
-     	          A tanítás után a $DECA$ animál egy arcot (\ref{fig:deca}. ábra, 
-                jobb oldali doboz) a rekonstruált forrásidentitás alakjának, fejpózának, részletkódjának, valamint a forráskifejezés állkapocs pózának és arckifejezési paramétereinek kombinálásával annak érdekében, hogy egy animált durva alakot és elmozdulási térképet kapjon. A modell kimenete egy animált
+     	          A tanítás után a $DECA$ animál egy arcot [\ref{fig:deca}. ábra, 
+                jobb oldali doboz] a rekonstruált forrásidentitás alakjának, fejpózának, részletkódjának, valamint a forráskifejezés állkapocs pózának és arckifejezési paramétereinek kombinálásával annak érdekében, hogy egy animált durva alakot és elmozdulási térképet kapjon. A modell kimenete egy animált
      	          részletes alakzat.
 
                 A betanítási folyamat a következő lépésekből áll:
                     \begin{itemize}
                         \item \textbf{Az adatok előfeldolgozása}: Az adatok előfeldolgozása annak biztosítása érdekében, hogy azok megfelelően igazodjanak és normalizálódjanak, valamint átméretezzék és körülvágják az arcot.
     
-                        \item \textbf{Kódolás} Ahogy a fentiekben említettük \ref{Kódoló}, a DECA modell egy kódolót használ a bemeneti arc alacsony dimenziós reprezentációjává alakításához. 
+                        \item \textbf{Kódolás} Ahogy a fentiekben említettük [\ref{Kódoló}], a DECA modell egy kódolót használ a bemeneti arc alacsony dimenziós reprezentációjává alakításához. 
     
-                        \item \textbf{Dekódolás} Ahogy a fentiekben említettük \ref{Dekódoló}, az alacsony dimenziós reprezentációt ezután egy dekódolóba táplálják, amely rekonstruálja az eredeti arcot egy adott arckifejezéssel
+                        \item \textbf{Dekódolás} Ahogy a fentiekben említettük [\ref{Dekódoló}], az alacsony dimenziós reprezentációt ezután egy dekódolóba táplálják, amely rekonstruálja az eredeti arcot egy adott arckifejezéssel
     
                         \item \textbf{Veszteségfüggvény}: A rekonstruált arc és a bemeneti arc közötti különbséget több veszteségfüggvény segítségével számszerűsítik. Ezek a veszteségfüggvények a neurális hálózat súlyainak beállítására szolgálnak, hogy minimalizálják a rekonstruált arc és a bemeneti arc közötti különbséget.
     
@@ -861,7 +943,7 @@
 
                 Mint ahogy korábbiakban említettük a \ref{DECA} fejezetben, a javasolt módszerben a FLAME modellt szintetikus 3D-s arcok generálására használják az arckifejezések, a póz és a fényviszonyok variációival. Ezeket a szintetikus arcokat ezután a valós világbeli képekkel együtt egy mély neurális hálózat betanítására használják, amely képes megjósolni a FLAME modell paramétereit egy bemeneti kép alapján.
 
-                A \cite{flame}FLAME modell egy statisztikai fejmodell, ami pontosabb és kifejezőbb mint a korábbi fej- és arcmodellek, miközben kompatibilis marad a szabványos grafikus szoftverekkel. A már meglévő modellekkel ellentétben a FLAME explicit módon modellezi a fej tartását és a szemgolyó forgását.
+                A FLAME modell Tianye és tsai. \cite{flame} munkája alapján egy statisztikai fejmodell, ami pontosabb és kifejezőbb mint a korábbi fej- és arcmodellek, miközben kompatibilis marad a szabványos grafikus szoftverekkel. A már meglévő modellekkel ellentétben a FLAME explicit módon modellezi a fej tartását és a szemgolyó forgását.
 
                 A FLAME egyesíti a különálló lináris identitásalak és kifejezés tereket $linear$ $blend$ $skinning$-gel (LBS) és a pózfüggő korrektív $blendshape$ alakzatokat annak érdekében, hogy a nyak, az állkapocs és a szemgolyók mozgathatóak legyenek. Adott arc identitás $\beta \in R^{|\beta|}$, póz $\theta \in R^{3k+3}$ (ahol $k = 4$ a nyak, állkapocs, és szemgolyók ízületeinek száma), és arckifejezés $\psi \in R^{|\psi|}$ paraméterek mellett, a FLAME egy $n = 5023 $ csúcspontot tartalmazó archálót ad kimenetül.
 
@@ -886,6 +968,8 @@
                 Egyik fő szempont, hogy kutatásunkban a FLAME modellt használjuk az, hogy a FLAME betanított modelljeit kutatási célokra nyilvánosan hozzáférhetővé tették, valamint a modell segítségével animálható 3D arcok készíthetőek.
 
             \subsubsection{Linear Blend Skinning (LBS)}
+
+                Ebben a fejezetben Jeruzalski és tsai. \cite{lbs} munkája alapján bemutatásra kerül a Linear Blend Skinning technika.
 
                 A Linear Blend Skinning (LBS) egy népszerű technika a számítógépes grafikában a 3D modellek mozgásának animálására. Az LBS-t egy hálómodell valós idejű deformálására használják, hogy animációkat hozzanak létre, például a karakterek mozgását, arckifejezéseit és ruházatának deformálódását.
 
@@ -922,7 +1006,7 @@
 
         \subsection{FOCUS}
 
-            \cite{focus}Chunlu Li és tsai. egy új módszert javasolnak az arc rekonstrukciójára és az elfedések szegmentálására korlátozott vagy tökéletlen képzési adatok felhasználásával, amelyet "gyenge felügyeletnek" nevezünk. A javasolt módszer az arc 3D-s modelljén alapul, és képes pontosan rekonstruálni az arcot még akkor is, ha vannak elfedések, például az arc egyes részeit eltakaró tárgyak.
+            Chunlu Li és tsai. \cite{focus} egy új módszert javasolnak az arc rekonstrukciójára és az elfedések szegmentálására korlátozott vagy tökéletlen képzési adatok felhasználásával, amelyet "gyenge felügyeletnek" nevezünk. A javasolt módszer az arc 3D-s modelljén alapul, és képes pontosan rekonstruálni az arcot még akkor is, ha vannak elfedések, például az arc egyes részeit eltakaró tárgyak.
     
             Az elfedések kezelése érdekében a javasolt módszer egy szegmentálási lépést alkalmaz, amely az arcképet látható és elfedett régiókra osztja. Ezt egy külön neurális hálózat segítségével végzi, amelyet a kép szegmentálására képeztek ki gyenge felügyeleti jelek alapján. Ezek a jelek a szemek, a száj és az orr elhelyezkedéséről szóló előzetes ismereteket, valamint egy sor bináris elfedési maszkot tartalmaznak, amelyek jelzik, hogy az arc mely régiói vannak elfedve.
     
@@ -939,11 +1023,11 @@
      		 \centering
      		 \includegraphics[width=1\linewidth]{focus}
      		 \caption{Chunlu Li és tsai. által javasolt megközelítés felépítése.
-     			    Forrás:\cite{focus}}
+     			    Forrás: \cite{focus}}
                     \label{fig:focus}
      	      \end{figure}
 
-            A fenti ábrán láthatjuk a $FOCUS$ hálózat felépítését.
+            A(z) \ref{fig:focus}. ábrán láthatjuk a $FOCUS$ hálózat felépítését.
             Adott egy $I_{T}$ bemeneti kép, a rekonstrukciós hálózat, $R$, megbecsüli a látens
      	      paramétereket, és ezt követően egy olyan $I_{R}$ képet állít elő, amely csak az
      	      arcot tartalmazza. Ezután az $I_{T}$ és $I_{R}$ képeket betáplálják az 
@@ -970,14 +1054,14 @@
 
             \subsubsection{Modellalapú autoencoder}
         
-                \cite{focus}A modellalapú arc autokódoló, $R$, várhatóan rekonstruálja a teljes arc
+                A modellalapú arc autokódoló \cite{focus}, $R$, várhatóan rekonstruálja a teljes arc
      	          megjelenését a látható arctartományokból a képen, $I_{T}$-n. 
                 Ez egy kódolóból, grafikus renderelőből, és egy dekódolóból áll. A kódoló megbecsüli a látens parmétereket $\theta = [\alpha, \gamma, \phi, c] \in R^{257}$, azaz a 3D alak $\alpha \in R^{144}$, a 3DMM textúrája 
                 $\gamma ∈ R^{80}$, a megvilágítás $\phi ∈ R^{27}$, és a jelenet kamera paraméterei $c ∈ R^{6}$. Adott látens parméterekkel a dekódoló a bemeneti képen látható arcképét állítja elő $I_{R} = R(\Theta)$. Majd ehhez egy olyan felügyelet nélküli szegmentáló hálózatot vezetnek be, melynek kimenetelét a modellillesztés során a kitakarások elfedésére lehet használni, és így az autokódolót robosztussá teszi a kitakarásokkal szemben.
 
             \subsubsection{Szegmentációs hálózat}
     
-                \cite{focus}A szegmentáló hálózat, $S$, veszi az $I_{T}$ képet és a szintetizált képet, $I_{R}$-t bemenetként, majd megjósolja a bináris maszkot, $M = S(I_{T} , I_{R}$, annak leírására, hogy egy pixel az arcot ábrázolja-e $(1)$ vagy nem $(0)$. Mivel az $I_R$ tartalmazza a becsült arcot, előzetes tudást biztosít a szegmentáló hálózatnak, és segíti a becslést.
+                A szegmentáló hálózat \cite{focus}, $S$, veszi az $I_{T}$ képet és a szintetizált képet, $I_{R}$-t bemenetként, majd megjósolja a bináris maszkot, $M = S(I_{T} , I_{R}$, annak leírására, hogy egy pixel az arcot ábrázolja-e $(1)$ vagy nem $(0)$. Mivel az $I_R$ tartalmazza a becsült arcot, előzetes tudást biztosít a szegmentáló hálózatnak, és segíti a becslést.
      	
      	          Az arc autokódoló és a szegmentáló hálózat a tanítás során össze 
                 vannak kapcsolva olyan módon, hogy egy szinergikus hatást váltanak ki, ami a szegmentálást pontosabbá teszi és a rekonstrukciót robosztussabbá teszi kitakarások jelenlétében.
@@ -986,16 +1070,16 @@
     
                 A munkánkban a szegmentáló nagy szerepet játszik, ezért is szeretnénk jobban belemenni a szegmentáló hálózat részleteibe.
     
-                Ebben a szekcióban \cite{unet}Ronneberger és tsai. munkája alapján bemutatjuk az U-Net architektúrát, amelyet a saját megvalósításunkban a szegmentációs maszk elkészítésére, optimalizálására használunk fel. 
+                Ebben a szekcióban Ronneberger és tsai. \cite{unet} munkája alapján bemutatjuk az U-Net architektúrát, amelyet a saját megvalósításunkban a szegmentációs maszk elkészítésére, optimalizálására használunk fel. 
     
-                A konvolúciós hálózatok tipikus felhasználási területe az osztályozási feladatok, ahol a kép kimenete egyetlen osztálycímke. Azonban számos vizuális feladatban, különösen az orvosbiológiai képfeldolgozásban a kívánt kimeneti eredménynek tartalmaznia kell lokalizációt, azaz minden egyes képponthoz osztálycímkét kell rendelni. Továbbá, több ezer tanító kép általában elérhetetlen az orvosbiológiai feladatokban. Ezért \cite{ciresan}Ciresan és tsai. egy csúszóablakos elrendezést alkalmaztak, hogy prediktálják
+                A konvolúciós hálózatok tipikus felhasználási területe az osztályozási feladatok, ahol a kép kimenete egyetlen osztálycímke. Azonban számos vizuális feladatban, különösen az orvosbiológiai képfeldolgozásban a kívánt kimeneti eredménynek tartalmaznia kell lokalizációt, azaz minden egyes képponthoz osztálycímkét kell rendelni. Továbbá, több ezer tanító kép általában elérhetetlen az orvosbiológiai feladatokban. Ezért Ciresan és tsai. \cite{ciresan} egy csúszóablakos elrendezést alkalmaztak, hogy prediktálják
                 az egyes képpontok osztálycímkéjét az adott képpont körüli lokális régió bemenetként történő megadásával.
     
-                \cite{unet}Ronneberger és tsai. ezt az architektúrát úgy módosították és bővítették, hogy
+                Ronneberger és tsai. \cite{unet} ezt az architektúrát úgy módosították és bővítették, hogy
                 nagyon kevés tanítási képpel működjön, és pontosabb szegmentációkat eredményezzen.
                 Az alapötlet a szokásos szűkülő konvolúciós hálózat kiegészítése egymást követő rétegekkel, ahol az összevonó operátorokat felmintavételező operátorok helyettesítik, ezért ezek a rétegek növelik a kimenet felbontását. A lokalizáció érdekében a magas felbontású jellemzőket kombinálják a szűkülő útvonalról származó felskálázott kimenettel. Egy ezt követő konvolúciós réteg ezután megtanulhatja a kimenet precízebb összeállítását ezen információk alapján. A felfelé mintavételezés rész nagyszámú funkciócsatornával is rendelkezik, ami lehetővé teszi a hálózat számára, hogy a kontextusinformációkat továbbítsa a magasabb felbontású rétegek felé. Ennek következtében az expanziós útvonal többé-kevésbé szimmetrikus az összehúzódási útvonalhoz képest és \textbf{U} alakú architektúrát eredményez.
     
-                Az UNet egy mélytanulási architektúra, amelyet általában képszegmentálási feladatokhoz használnak. Először 2015-ben mutatta be \cite{unet}Olaf Ronneberger, Philipp Fischer és Thomas Brox az "U-Net: Convolutional Networks for Biomedical Image Segmentation" című tanulmányukban.
+                Az UNet egy mélytanulási architektúra, amelyet általában képszegmentálási feladatokhoz használnak. Először 2015-ben mutatta be Olaf Ronneberger, Philipp Fischer és Thomas Brox \cite{unet} az "U-Net: Convolutional Networks for Biomedical Image Segmentation" című tanulmányukban.
     
                 Az UNet architektúra egy kódoló és egy dekódoló hálózatból áll. A kódoló hálózat egy sor konvolúciós és összevonó rétegből áll, amelyek lemintavételezik a bemeneti képet, és kivonják belőle a jellemzőket. A dekódoló hálózat felfelé konvolúciós és összekapcsoló rétegek sorozata, amelyek a kép eredeti felbontására felmintavételezik a jellemzőket és szegmentálási maszkot generálnak.
     
@@ -1012,16 +1096,17 @@
         
                 \begin{figure}[h]	
      	              \centering
-     	        	\includegraphics[width=1\linewidth]{unet}
+     	        	\includegraphics[width=0.7\linewidth]{unet}
      	        	\caption{U-Net felépítése
-     	        		Forrás:\cite{unet}}
+     	        		Forrás: \cite{unet}}
                     \label{fig:unet}
      	        \end{figure}
+              \clearpage
  	
             \subsubsection{Tanítás}
             
          	      Az arc autokódoló és a szegmentáló hálózat kölcsönös függőségei miatt 
-                egy $Expectation − Maximization(EM)$ típusú stratégiát alkalmaztak,
+                egy \textit{Expectation − Maximization (EM)} típusú stratégiát alkalmaztak,
          	      ahol a két hálózatot váltakozva tanították be. Ez lehetővé tette a stabil
          	      konvergenciát a betanítási folyamat során. Mint más EM típusú tanítási
          	      stratégiákhoz hasonlóan, a tanítási folyamatuk a modell paraméterinek
@@ -1056,23 +1141,23 @@
              	Az általuk felhasznált adatbázisok a CelebA-HQ és az AR adathalmaz.
              	Ezek segítségével értékelik az illesztés és az arcszegmentlás hatékonyságát.
              	Az alakrekonstrukció kiértékelésére a NoW adatbázis
-             	részhalmazait használták.
+             	részhalmazait használták (\ref{fig:now}. ábra).
      	
              	\begin{figure}[h!]	
              		\centering
              		\includegraphics[width=0.7\linewidth]{now}
-             		\label{fig:now}
              		\caption{NoW Challenge benchmark eredményei
-             			Forrás: https://github.com/unibas-gravis/Occlusion-Robust-MoFA}
+             			Forrás: \url{https://github.com/unibas-gravis/Occlusion-Robust-MoFA}}
+                    \label{fig:now}
              	\end{figure} 
 
               \newpage
               
         \subsection{Renderelés}
 
-            A renderelés mind az \cite{focus}Occlusion-Robust MoFA, mind a \cite{deca}DECA projektben fontos, mivel lehetővé teszi a neurális hálózati modellek tanításához szükséges valósághű szintetikus képek létrehozását, valamint a 3D-s tárgyak vagy animált arcok valósághű vizuális reprezentációjának előállítását. A renderelés minősége mindkét projektben jelentős hatással van a végső kimenet pontosságára és valósághűségére.
+            A renderelés mind a FOCUS \cite{focus}, mind a DECA \cite{deca} projektben fontos, mivel lehetővé teszi a neurális hálózati modellek tanításához szükséges valósághű szintetikus képek létrehozását, valamint a 3D-s tárgyak vagy animált arcok valósághű vizuális reprezentációjának előállítását. A renderelés minősége mindkét projektben jelentős hatással van a végső kimenet pontosságára és valósághűségére.
 
-            Mi ebben a fejezetben inkább \cite{deca}Yao Feng és tsai. által ajánlott módszert vizsgáljuk meg jobban, mivel a mi munkánk arcrekonstrukciós hálózata az ő munkájukon alapszik.
+            Mi ebben a fejezetben inkább Yao Feng és tsai. \cite{deca} által ajánlott módszert vizsgáljuk meg jobban, mivel a mi munkánk arcrekonstrukciós hálózata az ő munkájukon alapszik.
 
             A DECA projekt szempontjából a renderelés azért fontos, mert ez az utolsó lépés az arc rekonstrukciós folyamatában, amely az animált arc valósághű 2D-s képét állítja elő.
 
@@ -1086,7 +1171,7 @@
 
                 A differenciálható renderelő a DECA projekt kulcsfontosságú eleme. A korábban említettek alapján láthajuk, hogy fontos szerepe van.
 
-                 Ebben a fejezetben \cite{diffrenderer}Kato és tsai. kutatása alapján bemutatjuk a differenciálható renderelő alapelvét.
+                 Ebben a fejezetben Kato és tsai. \cite{diffrenderer} kutatása alapján bemutatjuk a differenciálható renderelő alapelvét.
 
                 A legtöbb 3D becslési módszer a felügyelt tanítási rendszerekre és költséges címkézésekre támaszkodnak, ami
                 a 3D megfigyelések összes paraméterének összegyűjtését jelentősen megnehezíti. A megközelítések egyike a grafikus renderelési folyamatok integrálása a neurális hálózattal működő rendszerekbe. Ez lehetővé teszi az átalakítást és a 3D becslések beépítését a 2D képi szintű információkba.
@@ -1114,7 +1199,7 @@
 
                 A DECA projekt keretében a raszterizáló a renderelési folyamat utolsó lépésében játszik szerepet, amely a 3D arcmodell 2D képpé vagy videoképpé alakítása. A raszterizáló felelős a 3D arcmodell 2D-s képsíkra történő vetítéséért.
 
-                A raszterizáló a grafikus folyamat egyik összetevője, amelyet a számítógépes grafikában és a játékfejlesztésben gyakran használnak. Úgy működik, hogy az archáló csúcsainak 3D-s koordinátáit egy 2D-s képsíkra vetíti. A vetítés során a 3D koordinátákat 2D képernyőkoordinátákká alakítják át figyelembe véve a kamera perspektíváját és minden egyéb releváns paramétert, például a látómezőt és a képarányt.
+                A raszterizáló a grafikus folyamat egyik összetevője, amelyet a számítógépes grafikában és a játékfejlesztésben gyakran használnak. Úgy működik \cite{standard-rasterizer}, hogy az archáló csúcsainak 3D-s koordinátáit egy 2D-s képsíkra vetíti. A vetítés során a 3D koordinátákat 2D képernyőkoordinátákká alakítják át figyelembe véve a kamera perspektíváját és minden egyéb releváns paramétert, például a látómezőt és a képarányt.
                 
                 Miután az arc hálójának csúcsait kivetítették a 2D-s képsíkra, a raszterizáló a hálót alkotó háromszögeket kitölti a megfelelő színekkel vagy textúrainformációkkal a renderelési folyamat során korábban elvégzett megvilágítási és árnyékolási számítások alapján.
                 
@@ -1122,7 +1207,7 @@
 
             \subsubsection{Renderelési folyamat}
 
-                A renderelési folyamat több lépésre bontható:
+                A renderelési folyamat a DECA alapján több lépésre bontható:
 
                 \begin{enumerate}
                     \item \textbf{Az arc tájékozódási pontjainak felismerése}: A rendszer először az arc tájékozódási pontjait észleli a bemeneti képeken vagy videóképeken. 
@@ -1141,7 +1226,7 @@
 
             \subsection{Arcpontok felismerése} \label{FAN}
 
-            A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanítási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálását, majd a pontok \textit{.csv} fáljokba való kiírását jelenti. Yao Feng és tsai. \cite{deca} megközelítését követve \cite{bulat}Bulat és tsai. FAN modelljét használjuk a 68 db 2D-s jellegzetes pont (landmark) detektálásához. A FAN egy arcpontok lokalizálására szolgáló reziduális hálózaton alapuló architektúra, amelyet  egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanítottak. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
+            A valósághű 3D arcrekonstrukció elérése érdekében fontos, hogy az adatokat előkészítsük még a tanítási folyamat előtt. Ez a lépés a munkánkban az arc jellegzetes pontjainak detektálását, majd a pontok \textit{.csv} fáljokba való kiírását jelenti. Yao Feng és tsai. \cite{deca} megközelítését követve Bulat és tsai. \cite{bulat} FAN modelljét használjuk a 68 db 2D-s jellegzetes pont (landmark) detektálásához. A FAN egy arcpontok lokalizálására szolgáló reziduális hálózaton alapuló architektúra, amelyet  egy nagy, de szintetikusan kibővített 2D-s arcpont-adathalmazon tanítottak. Ezután 5 adathalmazon, nagyjából 230 000 képpel értékelték ki a hálózatot és átlagosan 68,36\%-os pontosságot értek el.
 
             A FAN modell Python-csomagként megtalálható \textit{face-alignment} néven, amely egy olyan eszközkészletet biztosít, amely az arc tájékozódási pontjainak felismerésére, a fej pózának becslésére és az arc igazítására szolgál. 
             Mély tanulási modelleken alapul, és az arcképek előfeldolgozására használható olyan feladatok elvégzése előtt, mint az arcfelismerés vagy az érzelemérzékelés.
@@ -1149,20 +1234,15 @@
             A csomag több modulból áll, amelyek mindegyike az arcelemzéssel kapcsolatos speciális feladatot lát el. Az egyes modulok:
 
             \begin{itemize}
-                \item \textbf{észlelés}: 
-                
-                Ez a modul SSD (Single Shot Detector) architektúrán alapul és előre betanított modelleket használó arcfelismerő funkciókat biztosít. Az arcdetektor betanítható az arcok felismerésére különböző beállítások mellett, például gyenge fényviszonyok, eltakart arcok vagy profilnézet esetén.
+                \item \textbf{észlelés}:  Ez a modul SSD (Single Shot Detector) architektúrán alapul és előre betanított modelleket használó arcfelismerő funkciókat biztosít. Az arcdetektor betanítható az arcok felismerésére különböző beállítások mellett, például gyenge fényviszonyok, eltakart arcok vagy profilnézet esetén.
         
-                \item \textbf{igazítás}: 
-                
-                Ez a modul funkciókat biztosít az arc tájékozódási pontjainak felismeréséhez és az arcok igazításához.
+                \item \textbf{igazítás}: Ez a modul funkciókat biztosít az arc tájékozódási pontjainak felismeréséhez és az arcok igazításához.
         		A tájékozódási pont detektor egy mély konvolúciós neurális hálózatot (CNN) használ az arc kulcsfontosságú pontjainak, például a szemeknek, az orrnak és a szájnak a helyzetének a felismerésére. 
         		Az arcigazítási funkció ezután a tájékozódási pontok pozícióit használja fel az arckép geometriai transzformációjának elvégzéséhez.
         
-        
-                \item \textbf{póz}: 
+                \newpage
+                \item \textbf{póz}: Ez a modul funkciókat biztosít az arc fejpózának becslésére, ami a fej kamerához viszonyított orientációját jelenti. A pózbecslő egy CNN-t használ a fej gördülési és dőlési szögének becslésére.
                 
-                Ez a modul funkciókat biztosít az arc fejpózának becslésére, ami a fej kamerához viszonyított orientációját jelenti. A pózbecslő egy CNN-t használ a fej gördülési és dőlési szögének becslésére.
                 \item \textbf{segédeszközök}: Ez a modul egy sor segédfunkciót biztosít a képfeldolgozáshoz, mint például a méretváltoztatás, a képkivágás és a színnormalizálás.
         
             \end{itemize}
@@ -1205,7 +1285,7 @@
 
         Az arcrekonstrukciós hálózat és az arcanalizáló hálózat fejlesztése egy olyan új terület, amelyet a csapatunk még nem tapasztalt korábban. Ennek eredményeképpen sok időt kellett szánnunk az anyag megértésére és a szükséges ismeretek megszerzésére.
 
-        A publikus adathalmazok száma viszonylag alacsony volt, ami további nehézséget jelentett a fejlesztési folyamat során. A durva matematikai háttér szintén tovább nehezítette a fejlesztést, és sok időt vett igénybe, hogy megértsük az algoritmusokat és a hálózatok működését.
+        A publikus adathalmazok száma viszonylag alacsony volt, ami további nehézséget jelentett a fejlesztési folyamat során.
         
         A fejlesztői környezet sok komponensből áll, és sokuk nem natív windowson. Ez kihívást jelentett a fejlesztés során, mivel a csapatunk Windows operációs rendszert használt. Ennek ellenére megoldást találtunk a problémákra, és sikerült sikeresen felépítenünk a hálózatokat.
     
@@ -1215,20 +1295,23 @@
         
         \subsection{Felhő alapú architektúra}
         
-            \begin{figure}[h]	
-        		\centering
-        		\includegraphics[width=1\linewidth]{sysplan}
-        		\caption{ A rendszer felépítése}
-        	    \label{fig:sysplan}
-            \end{figure}
-
             Ebben a projektben több mikroszervizt készítettünk, amelyek együttműködnek, hogy egy teljes alkalmazást hozzanak létre az arc rekonstrukciójára és elemzésére. A mikroszolgáltatások közé tartozik egy Java backend, egy React.js frontend és két Python modul az arcrekonstrukciós modellünkhöz és az arcelemző modellünkhöz.
 
-            A Java backend felelős az adattárolásért és a többi mikroszolgáltatással való API-kommunikációért. A React.js frontend egy felhasználóbarát felületet biztosít a felhasználók számára az alkalmazással való interakcióhoz, valamint a rekonstruált arcok és az elemzési eredmények megjelenítéséhez. A Python modulok tartalmazzák az arcok rekonstrukciójához és elemzéséhez szükséges gépi tanulási modelleket, és kommunikálnak a Java backenddel a bemenet fogadásához és a kimenet biztosításához.
+            A Java backend felelős az adattárolásért és a többi mikroszolgáltatással való
+            API-kommunikációért. A React.js frontend egy felhasználóbarát felületet biztosít a felhasználók számára az alkalmazással való interakcióhoz, valamint a rekonstruált arcok és az elemzési eredmények megjelenítéséhez. A Python modulok tartalmazzák az arcok rekonstrukciójához és elemzéséhez szükséges gépi tanulási modelleket, és kommunikálnak a Java backenddel a bemenet fogadásához és a kimenet biztosításához.
 
             Annak érdekében, hogy a mikroszolgáltatások skálázhatóak, megbízhatóak és karbantarthatóak legyenek egy helyi Kubernetes klaszterre telepítjük őket a minikube segítségével. A Kubernetes egy nyílt forráskódú platform a konténer-orchestráláshoz, amely lehetővé teszi számunkra a konténeres alkalmazások kezelését, telepítését és skálázását. A minikube viszont egy olyan eszköz, amely lehetővé teszi a fejlesztők számára, hogy a Kubernetes-t lokálisan futtassák a gépeiken.
 
             A projekt egyik célja, hogy bemutassuk a mikroszerviz architektúra előnyeit, valamint a jobb skálázhatóság, hibatűrés és rugalmasság érdekében a Kubernetes klaszterre való telepítés fontosságát. Különböző Kubernetes fogalmakat is meg fogunk vizsgálni, mint például a podok, szolgáltatások, telepítések és skálázás, hogy biztosítsuk a mikroszolgáltatások zökkenőmentes működését a klaszteren. A projekt végére jobban megértjük majd, hogyan működnek a mikroszolgáltatások, és hogyan telepíthetjük őket egy Kubernetes klaszterre a minikube segítségével, miközben egy funkcionális alkalmazást készítünk az arcok rekonstrukciójára és elemzésére.
+
+            \begin{figure}[h]	
+        		\centering
+        		\includegraphics[width=0.7\linewidth]{sysplan}
+        		\caption{ A rendszer felépítése}
+        	    \label{fig:sysplan}
+            \end{figure}
+
+            \clearpage
 
         	Továbbiakban megvizsgáljuk a rendszer felépítését illetve mükődését a
         	fenti ábra segítségével. A(z) \ref{fig:sysplan}. ábrán látható, hogy 6 különböző szolgáltatást Minikube lokális klaszteren üzemeltetünk.
@@ -1279,7 +1362,7 @@
 
             A MongoDB Atlas használatával a projekt egy nagy rendelkezésre állású és skálázható adatbázis-megoldás előnyeit élvezheti, olyan funkciókkal, mint az automatikus biztonsági mentések, a több régióra kiterjedő klaszterek és a végponttól végpontig titkosítás. Az adatbázis könnyen kezelhető a webalapú Atlas felhasználói felület vagy az átfogó API segítségével. 
             
-            Ez azért volt számunkra előnyös, mert nekünk csak az alkalmazás logikájának kialakítására kellet koncentrálnunk anélkül, hogy az adatbázis infrastruktúrájával kellene foglalkoznunk.
+            Ez azért volt számunkra előnyös, mert nekünk csak az alkalmazás logikájának kialakítására kellett koncentrálnunk anélkül, hogy az adatbázis infrastruktúrájával kellene foglalkoznunk.
 
             Összességében a MongoDB Atlas-t használó projekt képes kihasználni a dokumentumalapú adatbázis erejét és rugalmasságát, miközben egy felhőalapú menedzselt szolgáltatás előnyeit is élvezné.
 
@@ -1327,7 +1410,7 @@
 
                             \item Ezután betölti a tanítási adatokat, és feldolgozza azokat néhány képi augmentációs technikával, például véletlenszerű forgatással és átfordítással. A kiterjesztett adatokat ezután tanítási és validálási halmazokra osztja.
 
-                            \item A modell inicializálása a ResNet18 architektúrával történik, az utolsó rétegek némi módosításával, hogy bináris osztályozást adjon ki. 
+                            \item A modell inicializálása a ResNet18 architektúrával történik, az utolsó rétegek némi módosításával, hogy a nemek osztályozásánál bináris, míg az érzelmek felismerésénél többkategóriás osztályozást adjon ki. 
 
                             \item Meghatározza a modell veszteségfüggvényét, amely a bináris kereszt-entrópia függvény. Beállítja az optimalizálót is, amely sztochasztikus gradiens ereszkedést (SGD) használ momentummal.
 
@@ -1352,7 +1435,7 @@
         \subsection{Arcrekonstrukció}
             \subsubsection{Adathalmazok}
                 
-                A rekonstrukciós modellünk a nyilvánosan elérhető CELEBA adathalmazból tanul \cite{celeba}. A $CelebFaces Attributes Dataset$ (CelebA) egy nagyméretű arcattribútum adatkészlet, amely több mint 200 000 híresség képét tartalmazza, mindegyikhez 40 attribútum annotáció tartozik. Az adatállomány képei nagy pózvariációkat és háttérzavarokat fednek le. A CelebA nagy változatossággal, nagy mennyiségben és gazdag annotációkkal rendelkezik, többek között az alábbiakkal:
+                A rekonstrukciós modellünk a nyilvánosan elérhető CELEBA \cite{celeba} adathalmazból tanul. A $CelebFaces Attributes Dataset$ (CelebA) egy nagyméretű arcattribútum adatkészlet, amely több mint 200 000 híresség képét tartalmazza, mindegyikhez 40 attribútum annotáció tartozik. Az adatállomány képei nagy pózvariációkat és háttérzavarokat fednek le. A CelebA nagy változatossággal, nagy mennyiségben és gazdag annotációkkal rendelkezik, többek között az alábbiakkal:
 
                 \begin{itemize}
                     \item 10 177 különböző személyazonosság
@@ -1376,7 +1459,7 @@
             \subsubsection{Arcrekonstrukciós hálózat adatainak előkészítése}
 
             A \textit{list\_eval\_partition.csv} megadja, hogy az adott kép melyik adathalmazhoz tartozik.
-           A három adathalmaz a tanító, a tesztelési és a validációs halmazok. A(z) \ref{FAN}. fejezetben említett FAN modellt felhasználva detektáljuk képenként a 68 db arcpontot, majd azok mentésre kerülnek a kép partíciójának megfelelő .csv fájlba. A .csv fájlok a \textit{train\_landmarks.csv}, \textit{test\_landmarks.csv} és a \textit{val\_landmarks.csv}.
+           A három adathalmaz a tanító, a tesztelési és a validációs halmazok. A(z) \ref{FAN} fejezetben említett FAN modellt felhasználva detektáljuk képenként a 68 db arcpontot, majd azok mentésre kerülnek a kép partíciójának megfelelő .csv fájlba. A .csv fájlok a \textit{train\_landmarks.csv}, \textit{test\_landmarks.csv} és a \textit{val\_landmarks.csv}.
 
             \subsubsection{Szegmentáló hálózat adatainak előkészítése}
 
@@ -1411,7 +1494,6 @@
 
             A képeknek az arcrekonstrukciós hálózatba való bevitele előtti átméretezésével és vágásával biztosíthatjuk, hogy a hálózat csak a releváns arcvonásokat kapja meg, egységes orientációval és mérettel, ami végső soron javíthatja a rekonstrukció pontosságát.
             
-            
             \subsubsection{Hálózat felépítése}
 
             \begin{figure}[h!]	
@@ -1421,8 +1503,7 @@
                 \label{fig:pipeline}
         	\end{figure}
 
-            \clearpage
-         
+            
         	Az arcreskonstrukciós modellünket a(z) \ref{fig:pipeline}. ábrán szemléltetjük. A hálózatot PyTorch
         	keretrendszerben fejlesztettük.
         	A DECA módszerét követve a hálózatunk első lépése egy
@@ -1455,7 +1536,7 @@
 
          \paragraph{Megjelenési modell}
 
-        A FLAME nem rendelkezik megjelenési modellel, ezért \cite{deca} Yao és tsai ajánlására a BFM lineáris albedó altérét alakítjuk át
+        A FLAME nem rendelkezik megjelenési modellel, ezért Yao és tsai. \cite{deca} ajánlására a BFM lineáris albedó altérét alakítjuk át
         a FLAME UV elrendezésébe, hogy kompatibilis legyen a FLAME-mel. A megjelenési modell egy UV albedótérképet ($A(\alpha) \in \mathbb{R}^{d \times d \times 3}$) ad vissza, ahol $\alpha \in \mathbb{R}^{|\alpha|}$ az albedó paramétereket jelöli.  
          
          \paragraph{Kamera modell}
@@ -1467,6 +1548,8 @@
                      
          \paragraph{Kódoló}
 
+            Mint említettük, a DECA kódoló hálózatát használjuk fel a személyspecifikus látens kód kinyerésére a bemeneti képekből.
+            
             Az encoders.py modulban található ResnetEncoder osztály az arcrekonstrukciós modellben használt $E_c$ és $E_d$ kódoló  hálózatok PyTorch implementációja, amely a személyspecifikus jellemzők, valamint a FLAME paraméterek kinyerésére szolgál. 
             A kódoló bemenetként egy arc képét veszi, és egy látens kódot állít elő, amelyet a dekódoló/generátorhálózat bemeneteként használ.
             
@@ -1517,7 +1600,7 @@
                      
          \paragraph{ResNet architektúra}
 
-            Az arcrekonstrukciós hálózat az frnet.py modulban implementált ResNet architektúrát használja a bemeneti képek jellemzőinek kinyerésére. 
+            Az arcrekonstrukciós hálózat az frnet.py modulban a DECA \cite{deca} által implementált ResNet architektúrát használja a bemeneti képek jellemzőinek kinyerésére. 
             A ResNet architektúra több építőblokkból áll, köztük a BasicBlock, a Bottleneck és a ResNet elemekből.
             
             A BasicBlock osztály a PyTorch nn.Module osztály alosztálya, és két konvolúciós rétegből áll, amelyet egy kötegelt normalizáló réteg és egy ReLU aktivációs függvény követ.
@@ -1542,10 +1625,9 @@
             A ResNet implementációját a kódoló hálózatokban használjuk fel és módosítjuk azt a személyspecifikus jellemzők és a FLAME paraméterek kinyerése érdekében
                      
          \paragraph{Sztenderd raszterizáló}
-
              A sztenderd raszterizáló a rasterizer.py fájlban van implementálva.
              Ez a raszterizáló egy 3D-s archálót kap, amelyet csúcsok és lapok halmaza reprezentál, és egy 2D-s képsíkra vetíti, hogy az arc textúrázott képét létrehozza.
-             A raszterizáló a következő lépések szerint működik:
+             A DECA \cite{deca} által implementált raszterizáló a következő lépések szerint működik:
              \begin{enumerate}
                  \item \textbf{Perspektív vetítési mátrix létrehozása}:
                         A perspektív vetítési mátrix egy 4x4-es mátrix, amely a 3D koordinátákat 2D képkoordinátákra képezi le. 
@@ -1588,7 +1670,7 @@
              A raszterizáló testreszabható és bővíthető, hogy különböző textúra leképezési és keverési technikákat, valamint különböző renderelési lehetőségeket, például világítást és árnyékolást alkalmazzon.
          
         \paragraph{Differenciálható renderelő}
-             A differenciálható renderelés egy olyan renderelési módszer, amely a kamera paraméterei, a csúcsok pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus implementációját a renderer.py SRenderY osztálya tartalmazza. 
+             A differenciálható renderelés egy olyan renderelési módszer, amely a kamera paraméterei, a csúcsok pozíciói és a textúra leképezések alapján egy 3D-s arc háló 2D-s képét generálja. A metódus DECA \cite{deca} által készített és általunk felhasznált implementációját a renderer.py SRenderY osztálya tartalmazza. 
 
              Az SRenderY módszer mükődése:
             
@@ -1624,7 +1706,7 @@
         \paragraph{Megvilágítás hozzáadása}
             A renderer.py add\_SHlight metódusa egy olyan módszer, amely gömbharmonikus (SH) megvilágítást ad hozzá egy 3D-s archáló 2D-s képéhez.
 
-            Az add\_SHlight (\textit{Spherical Harmonics}) módszer működése:
+            Az add\_SHlight (\textit{Spherical Harmonics}) módszer működése a DECA \cite{deca} általi implementáció alapján:
             
             \begin{enumerate}
                 \item Egy üres (H, W, 3) méretű képpuffer inicializálása, ahol H és W a bemeneti kép magassága és szélessége pixelben, 3 pedig a színcsatornák száma (piros, zöld és kék).
@@ -1654,7 +1736,7 @@
 
         \paragraph{Normáltérkép kiszámítása eltolódási térképből}
 
-            A displacement2normal függvény arra szolgál, hogy az elmozdulási térképből kiszámítsa a normáltérképet, amelyre a renderelésnél lesz szükségünk. 
+            A DECA \cite{deca} által implementált displacement2normal függvény arra szolgál, hogy az elmozdulási térképből kiszámítsa a normáltérképet, amelyre a renderelésnél lesz szükségünk. 
             A számítógépes grafikában az elmozdulási térkép egy olyan textúra, amely egy objektum felületének elmozdulását kódolja.
             A textúrában lévő elmozdulási értékek jellemzően a felületre merőleges irányban vannak meghatározva, ami azt jelenti, hogy felhasználhatóak a normáltérkép kiszámításához.
             
@@ -1682,7 +1764,7 @@
             Az arcrekonstrukciós hálózat a tanítás során a következő veszteségfüggvényt minimalizálja:
 
             \begin{equation} \label{coarseloss}
-                L   &=  &\lambda_{lmk}L_{lmk}   &+  &\lambda_{eye}L_{eye}   &+  &\lambda_{pho}L_{pho}   &+  &\lambda_{id}L_{id} &+  &L_{reg}  
+                L   =  &\lambda_{lmk}L_{lmk}   &+  &\lambda_{eye}L_{eye}   &+  &\lambda_{pho}L_{pho}   &+  &\lambda_{id}L_{id} &+  &L_{reg}  
             \end{equation}
             ,ahol $\lambda \in \mathbb{R}$ az egyes költségfüggvényekhez tartozó súlyértékeket, 
             $L_{lmk}$ az arcpont reprojekciós veszteséget, 
@@ -1703,7 +1785,7 @@
                     &L_{lmk} &= \sum_{i=1}^{68} || k_{i} - s\Pi(M_{i}) + t ||_{1}
                 \end{equation}
                 
-                \item A \textit{szemzárási veszteség} A szemzárási veszteség kiszámítja a felső és alsó szemhéjon lévő $k_{i}$ és $k_{j}$ tájékozódási pontok relatív eltolódását, és méri a FLAME felszínén lévő $M_{i}$ és $M_{j}$ megfelelő tájékozódási pontok képre vetített eltolódásának különbségét. Formálisan a veszteség a következő:
+                \item A \textit{szemzárási veszteség} kiszámítja a felső és alsó szemhéjon lévő $k_{i}$ és $k_{j}$ tájékozódási pontok relatív eltolódását, és méri a FLAME felszínén lévő $M_{i}$ és $M_{j}$ megfelelő tájékozódási pontok képre vetített eltolódásának különbségét. Formálisan a veszteség a következő:
 
                 \begin{equation}
                     L_{eye} = \sum_{(i,j) \in E} || k_{i} - k_{j} - s\Pi(M_{i} - M_{j}) ||_{1}
@@ -1713,7 +1795,7 @@
               Mivel a szemzárási veszteség transzlációs invariáns, 
               kevésbé érzékeny a vetített 3D-s arc és a kép közötti eltérésre az $L_{lmk}$-hoz képest. 
                 
-                \item A fotometriai veszteség az $I$ bemeneti kép és az $I_{r}$ rekonstruált kép közötti hibát a következőképpen számítja ki:
+                \item A \textit{fotometriai veszteség} az $I$ bemeneti kép és az $I_{r}$ rekonstruált kép közötti hibát a következőképpen számítja ki:
 
                 \begin{equation}
                     L_{pho} = || V_{1}\bigodot(I -I_{r}) ||_{1,1}
@@ -1721,7 +1803,7 @@
                 , ahol $V_{1}$ az arcmaszk, amely értéke 1 az arcbőr tartományában és 0 máshol, és $\bigodot$ a Hadamard-szorzatot jelöli.
                 A hiba csak az arc régiójában történő kiszámítása robusztusságot biztosít a gyakori elfedésekkel szemben, mint a haj, ruha, napszemüveg. Enélkül a megjósolt albedó a takarás színét is figyelembe veszi, ami távol állhat a bőrszíntől, ami természetellenes megjelenítést eredményez.
                 
-                \item Az identitás veszteség felhasználásának hatékonyságát a valósághűbb arcformák előállítása érdekében a FOCUS és a DECA is bizonyította. Ennek hatására mi is \cite{pretrained-resnet}Cao és tsai. előzetesen betanított arcfelismerő hálózatát használjuk, hogy a tanítás során identitásvesztést alkalmazzunk.
+                \item Az \textit{identitás veszteség} felhasználásának hatékonyságát a valósághűbb arcformák előállítása érdekében a FOCUS és a DECA is bizonyította. Ennek hatására mi is Cao és tsai. \cite{pretrained-resnet} előzetesen betanított arcfelismerő hálózatát használjuk, hogy a tanítás során identitásvesztést alkalmazzunk.
                 
                 Az arcfelismerő hálózat $f$ a renderelt kép $I_{r}$ és a bemeneti kép $I$ jellemző beágyazásait adja vissza, majd az identitásveszteség a két beágyazás közötti koszinusz hasonlóságot határozza meg.
 
@@ -1743,13 +1825,13 @@
                 
             \end{enumerate}
 
-            A \ref{coarseloss}-as számmal jelölt költségfüggvény építőelemei a DECA által definiált költségfüggvények közül kerültek kiválasztásra.
+            Az egyes költségfüggvények a DECA által definiált költségfüggvények közül kerültek kiválasztásra.
         
         \paragraph{Szegmentáló hálózat veszteségfüggvényei} \label{unetseg}
 
-            Projektünk célja egy robusztus 3D arcrekonstrukciós rendszer létrehozása, amely egy gyengén felügyelt tanulási technikákkal tanított szegmentáló hálózatot használ. Ennek eléréséhez a \cite{focus}Yu Deng és tsai. tanulmányából merítünk ihletet. 
+            Projektünk célja egy robusztus 3D arcrekonstrukciós rendszer létrehozása, amely egy gyengén felügyelt tanulási technikákkal tanított szegmentáló hálózatot használ. Ennek eléréséhez a Yu Deng és tsai. \cite{focus} tanulmányából merítünk ihletet. 
 
-            Célkitűzésünk, hogy hasonló szegmentáló hálózatot és veszteségfüggvényeket valósítsunk meg a 3D-s arc rekonstrukciójához a rendszer pontosságának és robusztusságának javítására összpontosítva. A \cite{focus}Yu Deng és tsai. által javasolt, gyengén felügyelt tanulási technikák és veszteségfüggvények felhasználásával reméljük, hogy lenyűgöző eredményeket érhetünk el a 3D arcrekonstrukciós rendszerünkben.
+            Célkitűzésünk, hogy hasonló szegmentáló hálózatot és veszteségfüggvényeket valósítsunk meg a 3D-s arc rekonstrukciójához a rendszer pontosságának és robusztusságának javítására összpontosítva. A Yu Deng és tsai. \cite{focus} által javasolt, gyengén felügyelt tanulási technikák és veszteségfüggvények felhasználásával reméljük, hogy lenyűgöző eredményeket érhetünk el a 3D arcrekonstrukciós rendszerünkben.
 
             A javasolt veszteségek a következők:
 
@@ -1758,7 +1840,7 @@
                 L_{nbr} = \sum_{x \in \Omega}\Big|\Big|\min_{\forall x^{'} \in N(x)}||I_{T}(x)-I_(R)(x_{'})||\Big|\Big|_{2}^{2}
             \end{equation}
 
-            Az \ref{nbr}. egyenletben szereplő pixel-szintű szomszédos veszteség, $L_{nbr}$ , összehasonlítja a célkép $x$ helyén lévő $I_{T}(x)$ pixeleit a renderelt képen a szomszédos régióban lévő $N(x)$ pixelekkel. 
+            A(z) \ref{nbr}. egyenletben szereplő pixel-szintű szomszédos veszteség, $L_{nbr}$ , összehasonlítja a célkép $x$ helyén lévő $I_{T}(x)$ pixeleit a renderelt képen a szomszédos régióban lévő $N(x)$ pixelekkel. 
 
             Megjegyzendő, hogy ez csak az arcon belüli régiót figyeli, $\omega$-t, amelyet a szegmentáló hálózat előre jelez. Egy nagyobb szomszédos veszteség $x$-nél azt jelzi, hogy ez a képpont nem illeszkedik jól és valószínűbb, hogy kiugró érték.
                 
@@ -1769,7 +1851,7 @@
 
             Hasonlóképpen, a \ref{dist}. egyenletben szereplő $L_{dist}$ a bemeneti és a rekonstruált arc perceptuális szintű összehasonlítására szolgál.
 
-            A \ref{nbr} és \ref{dist} egyenletek célja a maszk zsugorítása a kiugró értékeken, ahol a pixel-szintű és az perceptuális különbségek nagyok.
+            A(z) \ref{nbr} és \ref{dist} egyenletek célja a maszk zsugorítása a kiugró értékeken, ahol a pixel-szintű és az perceptuális különbségek nagyok.
 
             Minden egyéb megkötés nélkül a szegmentáló hálózat egy teljesen nulla maszkot adna ki, hogy mindkettő 0 legyen. Ha van egy kényszer, amely arra ösztönzi a hálózatot, hogy megőrizze a bizonyos képrészeket, akkor a kisebb veszteséggel rendelkező részek nagyobb valószínűséggel megmaradnak.
 
@@ -1779,20 +1861,20 @@
                 L_{area} = -S_{M}/S_{R}
             \end{equation}
 
-            A \ref{area}. egyenlet célja hogy megnövelje a becsült arcpixelek száma, $S_{M}$, és a renderelt arctérségben lévő pixelek száma,$S_{R}$ közötti arányt. Ez megakadályozza hogy a szegmentáló hálózatot attól, hogy túl sok pixelt vessen el.
+            A(z) \ref{area}. egyenlet célja hogy megnövelje a becsült arcpixelek száma, $S_{M}$, és a renderelt arctérségben lévő pixelek száma,$S_{R}$ közötti arányt. Ez megakadályozza hogy a szegmentáló hálózatot attól, hogy túl sok pixelt vessen el.
                 
             \begin{equation} \label{presv}
                 L_{presv} = \cos(F(I_{T} \bigodot M),F(I_{R}))
             \end{equation}
 
-            A \ref{presv}. egyenlet, biztosítja, hogy a perceptuális
+            A(z) \ref{presv}. egyenlet, biztosítja, hogy a perceptuális
             arcjellemzők hasonlóak maradjanak, miután a kiugró értékek a bemeneti képen ki lettek maszkolva és arra ösztönzi a modellt, hogy megőrizze a látható arcterület minél nagyobb részét.
 
             \begin{equation} \label{bin}
                 L_{bin} = -\sum\limits_{x}(M(x) - 0.5)^2
             \end{equation}
 
-            Használunk egy további regularizációs egyenletet\ref{bin}, $L_{bin}$-t, hogy az armaszk $M$ bináris legyen.
+            Használunk egy további regularizációs egyenletet (\ref{bin}), $L_{bin}$-t, hogy az armaszk $M$ bináris legyen.
 
             A szegmentáló hálózat tanításának teljes vesztesége a következő:
 
@@ -1864,7 +1946,7 @@
             \centering
             \includegraphics[width=1\linewidth]{pretrain-eye-loss.png}
             \caption{Tensorboard által generált grafikon a szemzárási veszteség alakulásáról az előtanítás során.}
-            \label{fig:pretrain-lmk-loss}
+            \label{fig:pretrain-eye-loss}
         \end{figure}
 
         \begin{figure}[h!]	
@@ -1882,6 +1964,7 @@
         \end{figure}
 
         \clearpage
+        A(z) \ref{fig:pretrain-exp-reg}.,\ref{fig:pretrain-shape-reg}., \ref{fig:pretrain-lmk-loss}., \ref{fig:pretrain-eye-loss}. és \ref{fig:pretrain-all-loss}. ábrák az előtanítás során Tensorboard által generált grafikonokat szemlélteti az egyes regularizációk és veszteségek alakulásáról.
         
         A(z) \ref{fig:pretrain-val-images}. ábrán az előtanítás végén készített rekonstrukciók láthatóak a teszthalmazból kivett képekről. Az első sorban a bemeneti képek, a másodikban az elvárt arcpontok, a harmadik sorban a hálózat által jósolt arcpontok találhatóak. A negyedik sor az elvárt arcpontok felhasználásával készített 3D-s fejmodelleket, az ötödik pedig a hálózat által megjósolt arcpontok felhasználásával készített fejmodelleket tartalmazza. A legalsó sorban a megjósolt fényviszonyok közötti alaptextúrával ellátott modell látható.
         
@@ -1912,7 +1995,7 @@
 
         Az Adadelta optimalizáló és a tanulási sebesség ütemező kombinációja segíthet az U-Net modell hatékonyabb konvergálásában és a túlillesztés elkerülésében, különösen zajos vagy ritka adatok jelenlétében.
         
-        Összességében az Adadelta és az Adam nagyon hasonló algoritmusok, amelyek hasonló körülmények között jól teljesítenek, részletesebben \cite{ruder}Sebastian Ruder munkájában lehet olvasni.
+        Összességében az Adadelta és az Adam nagyon hasonló algoritmusok, amelyek hasonló körülmények között jól teljesítenek, részletesebben Sebastian Ruder \cite{ruder} munkájában lehet olvasni.
         \\
 
         \begin{wrapfigure}{l}{0.25\textwidth}
@@ -1926,28 +2009,32 @@
           \begin{minipage}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{test-masks-1000.png}
             \caption{Generált maszkok 1000 iteráció után.}
+            \label{fig:masks-1000it}
           \end{minipage}
           \hfill
           \begin{minipage}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{test-masks-30000.png}
             \caption{Generált maszkok 30000 iteráció után.}
+            \label{fig:masks-30000it}
           \end{minipage}
           \begin{minipage}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{test-masks-90000.png}
             \caption{Generált maszkok 90000 iteráció után.}
+            \label{fig:masks-90000it}
           \end{minipage}
           \hfill
           \begin{minipage}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{test-masks-135000.png}
             \caption{Generált maszkok 135000 iteráció után.}
+            \label{fig:masks-135000it}
           \end{minipage}
           \caption{\centering A szegmentáló hálózat eredményei az előtanítás során}
-          \label{fig:trainset-mask}
+          \label{fig:pretrain-mask}
         \end{figure}
 
         
         
-        A(z) \ref{fig:trainset-mask}. ábrán a szegmentáló hálózat által generált arcmaszkok láthatóak az egyes lépésszámok után. A hálózat teszteléséhez a bemeneti képek a validációs adathalmazból kerülnek kiválasztásra. A validáció minden $1000$. lépésben lefut. Az elvárt alapigazság maszkok a(z) \ref{wrap-fig:gt-masks}. ábrán láthatóak. 
+        A(z) \ref{fig:pretrain-mask}. ábrán (\ref{fig:masks-1000it}. - \ref{fig:masks-135000it}. ábrák) a szegmentáló hálózat által generált arcmaszkok láthatóak az egyes lépésszámok után. A hálózat teszteléséhez a bemeneti képek a validációs adathalmazból kerülnek kiválasztásra. A validáció minden $1000$. lépésben lefut. Az elvárt alapigazság maszkok a(z) \ref{wrap-fig:gt-masks}. ábrán láthatóak. 
 
         \clearpage
 
@@ -2072,16 +2159,13 @@
         
           \begin{figure}[h!]
             \centering
-            \begin{subfigure}[b]{0.55\textwidth}
-               \includegraphics[width=1\linewidth]{coarse-unet-all-loss.jpg}
-               \caption{Összesített arcmaszk szegmentációs veszteség}
-               \label{fig:coarse-unet-all-loss} 
-            \end{subfigure}
-            \caption{A szegmentáló hálózat veszteségének alakulása a tanítás során. A grafikonon az X tengely jelöli a lépésszámot, az Y pedig az egyes lépésszámoknál felvett értékek láthatóak.}
+            \includegraphics[width=1\linewidth]{coarse-unet-all-loss.jpg}
+            \label{fig:coarse-unet-all-loss} 
+            \caption{A szegmentáló hálózat összesített veszteségének alakulása a tanítás során. A grafikonon az X tengely jelöli a lépésszámot, az Y pedig az egyes lépésszámoknál felvett értékek láthatóak.}
             \label{fig:coarse-unet-loss-results}
         \end{figure}
 
-        A(z) \ref{fig:coarse-unet-loss-results}. ábrán a szegmentáló hálózat tanítása során kiszámításra került veszteségek láthatók.
+        A(z) \ref{fig:coarse-unet-loss-results}. ábrán a szegmentáló hálózat összesített veszteségének alakulása látható a tanítás során.
         
                 
         
@@ -2165,13 +2249,13 @@
                 P = \frac{TP}{TP + FP}
             \end{equation}
             
-            Az fedés (F) azt méri, hogy a pozitív rekordok mekkora hányadát sikerült helyesen megjósolni. Formálisan:
+            Az felidézés (F) azt méri, hogy a pozitív rekordok mekkora hányadát sikerült helyesen megjósolni. Formálisan:
 
             \begin{equation}
                 F = \frac{TP}{TP + FN}
             \end{equation}
             
-            Az F1-mutató a pontosság és a visszahívás harmonikus átlaga, amely kiszámítható, mint:
+            Az F1-mutató a pontosság és a felidézés harmonikus átlaga, amely kiszámítható, mint:
 
             \begin{equation}
                 F1 = \frac{2 \cdot P \cdot F}{P + F}
@@ -2214,7 +2298,7 @@
         
         \subsubsection{Eredmények értékelése}
      
-            \cite{facerecresult}Yoo és tsai. (2020) "Facial Expression Recognition Accuracy and Reaction Time Among Elementary School Students" című tanulmányának célja az volt, hogy megvizsgálja az általános iskolások pontosságát és reakcióidejét az arckifejezések felismerésében. A tanulmány szintén a FER-2013 adathalmazt használta, amely 35 887 szürkeárnyalatos arcképből áll, amelyeket hét alapvető érzelem (harag, undor, félelem, boldogság, szomorúság, meglepetés és semleges) egyikével jelöltek meg.
+            Yoo és tsai. \cite{facerecresult} (2020) "Facial Expression Recognition Accuracy and Reaction Time Among Elementary School Students" című tanulmányának célja az volt, hogy megvizsgálja az általános iskolások pontosságát és reakcióidejét az arckifejezések felismerésében. A tanulmány szintén a FER-2013 adathalmazt használta, amely 35 887 szürkeárnyalatos arcképből áll, amelyeket hét alapvető érzelem (harag, undor, félelem, boldogság, szomorúság, meglepetés és semleges) egyikével jelöltek meg.
         
             A tanulmányhoz 204 általános iskolás diákot vontak be, és arra kérték őket, hogy töltsenek ki egy arckifejezés-felismerési feladatot. A feladatban a tanulóknak egy sor arckifejezést mutattak, és arra kérték őket, hogy egy hét lehetőségből álló listából válasszák ki az arckifejezésnek leginkább megfelelő érzelmet. A vizsgálat során adatokat gyűjtöttek a diákok életkoráról, neméről és tanulmányi teljesítményéről is.
     
@@ -2271,28 +2355,69 @@
         \end{itemize}
 
         \subsection{Arcrekonstrukció}
-            \begin{figure}[htb]
+        \begin{figure}[htb]
                 \centering
-                \begin{subfigure}[b]{1\textwidth}
-                   \includegraphics[width=1\linewidth]{pique_vis.jpg}
+                 \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{ruben_vis.jpg}
                 \end{subfigure}
-                
+
                 \begin{subfigure}[b]{1\textwidth}
                    \includegraphics[width=1\linewidth]{hua_vis.jpg}
                 \end{subfigure}
                 
                 \begin{subfigure}[b]{1\textwidth}
-                   \includegraphics[width=1\linewidth]{ruben_vis.jpg}
+                   \includegraphics[width=1\linewidth]{pique_vis.jpg}
+                \end{subfigure}
+
+        
+                \caption{Rekonstrukciós eredmények. Balról jobbra: bemeneti kép, detektált arcpontok, arcpontok, pirossal jelölve a nem látható pontokat, durva rekonstrukció, részletes rekonstrukció, alaptextúra a fényviszonyokkal, mélységi térkép}
+                \label{fig:our-reconstruction-results}
+            \end{figure}
+            
+            \begin{figure}[htb]
+                \centering
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0019_vis.jpg}
+                \end{subfigure}
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0021_vis.jpg}
+                \end{subfigure}
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0023_vis.jpg}
+                \end{subfigure}
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0027_vis.jpg}
+                \end{subfigure}
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0029_vis.jpg}
+                \end{subfigure}
+
+                \begin{subfigure}[b]{1\textwidth}
+                   \includegraphics[width=1\linewidth]{test0030_vis.jpg}
                 \end{subfigure}
                 
                 \caption{Rekonstrukciós eredmények. Balról jobbra: bemeneti kép, detektált arcpontok, arcpontok, pirossal jelölve a nem látható pontokat, durva rekonstrukció, részletes rekonstrukció, alaptextúra a fényviszonyokkal, mélységi térkép}
+                \label{fig:our-reconstruction-results2}
             \end{figure}
 
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=.3\textwidth]{pique_3d.jpg}\hfill
+                \includegraphics[width=.3\textwidth]{ruben_3d.jpg}\hfill
                 \includegraphics[width=.3\textwidth]{hua_3d.jpg}\hfill
-                \includegraphics[width=.3\textwidth]{ruben_3d.jpg}
+                \includegraphics[width=.3\textwidth]{pique_3d.jpg}
+                
+                \includegraphics[width=.3\textwidth]{19_3d.jpg}\hfill
+                \includegraphics[width=.3\textwidth]{21_3d.jpg}\hfill
+                \includegraphics[width=.3\textwidth]{23_3d.jpg}
+                
+                \includegraphics[width=.3\textwidth]{27_3d.jpg}\hfill
+                \includegraphics[width=.3\textwidth]{29_3d.jpg}\hfill
+                \includegraphics[width=.3\textwidth]{30_3d.jpg}
                 
                 \caption{Rekonstruált 3D modellek textúrával.}
                 \label{fig:rekonstructed-faces}
@@ -2301,7 +2426,7 @@
             \begin{figure}[h]	
     		      \centering
     		      \includegraphics[width=1\linewidth]{focus_visual_results.jpg}
-                \caption{A FOCUS model eredményei. (Fentről lefelé: bemeneti
+                \caption{A FOCUS modell eredményei. (Fentről lefelé: bemeneti
                 képek, a rekonstrukciós képeink és a becsült maszkok.) Forrás: \cite{focus}}
                 \label{fig:focusvisres}
     	       \end{figure} 
@@ -2309,20 +2434,31 @@
              \begin{figure}[h]	
     		      \centering
     		      \includegraphics[width=1\linewidth]{deca_results2.png}
-                \caption{A DECA model eredményei. (Fentről lefelé: bementi kép, durva rekonstrukció, részletes rekonstrukció.) Forrás: \cite{deca}}
+                \caption{A DECA modell eredményei. (Fentről lefelé: bementi kép, durva rekonstrukció, részletes rekonstrukció.) Forrás: \cite{deca}}
                 \label{fig:decavisres}
     	       \end{figure} 
+            \clearpage
 
-            Mint láthatjuk a(z) \ref{fig:decavisres}. ábrán, a DECA által készített 3D-s modell sokkal részletesebben tudja rekonstruálni a személyspecifikus jellegzetes arcvonulatukat, mivel Yao Feng és tsai. a modelljüket 3 lépésben tanították. Az első lépés az előtanítás, majd a durva alak kinyerése aztán a részletes adatok kinyerése. Míg a mi megoldásunkban csak az első két lépést végeztül el. Ennek oka az erőforrás és a tanító adatok hiánya.
+            A(z) \ref{fig:our-reconstruction-results}. és a(z) \ref{fig:our-reconstruction-results2}. ábrák a rekonstrukciós eredményeinket szemléltetik. Az egyes sorokban a képek balról jobbra haladva tartalmazzák a bemeneti képet, a detektált arcpontokat zöld színnel jelölve, pirossal jelölve a nem látható pontokat, a durva rekonstrukciót, a részletes rekonstrukciót, az
+            alaptextúrát hozzáadott megvilágítással, valamint a mélységi térképet.
+            A(z) \ref{fig:our-reconstruction-results}. ábra felső két sora a csapatunk tagjairól készült eredményeket tartalmazza, míg a többi kép a CelebA teszthalmazából származik.
+
+            A(z) \ref{fig:rekonstructed-faces}. ábra tartalmazza az arcrekonstrukciós modellünk által generált 3D rekonstrukciókat a saját textúrájukkal.
+
+            Mint láthatjuk a(z) \ref{fig:decavisres}. ábrán, a DECA által készített 3D-s modell sokkal részletesebben tudja rekonstruálni a személyspecifikus jellegzetes arcvonulatukat a mi (\ref{fig:our-reconstruction-results}. ábra) modellünkhöz képest, mivel Yao Feng és tsai. a modelljüket 3 lépésben tanították. Az első lépés az előtanítás, majd a durva alak kinyerése és a részletes adatok kinyerése következett a tanítás során. Míg a mi megoldásunkban csak az első két lépést végeztül el. Ennek oka az erőforrás és a tanító adatok hiánya.
+
+            A saját eredményeinken (\ref{fig:rekonstructed-faces}. ábra) megfigyelhető, hogy néhány arcrekonstrukciónál minimálisan eltér az arcok textúrája. Úgy gondoljuk, hogy ennek oka a bemeneti képek nem teljes mértékben megfelelő előfeldolgozása lehet.
+
+            A(z) \ref{fig:focusvisres}. ábra vizsgálata során megfigyelhetjük, hogy a FOCUS által produkált eredmények sikeresen kimaszkolták az eltakarásokat. Azonban, a mi rekonstrukciónk során még mindig jelen vannak az arcot kitakaró tényezők, ahogy az a \ref{fig:rekonstructed-faces}. ábrán is látható. Miután körültekintően vizsgáltuk az okokat, arra a következtetésre jutottunk, hogy szükséges a hálózat további tanítása.
             
             \clearpage
             \subsubsection{NOW evaluáció}
 
-            A NoW teljesítményértékelést az egyetlen monokuláris képből történő 3D arc rekonstrukciós módszerek kiértékelésére hozták létre \cite{now}Sanyal és tsai. A teljesítményértékelés célja egy szabványos értékelési metrika bevezetése a 3D arcrekonstrukciós módszerek pontosságának és robusztusságának mérésére a látószög, a megvilágítás és az általános eltakarások változásai mellett.
+            A NoW teljesítményértékelést az egyetlen monokuláris képből történő 3D arc rekonstrukciós módszerek kiértékelésére hozták létre Sanyal és tsai. \cite{now} A teljesítményértékelés célja egy szabványos értékelési metrika bevezetése a 3D arcrekonstrukciós módszerek pontosságának és robusztusságának mérésére a látószög, a megvilágítás és az általános eltakarások változásai mellett.
 
             A kihívás egyetlen monokuláris kép alapján egy 3D-s arc rekonstruálása. Mivel a megjósolt háló különböző helyi koordinátarendszerekben fordul elő, a rekonstruált 3D hálót mereven a szkenneléshez igazítják (azaz forgatják, eltolják és opcionálisan skálázzák), a rekonstruált kép és a szkennelés közötti megfelelő tájékozódási pontok segítségével. A merev igazítást a szkennelés-háló távolság (amely az egyes szkennelési csúcsok és a hálófelület legközelebbi pontja közötti abszolút távolság) alapján végzik el az alapigazság-szkennelés és a rekonstruált háló között, a tájékozódási pontok igazításával.
 
-            Ahhoz hogy tudjuk számszerűsíteni a módszerünk teljesítményét, a NoW Challenge GitHub oldalán ($https://github.com/soubhiksanyal/now_evaluation$) lévő utasításokat követve, le kellet futtatnunk különböző python szkripteket, amely során kiszámítják a hibamértékeket, és azokból összeállítanak egy halmozott hibadiagramot.
+            Ahhoz hogy tudjuk számszerűsíteni a módszerünk teljesítményét, a NoW Challenge GitHub oldalán ($https://github.com/soubhiksanyal/now_evaluation$) lévő utasításokat követve, le kellett futtatnunk különböző python szkripteket, amely során kiszámítják a hibamértékeket, és azokból összeállítanak egy halmozott hibadiagramot.
             
             A módszerek teljesítményét a megjósolt 3D arcmodell és az alapigazság 3D arcmodell közötti hiba mediánja, átlaga és szórása(std) alapján mérjük milliméterben. 
             
@@ -2340,11 +2476,11 @@
             \begin{figure}[h]	
     		      \centering
     		      \includegraphics[width=1\linewidth]{cummulative-error.png}
-                \caption{Halmozott hibadiagram. Az X tengely az alapigazság 3D modelltől való eltérést jelöli milliméterben, míg az Y tengely a hibák halmozott eloszlását a tesztadatokon, százalékban kifejezve. A kék szinű görbe a mi megoldásunkat jelképezi, a narancssárga a \cite{focus}FOCUS, és a zöld a \cite{DECA}DECA.}
+                \caption{Halmozott hibadiagram. Az X tengely az alapigazság 3D modelltől való eltérést jelöli milliméterben, míg az Y tengely a hibák halmozott eloszlását a tesztadatokon, százalékban kifejezve. A kék szinű görbe a mi megoldásunkat jelképezi, a narancssárga a FOCUS \cite{focus}, és a zöld a DECA \cite{deca}.}
                  \label{fig:cummulative-error}
     	    \end{figure} 
 
-            A \ref{fig:cummulative-error}. ábrán látható diagram azt mutatja meg, hogy összes vizsgálati minta hány százaléka milyen hiba tartományba esik. Ebből következtetve, minél meredekebb a görbe, annál jobban teljesít a módszer.
+            A(z) \ref{fig:cummulative-error}. ábrán látható diagram azt mutatja meg, hogy összes vizsgálati minta hány százaléka milyen hiba tartományba esik. Ebből következtetve, minél meredekebb a görbe, annál jobban teljesít a módszer.
     
     \section{A megvalósítás elemzése}
 
@@ -2407,6 +2543,7 @@
         Demonstrating the results achieved and comparing them with existing implementations was of paramount importance to see the benefits of the system we developed. Based on the results, it can be concluded that the objectives of our research have been largely achieved and that the system we have created provides users with accurate and efficient facial reconstruction and facial analysis. During the development, we have learned about the different frameworks and their usage, thus achieving our personal goals.
         
     \newpage
+    \section{Irodalomjegyzék}
 	\renewcommand{\refname}{Hivatkozások}
 	\begin{thebibliography}{9}
 		
@@ -2664,6 +2801,15 @@
     \bibitem{ruder}
     Ruder, Sebastian
     \textit{An overview of gradient descent optimization algorithms. arXiv preprint arXiv:1609.04747, 2016.}
+
+    \bibitem{standard-rasterizer}
+    Scratchapixel.
+    \textit{"Overview of the Rasterization Algorithm." Scratchapixel, n.d., \url{https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/overview-rasterization-algorithm.html}. Accessed 8 May 2023.}
+
+    \bibitem{lbs}
+    Jeruzalski, Timothy, et al.
+    \textit{"Nilbs: Neural inverse linear blend skinning." arXiv preprint arXiv:2004.05980 (2020).}
+
 
 	\end{thebibliography}
  \end{document}
