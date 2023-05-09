@@ -2449,7 +2449,7 @@
 
             A saját eredményeinken (\ref{fig:rekonstructed-faces}. ábra) megfigyelhető, hogy néhány arcrekonstrukciónál minimálisan eltér az arcok textúrája. Úgy gondoljuk, hogy ennek oka a bemeneti képek nem teljes mértékben megfelelő előfeldolgozása lehet.
 
-            A(z) \ref{fig:focusvisres}. ábra vizsgálata során megfigyelhetjük, hogy a FOCUS által produkált eredmények sikeresen kimaszkolták az eltakarásokat. Azonban, a mi rekonstrukciónk során még mindig jelen vannak az arcot kitakaró tényezők, ahogy az a \ref{fig:rekonstructed-faces}. ábrán is látható. Miután körültekintően vizsgáltuk az okokat, arra a következtetésre jutottunk, hogy szükséges a hálózat további tanítása.
+            A(z) \ref{fig:focusvisres}. ábra vizsgálata során megfigyelhetjük, hogy a FOCUS által produkált eredmények sikeresen kimaszkolták az eltakarásokat. Azonban a mi rekonstrukciónk során még mindig jelen vannak az arcot kitakaró tényezők, ahogy az a \ref{fig:rekonstructed-faces}. ábrán is látható. Miután körültekintően vizsgáltuk az okokat, arra a következtetésre jutottunk, hogy szükséges a hálózat további tanítása.
             
             \clearpage
             \subsubsection{NOW evaluáció}
@@ -2458,7 +2458,7 @@
 
             A kihívás egyetlen monokuláris kép alapján egy 3D-s arc rekonstruálása. Mivel a megjósolt háló különböző helyi koordinátarendszerekben fordul elő, a rekonstruált 3D hálót mereven a szkenneléshez igazítják (azaz forgatják, eltolják és opcionálisan skálázzák), a rekonstruált kép és a szkennelés közötti megfelelő tájékozódási pontok segítségével. A merev igazítást a szkennelés-háló távolság (amely az egyes szkennelési csúcsok és a hálófelület legközelebbi pontja közötti abszolút távolság) alapján végzik el az alapigazság-szkennelés és a rekonstruált háló között, a tájékozódási pontok igazításával.
 
-            Ahhoz hogy tudjuk számszerűsíteni a módszerünk teljesítményét, a NoW Challenge GitHub oldalán ($https://github.com/soubhiksanyal/now_evaluation$) lévő utasításokat követve, le kellett futtatnunk különböző python szkripteket, amely során kiszámítják a hibamértékeket, és azokból összeállítanak egy halmozott hibadiagramot.
+            Ahhoz, hogy tudjuk számszerűsíteni a módszerünk teljesítményét, a NoW Challenge GitHub oldalán ($https://github.com/soubhiksanyal/now_evaluation$) lévő utasításokat követve, le kellett futtatnunk különböző python szkripteket, amely során kiszámítják a hibamértékeket, és azokból összeállítanak egy halmozott hibadiagramot.
             
             A módszerek teljesítményét a megjósolt 3D arcmodell és az alapigazság 3D arcmodell közötti hiba mediánja, átlaga és szórása(std) alapján mérjük milliméterben. 
             
@@ -2484,7 +2484,7 @@
     
     \section{A megvalósítás elemzése}
 
-        Az általunk megvalósított arcrekonstrukciós modell eredményeit vizsgálva, azt láthatjuk, hogy a modellünk kevés adattal is sikeresen rekonstruál 3D-s arcképeket. Azonban a rekonstruált arcképek minősége elmarad a már publikált kutatások eredményeitől. Ez részben annak tudható be, hogy alacsony erőforrásokhoz kellett igazítanunk a modellünket. Ugyanakkor úgy gondoljuk, hogy további kutatói munkával, több adattal és jobb optimalizációval a modellünk teljesítménye jelentősen javulhat. Az eredményeink azt sugallják, hogy a modellünk továbbfejlesztése nagyobb adatmennyiség és finomhangolás által nagyobb teljesítményt érhet el a jövőben. 
+        Az általunk megvalósított arcrekonstrukciós modell eredményeit vizsgálva azt láthatjuk, hogy a modellünk kevés adattal is sikeresen rekonstruál 3D-s arcképeket. Azonban a rekonstruált arcképek minősége elmarad a már publikált kutatások eredményeitől. Ez részben annak tudható be, hogy alacsony erőforrásokhoz kellett igazítanunk a modellünket. Ugyanakkor úgy gondoljuk, hogy további kutatói munkával, több adattal és jobb optimalizációval a modellünk teljesítménye jelentősen javulhat. Az eredményeink azt sugallják, hogy a modellünk továbbfejlesztése nagyobb adatmennyiség és finomhangolás által nagyobb teljesítményt érhet el a jövőben. 
 
         Az arcanalízis modellünk teljesítményének értékelésekor arra jutottunk, hogy nem éri el az emberi szintet. Ugyanakkor megfigyeltük, hogy bizonyos érzelmeket mégis nagy pontossággal képes felismerni. Az eredményeink alapján azt gondoljuk, hogy a modellünk hiányos tanító adatokkal rendelkezik, amely korlátozza a teljesítményét. Ennek fényében javasoljuk, hogy a tanító adatbázisunk bővítése segíthetne a modellünk pontosságának javításában.
     
@@ -2507,7 +2507,7 @@
 
         Az arcrekonstrukciós hálózatunk fejlesztése is folytatódni fog. Az első lépés a tanító adathalmazunk kibővítése lesz, majd a hiperparaméterek további finomhangolása. Az erőforrások függőleges skálázása is fontos, hogy a rendszer hatékonyan tudjon dolgozni a nagyobb adathalmazokkal. A tanítás során felhasznált veszteségfüggvények halmazának kibővítése és optimalizálása szükséges lesz a részletesebb 3D arcrekonstrukció eléréséhez.
 
-        Végül, az új mikroszerviz architektúránk end-to-end tesztelése is szerepel a terveink között. Ez segít majd azonosítani az esetleges hibákat és biztosítani fogja a rendszerünk teljes funkcionalitását. Összességében, ezek a továbbfejlesztési lehetőségek javítani fogják a rendszerünk hatékonyságát, teljesítményét és megbízhatóságát.
+        Végül az új mikroszerviz architektúránk end-to-end tesztelése is szerepel a terveink között. Ez segít majd azonosítani az esetleges hibákat, és biztosítani fogja a rendszerünk teljes funkcionalitását. Összességében ezek a továbbfejlesztési lehetőségek javítani fogják a rendszerünk hatékonyságát, teljesítményét és megbízhatóságát.
 
     \section{Tartalmi összefoglaló és következtetések}
 
